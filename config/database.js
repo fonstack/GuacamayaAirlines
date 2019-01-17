@@ -3,7 +3,7 @@ Sequelize.Promise = global.Promise;
 const { DATABASE, DB_USER, DB_PASSWORD } = process.env;
 
 const sequelize = new Sequelize(DATABASE, DB_USER, DB_PASSWORD, {
-  host: "localhost",
+  host: "bgsiws45gqpyeiyolqoy-mysql.services.clever-cloud.com",
   dialect: "mysql",
   pool: {
     max: 5,
