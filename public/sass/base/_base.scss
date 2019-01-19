@@ -14,3 +14,8 @@ body {
    box-sizing: border-box;
    font-family: $font-family;
 }
+
+a, a:link, a:visited {
+   text-decoration: none;
+   color: inherit;
+}

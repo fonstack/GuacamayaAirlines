@@ -1,0 +1,56 @@
+header {
+   position: relative;
+}
+
+.navbar {
+   height: 8rem;
+   position: absolute;
+   width: 100%;
+
+   &.navbar-two {
+      background-color: rgba(46, 44, 44, 0.938);
+   }
+
+   &__links {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 4rem;
+   }
+
+   &__logo {
+      display: flex;
+      align-items: center;
+
+      &__img {
+         height: 4rem;
+         padding-right: 1rem;
+      }
+   }
+
+   &__options {
+      display: flex;
+      align-items: center;
+      font-size: 2rem;
+      text-transform: uppercase;
+      color: rgb(184, 183, 183);
+
+      &__login, &__register {
+         text-shadow: 0rem .1rem .1rem #000;
+         transition: all .3s;
+
+         &:hover {
+            color: #4564a1f6;
+            text-shadow: 0rem .2rem .2rem #000;
+            transform: translateY(-.2rem) scale(1.1);
+         }
+      }
+
+      &__login {
+
+      }
+
+      &__register {
+         margin-left: 3rem;
+      }
+   }
+}
