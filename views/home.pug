@@ -6,3 +6,51 @@ block content
          p.home__text-primary With Guacamaya Airlines you will travel further
          p.home__text-secondary Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi dolor veniam magni odit ipsam exercitationem, et dolore alias repellat illum ea praesentium nemo voluptate suscipit. Dicta dolorum dolores repudiandae debitis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Non qui, alias nihil quos eos maxime voluptatibus, autem veniam, deleniti dolores minima. Maxime autem beatae consequatur id accusamus voluptas molestias pariatur.
       .home__principal-form
+         form(action="" method="")
+            .row
+               .input-field.col.s2
+                  select.select-home
+                     option(value='' disabled selected required) Choose option
+                     option(value='MIA') MIA - Miami
+                     option(value='CCS') CCS - Caracas
+                     option(value='JFK') JFK - New York
+                     option(value='ATL') ATL - Atlanta
+                     option(value='DXB') DXB - Dubai
+                     option(value='CDG') CDG - Paris
+                  label From
+                  
+               .input-field.col.s2
+                  select.select-home
+                     option(value='' disabled selected required) Choose option
+                     option(value='MIA') MIA - Miami
+                     option(value='CCS') CCS - Caracas
+                     option(value='JFK') JFK - New York
+                     option(value='ATL') ATL - Atlanta
+                     option(value='DXB') DXB - Dubai
+                     option(value='CDG') CDG - Paris
+                  label To
+               .input-field.col.s2.datePicker
+                  i(class="far fa-calendar prefix material-icons")
+                  input.datepicker.datepickerHome(placeholder="" type='text' name="depart" required)
+                  label(for='depart') Depart
+               .input-field.col.s2.checkbox
+                  p One way
+                  .switch
+                     label
+                        | Off
+                        input(type='checkbox')
+                        span.lever
+                        |       On
+               .input-field.col.s2
+                  select.select-home
+                     option(value='' disabled selected required) Choose option
+                     option(value='business') Business
+                     option(value='economic') Economic
+                  label Travel Class
+               .input-field.col.s2
+                  button.btn.waves-effect.waves-light(type='submit')
+                     | Search &nbsp;&nbsp;
+                     i(class="fas fa-arrow-right")
+
+               
+               

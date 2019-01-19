@@ -97,8 +97,29 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sass_styles_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../sass/styles.scss */ "./public/sass/styles.scss");
 /* harmony import */ var _sass_styles_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_sass_styles_scss__WEBPACK_IMPORTED_MODULE_0__);
+ // Initialization Materialize Components
+// Datepicker Home
 
-console.log("Hello World");
+document.addEventListener('DOMContentLoaded', function () {
+  var minDate = new Date();
+  var maxDate = new Date();
+  maxDate.setDate(maxDate.getDate() + 365);
+  var elems = document.querySelector('.datepickerHome');
+  var cont = document.querySelector('.home');
+  var instances = M.Datepicker.init(elems, {
+    autoClose: true,
+    container: cont,
+    format: 'dd/mm/yyyy',
+    firstDay: 1,
+    minDate: minDate,
+    maxDate: maxDate
+  });
+}); // Selects Home
+
+document.addEventListener('DOMContentLoaded', function () {
+  var elems = document.querySelectorAll('.select-home');
+  var instances = M.FormSelect.init(elems, {});
+});
 
 /***/ }),
 
