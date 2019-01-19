@@ -129,7 +129,7 @@ header {
       -o-transition: all .3s;
       transition: all .3s; }
       .navbar__options__login:hover, .navbar__options__register:hover {
-        color: #4564a1f6;
+        color: #2BBBAD;
         text-shadow: 0rem .2rem .2rem #000;
         -webkit-transform: translateY(-0.2rem) scale(1.1);
             -ms-transform: translateY(-0.2rem) scale(1.1);
