@@ -9,6 +9,7 @@ header {
 
    &.navbar-two {
       background-color: rgba(46, 44, 44, 0.938);
+      box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.3);
    }
 
    &__links {
@@ -43,14 +44,6 @@ header {
             text-shadow: 0rem .2rem .2rem #000;
             transform: translateY(-.2rem) scale(1.1);
          }
-      }
-
-      &__login {
-
-      }
-
-      &__register {
-         margin-left: 3rem;
       }
    }
 }

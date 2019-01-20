@@ -1,3 +1,33 @@
 extends layout
 
 block content
+   .login
+      .login__container
+         .login__login
+            h1.login__title Login
+            form(action="" method="")
+               .row
+                  .input-field.col.s12
+                     input#emailLogin.validate(placeholder="Email" type='email' name="email" required)
+                     label(for='emailLogin').label Email
+                     span.helper-text(data-error='Wrong email format', data-success='Good')
+               .row
+                  .input-field.col.s12
+                     input#passwordLogin.validate(placeholder="Password" type='password' name="password" minlength="6" required)
+                     label(for='passwordLogin').label Password
+                     span.helper-text(data-error='Minimum 6 characters', data-success='Good')
+               .row
+                  .col.s12
+                     button.btn.waves-effect.waves-light.btnLogin(type='submit')
+                        | Log in &nbsp;&nbsp;
+                        i(class="fas fa-sign-in-alt")
+
+         .login__separator
+            .login__separator-line
+            img.login__separator-image(src="/images/or.png", alt="or")
+
+         .login__register
+            p.login__register__title Not a Guacamaya Airlines member yet?
+            p.login__register__text Register now to join and fly with the #1 airline worldwide! See the 
+               a.login__register__link(href="#") Terms and conditions
+            a.waves-effect.waves-light.btn.grey.lighten-1(href="/register") Register now

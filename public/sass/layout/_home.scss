@@ -1,6 +1,4 @@
 
-$secondary-color: color("red", "lighten-1");
-
 .home {
    background-image: linear-gradient(to right bottom,
       rgba(rgba(32, 32, 32, 0.596), 0.8),
@@ -73,7 +71,7 @@ $secondary-color: color("red", "lighten-1");
    }
 }
 
-.btn {
+.btnHome {
    margin-top: -.8rem;
    width: 100%;
 }

@@ -18,7 +18,6 @@ block content
                      option(value='DXB') DXB - Dubai
                      option(value='CDG') CDG - Paris
                   label From
-                  
                .input-field.col.s2
                   select.select-home
                      option(value='' disabled selected required) Choose option
@@ -37,10 +36,10 @@ block content
                   p One way
                   .switch
                      label
-                        | Off
+                        | Yes
                         input(type='checkbox')
                         span.lever
-                        |       On
+                        |       No
                .input-field.col.s2
                   select.select-home
                      option(value='' disabled selected required) Choose option
@@ -48,7 +47,7 @@ block content
                      option(value='economic') Economic
                   label Travel Class
                .input-field.col.s2
-                  button.btn.waves-effect.waves-light(type='submit')
+                  button.btn.waves-effect.waves-light.btnHome(type='submit')
                      | Search &nbsp;&nbsp;
                      i(class="fas fa-search")
 

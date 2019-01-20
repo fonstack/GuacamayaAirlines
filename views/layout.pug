@@ -11,24 +11,28 @@ html(lang="en")
       title #{h.siteTitle}
    body
       header
-         if title === 'home' || title === 'login' || title === 'register'
+         if title === 'home'
             .navbar
                .navbar__links
                   .navbar__logo
                      a(href="/") 
                         img(src="./images/logoTexto.png", alt="").navbar__logo__img
                   .navbar__options
-                     a(href="/login").navbar__options__login Login
-                     a(href="/register").navbar__options__register Register
-         else
+                     a(href="/login").navbar__options__login Log In
+         else if title === 'login' || title === 'register'
+            .navbar
+               .navbar__links
+                  .navbar__logo
+                     a(href="/") 
+                        img(src="./images/logoTexto.png", alt="").navbar__logo__img
+         else 
             .navbar.navbar-two
                .navbar__links
                   .navbar__logo
                      a(href="/") 
                         img(src="./images/logoTexto.png", alt="").navbar__logo__img
                   .navbar__options
-                     a(href="/login").navbar__options__login Login
-                     a(href="/register").navbar__options__register Register
+                     a(href="/login").navbar__options__login Log In
       main
          block content
       footer
