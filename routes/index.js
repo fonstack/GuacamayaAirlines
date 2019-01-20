@@ -1,19 +1,19 @@
 const express = require("express");
 const router = express.Router();
+const airlineController = require('../controllers/airlineController');
+const authController = require('../controllers/authController');
+const { catchErrors } = require('../handlers/errorHandlers')
 
 // Home
-router.get("/", (req, res) => {
-  res.render("home", { title: 'home' });
-});
+router.get("/", airlineController.viewHome);
 
 // Login
-router.get("/login", (req, res) => {
-  res.render("login", { title: 'login' });
-});
+router.get("/login", airlineController.viewLogin);
 
 // Register
-router.get("/register", (req, res) => {
-  res.render("register", { title: 'register' });
-});
+router.get("/register", airlineController.viewRegister);
+
+// Dashboard
+router.get("/dashboard", airlineController.viewDashboard);
 
 module.exports = router;

@@ -34,25 +34,27 @@ document.addEventListener('DOMContentLoaded', function() {
 const confirmPassRegister = document.getElementById('confirmpasswordRegister');
 const passRegister = document.getElementById('passwordRegister');
 
-confirmPassRegister.addEventListener('keyup', () => {
-  if (passRegister.value === confirmPassRegister.value) {
-    confirmPassRegister.setCustomValidity('');
-  } else {
-    confirmPassRegister.setCustomValidity('Passwords must match');
-  }
-});
-
-let cont = 0;
-passRegister.addEventListener('keyup', function() {
-  cont = passRegister.value.length;
-  console.log(cont);
-
-  if (cont >= 6) {
-    confirmPassRegister.disabled = false;
-  } else {
-    confirmPassRegister.disabled = true;
-    confirmPassRegister.value = '';
-  }
-});
+if (confirmPassRegister !== null && passRegister !== null) {
+  confirmPassRegister.addEventListener('keyup', () => {
+    if (passRegister.value === confirmPassRegister.value) {
+      confirmPassRegister.setCustomValidity('');
+    } else {
+      confirmPassRegister.setCustomValidity('Passwords must match');
+    }
+  });
+  
+  let cont = 0;
+  passRegister.addEventListener('keyup', function() {
+    cont = passRegister.value.length;
+    console.log(cont);
+  
+    if (cont >= 6) {
+      confirmPassRegister.disabled = false;
+    } else {
+      confirmPassRegister.disabled = true;
+      confirmPassRegister.value = '';
+    }
+  });
+}
 
 
