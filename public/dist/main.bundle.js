@@ -119,6 +119,28 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
   var elems = document.querySelectorAll('.select-home');
   var instances = M.FormSelect.init(elems, {});
+}); // Validation of the confirm password on Register
+
+var confirmPassRegister = document.getElementById('confirmpasswordRegister');
+var passRegister = document.getElementById('passwordRegister');
+confirmPassRegister.addEventListener('keyup', function () {
+  if (passRegister.value === confirmPassRegister.value) {
+    confirmPassRegister.setCustomValidity('');
+  } else {
+    confirmPassRegister.setCustomValidity('Passwords must match');
+  }
+});
+var cont = 0;
+passRegister.addEventListener('keyup', function () {
+  cont = passRegister.value.length;
+  console.log(cont);
+
+  if (cont >= 6) {
+    confirmPassRegister.disabled = false;
+  } else {
+    confirmPassRegister.disabled = true;
+    confirmPassRegister.value = '';
+  }
 });
 
 /***/ }),

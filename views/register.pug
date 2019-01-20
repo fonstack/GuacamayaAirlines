@@ -1,3 +1,34 @@
 extends layout
 
 block content
+   .register
+      .register__container
+         .register__register
+            h1.register__title Register
+            form(action="" method="")
+               .row
+                  .input-field.col.s4
+                     input#firstnameRegister.validate(placeholder="First Name" type='text' name="firstname" minlength="3" required)
+                     label(for='firstnameRegister').label First Name
+                     span.helper-text(data-error='Minimum 3 characters', data-success='Good')
+                  .input-field.col.s4
+                     input#lasttnameRegister.validate(placeholder="Last Name" type='text' name="lastname" minlength="3" required)
+                     label(for='lasttnameRegister').label Last Name
+                     span.helper-text(data-error='Minimum 3 characters', data-success='Good')
+                  .input-field.col.s4
+                     input#identityRegister.validate(placeholder="Identity Card" type='number' name="identitycard" min="1000000" max="30000000" required)
+                     label(for='identityRegister').label Identity Card
+                     span.helper-text(data-error='Min 1.000.000 and max 30.000.000', data-success='Good')
+               .row
+                  .input-field.col.s6
+                     input#passwordRegister.validate(placeholder="Password" type='password' name="password" minlength="6" required)
+                     label(for='passwordRegister').label Password
+                     span.helper-text(data-error='Minimum 6 characters', data-success='Good')
+                  .input-field.col.s6
+                     input#confirmpasswordRegister.validate(disabled placeholder="Confirm Password" type='password' name="confirmpassword" minlength="6" required)
+                     label(for='confirmpasswordRegister').label Confirm Password
+                     span.helper-text(data-error='Passwords must match', data-success='Good')
+               .row
+                  .col.s12
+                     button.btn.waves-effect.waves-light.btnRegister(type='submit')
+                        | Register
