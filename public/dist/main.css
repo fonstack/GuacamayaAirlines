@@ -171,11 +171,12 @@ header {
 .navbar {
   height: 8rem;
   position: absolute;
-  width: 100%; }
+  width: 100%;
+  z-index: 1000; }
   .navbar.navbar-two {
-    background-color: rgba(46, 44, 44, 0.938);
-    -webkit-box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.3);
-            box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.3); }
+    background-color: rgba(32, 32, 32, 0.9);
+    -webkit-box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.2);
+            box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.2); }
   .navbar__links {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -349,6 +350,91 @@ header {
     margin-bottom: 4rem;
     display: inline-block;
     text-shadow: 0.1rem 0.1rem 0.1rem rgba(0, 0, 0, 0.322); }
+
+.airport {
+  background-color: #202020; }
+  .airport__background {
+    width: 100%;
+    height: 500px;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center; }
+    .airport__background:before {
+      display: block;
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      right: 0;
+      background-image: -webkit-gradient(linear, left top, right bottom, from(rgba(26, 83, 76, 0.5)), to(rgba(58, 109, 74, 0.5)));
+      background-image: -o-linear-gradient(left top, rgba(26, 83, 76, 0.5), rgba(58, 109, 74, 0.5));
+      background-image: linear-gradient(to right bottom, rgba(26, 83, 76, 0.5), rgba(58, 109, 74, 0.5)); }
+    .airport__background-image {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -o-object-fit: cover;
+         object-fit: cover;
+      -webkit-filter: blur(4px);
+              filter: blur(4px);
+      z-index: -1; }
+    .airport__background-conttext {
+      z-index: 2;
+      background-color: rgba(32, 32, 32, 0.8);
+      position: relative;
+      -webkit-clip-path: polygon(8% 3%, 100% 0, 92% 97%, 0 100%);
+              clip-path: polygon(8% 3%, 100% 0, 92% 97%, 0 100%); }
+    .airport__background-text {
+      text-transform: uppercase;
+      font-size: 12rem;
+      font-weight: 100;
+      padding: .8rem 9rem;
+      color: transparent;
+      background-image: -webkit-gradient(linear, left top, right bottom, from(#2dbbab), to(#62b17b));
+      background-image: -o-linear-gradient(left top, #2dbbab, #62b17b);
+      background-image: linear-gradient(to right bottom, #2dbbab, #62b17b);
+      -webkit-background-clip: text;
+      -webkit-transition: all .2s;
+      -o-transition: all .2s;
+      transition: all .2s; }
+      .airport__background-text span {
+        font-weight: 400; }
+  .airport__info {
+    position: relative;
+    z-index: 10;
+    width: 70%;
+    margin: 0 auto;
+    margin-top: -8rem;
+    -webkit-box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.15);
+    background-color: rgba(255, 255, 255, 0.8); }
+  .airport__map-image {
+    width: 100%;
+    border-top: 2px solid #353535;
+    border-left: 2px solid #353535;
+    border-right: 2px solid #353535; }
+  .airport__map-contname {
+    position: absolute;
+    background-color: #353535;
+    width: 100%;
+    margin-top: -3.5rem; }
+  .airport__map-name {
+    text-transform: uppercase;
+    font-size: 4rem;
+    font-weight: 100;
+    text-align: center;
+    color: #d2d2d3;
+    letter-spacing: 2px; }
 
 
 /*# sourceMappingURL=main.css.map*/

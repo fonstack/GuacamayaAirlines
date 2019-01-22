@@ -1,0 +1,95 @@
+.airport {
+   background-color: rgba(32, 32, 32, 1);
+
+   &__background {
+      width: 100%;
+      height: 500px;
+      clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
+      display: flex;
+      position: relative;
+      justify-content: center;
+      align-items: center;
+
+      &:before {
+         display: block;
+         content: '';
+         position: absolute;
+         height: 100%;
+         width: 100%;
+         top: 0;
+         right: 0;
+         background-image: linear-gradient(to right bottom,
+            rgba(rgba(rgb(26, 83, 76), 0.596), 0.5),
+            rgba(rgba(rgb(58, 109, 74), 0.596), 0.5));
+      }
+      
+      &-image {
+         position: absolute;
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+         filter: blur(4px);
+         z-index: -1;
+      }
+
+      &-conttext {
+         z-index: 2;
+         background-color: rgba(32, 32, 32, 0.8);
+         position: relative;
+         clip-path: polygon(8% 3%, 100% 0, 92% 97%, 0 100%);
+      }
+
+      &-text {
+         text-transform: uppercase;
+         font-size: 12rem;
+         font-weight: 100;
+         padding: .8rem 9rem;
+         color: transparent;
+         background-image: linear-gradient(to right bottom,
+            rgba(rgba(#2DBBAB, 1), 1),
+            rgba(rgba(#62B17B, 1), 1));
+         -webkit-background-clip: text;
+         transition: all .2s;
+
+         span {
+            font-weight: 400;
+         }
+      }
+   }
+
+   &__info {
+      position: relative;
+      z-index: 10;
+      width: 70%;
+      margin: 0 auto;
+      margin-top: -8rem;
+      box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.15);
+      background-color: rgba(255, 255, 255, 0.8);
+   }
+
+   &__map {
+
+      &-image {
+         width: 100%;
+         border-top: 2px solid rgb(53, 53, 53);
+         border-left: 2px solid rgb(53, 53, 53);
+         border-right: 2px solid rgb(53, 53, 53);
+      }
+
+      &-contname {
+         position: absolute;
+         background-color: rgb(53, 53, 53);
+         width: 100%;
+         margin-top: -3.5rem;
+      }
+
+      &-name {
+         text-transform: uppercase;
+         font-size: 4rem;
+         font-weight: 100;
+         text-align: center;
+         color: rgb(210, 210, 211);
+         letter-spacing: 2px;
+      }
+   }
+}

@@ -6,10 +6,11 @@ header {
    height: 8rem;
    position: absolute;
    width: 100%;
+   z-index: 1000;
 
    &.navbar-two {
-      background-color: rgba(46, 44, 44, 0.938);
-      box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.3);
+      background-color: rgba(32, 32, 32, .9);
+      box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.20);
    }
 
    &__links {

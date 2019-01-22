@@ -17,11 +17,17 @@ exports.viewDashboard = (req, res) => {
 };
 
 exports.viewAirport = (req, res) => {
-  const iata = req.params.iata;
-  if ( iata !== 'MIA' && iata !== 'CCS' && iata !== 'JFK' && iata !== 'ATL' && iata !== 'CDG') {
+  const iata = req.params.iata.toUpperCase();
+  if ( iata !== 'MIA' && iata !== 'CCS' && iata !== 'JFK' && iata !== 'ATL' && iata !== 'CDG' && iata !== 'DXB') {
     req.flash('error', 'This airport does not exists.');
-    res.redirect('back');
+    res.redirect('/');
   } else {
-    res.render("airport", { title: 'airport', iata: req.params.iata });
+    const airport = {
+      iata,
+      city: 'MIAMI',
+      coordinates: [-79.5455, 43.58933],
+      name: 'Miami International Airport'
+    };
+    res.render("airport", { title: 'airport', airport });
   }
 };

@@ -1,4 +1,56 @@
 extends layout
 
 block content
-   p Hola xD
+   .airport
+      .airport__background
+         img.airport__background-image(src=`/images/${airport.iata}.jpg`, alt=`Airport - ${airport.iata}`)
+         .airport__background-conttext
+            p.airport__background-text 
+               span #{airport.iata} 
+               | - #{airport.city}
+      .airport__info
+         .airport__map
+            img.airport__map-image(src=h.staticMap(airport.coordinates))
+            .airport__map-contname
+               p.airport__map-name #{airport.name}
+
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
+         br
