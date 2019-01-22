@@ -21,25 +21,25 @@ a, a:link, a:visited {
 
 @-webkit-keyframes slideIn {
   0% {
-    -webkit-transform: translateX(-10px);
-            transform: translateX(-10px); }
+    -webkit-transform: translateX(-10px) translate(-50%, -50%);
+            transform: translateX(-10px) translate(-50%, -50%); }
   50% {
-    -webkit-transform: translateX(10px);
-            transform: translateX(10px); }
+    -webkit-transform: translateX(10px) translate(-50%, -50%);
+            transform: translateX(10px) translate(-50%, -50%); }
   100% {
-    -webkit-transform: translateX(0px);
-            transform: translateX(0px); } }
+    -webkit-transform: translateX(0px) translate(-50%, -50%);
+            transform: translateX(0px) translate(-50%, -50%); } }
 
 @keyframes slideIn {
   0% {
-    -webkit-transform: translateX(-10px);
-            transform: translateX(-10px); }
+    -webkit-transform: translateX(-10px) translate(-50%, -50%);
+            transform: translateX(-10px) translate(-50%, -50%); }
   50% {
-    -webkit-transform: translateX(10px);
-            transform: translateX(10px); }
+    -webkit-transform: translateX(10px) translate(-50%, -50%);
+            transform: translateX(10px) translate(-50%, -50%); }
   100% {
-    -webkit-transform: translateX(0px);
-            transform: translateX(0px); } }
+    -webkit-transform: translateX(0px) translate(-50%, -50%);
+            transform: translateX(0px) translate(-50%, -50%); } }
 
 .flash {
   background: white;
@@ -47,13 +47,14 @@ a, a:link, a:visited {
           box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
   padding: 1.2rem 2rem;
   position: absolute;
-  top: 86%;
-  left: 2%;
+  top: 93%;
+  left: 50%;
   width: 40%;
   z-index: 1;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  border-radius: 4px;
   -webkit-animation: slideIn forwards .1s ease-in-out 2;
           animation: slideIn forwards .1s ease-in-out 2;
   -webkit-animation-timing-function: cubic-bezier(0.01, 1.68, 0.58, 1);
@@ -74,23 +75,26 @@ a, a:link, a:visited {
     display: flex;
     -webkit-box-align: center;
         -ms-flex-align: center;
-            align-items: center; }
+            align-items: center;
+    color: #e6e6e6; }
   .flash__remove {
+    margin-top: -0.7rem;
     background: none;
     font-size: 3rem;
     border: 0;
     cursor: pointer;
     -webkit-transition: all .2s;
     -o-transition: all .2s;
-    transition: all .2s; }
+    transition: all .2s;
+    color: #e6e6e6; }
     .flash__remove:hover {
-      color: #424242; }
+      color: #858585; }
   .flash--success {
-    background: rgba(47, 104, 47, 0.9); }
+    background: rgba(47, 104, 47, 0.95); }
   .flash--error {
-    background: rgba(170, 33, 33, 0.9); }
+    background: rgba(170, 33, 33, 0.95); }
   .flash--info {
-    background: rgba(228, 215, 35, 0.9); }
+    background: rgba(47, 47, 47, 0.95); }
   .flash p {
     margin: 0; }
 

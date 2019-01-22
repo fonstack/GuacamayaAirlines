@@ -16,4 +16,10 @@ router.get("/register", airlineController.viewRegister);
 // Dashboard
 router.get("/dashboard", airlineController.viewDashboard);
 
+// View Airport
+router.get("/airport/:iata", airlineController.viewAirport);
+
+// Logout User
+router.get("/logout", authController.logout);
+
 module.exports = router;
