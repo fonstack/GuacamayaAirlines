@@ -168,28 +168,28 @@ a, a:link, a:visited {
 .row .col {
   padding: 0 1.5rem; }
 
-.st0 {
+.countrySelector .restoDelMundo {
   fill: #845F5F; }
 
-.st1 {
+.countrySelector .francia {
   fill: #0D722E; }
 
-.st2 {
+.countrySelector .nuevaYork {
   fill: #1B003F; }
 
-.st3 {
+.countrySelector .miami {
   fill: #D60DD1; }
 
-.st4 {
+.countrySelector .atlanta {
   fill: #E3E831; }
 
-.st5 {
+.countrySelector .arabiaSaudita {
   fill: #1411A5; }
 
-.st6 {
+.countrySelector .venezuela {
   fill: #DB0B0B; }
 
-#Resto:hover .st0 {
+#RestoDelMundo:hover .restoDelMundo {
   fill: #3a2424; }
 
 header {
