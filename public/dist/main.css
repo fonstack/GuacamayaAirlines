@@ -17,7 +17,8 @@ body {
 
 a, a:link, a:visited {
   text-decoration: none;
-  color: inherit; }
+  color: inherit;
+  font-family: inherit; }
 
 @-webkit-keyframes slideIn {
   0% {
@@ -217,6 +218,27 @@ header {
             -ms-transform: translateY(-0.2rem) scale(1.1);
                 transform: translateY(-0.2rem) scale(1.1); }
 
+.footer {
+  width: 100%;
+  background-color: rgba(32, 32, 32, 0.897); }
+  .footer__content {
+    color: lightgray;
+    font-size: 1.4rem;
+    padding: 1.5rem 3rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between; }
+
+.footerlink {
+  background-color: rgba(24, 23, 23, 0.233);
+  padding: .3rem .7rem; }
+  .footerlink:hover {
+    -webkit-box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.37);
+            box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.37); }
+
 .login {
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(56, 56, 56, 0.95)), to(rgba(56, 56, 56, 0.8))), url("/images/fondoAvion.jpg");
   background-image: -o-linear-gradient(top, rgba(56, 56, 56, 0.95), rgba(56, 56, 56, 0.8)), url("/images/fondoAvion.jpg");
@@ -352,7 +374,8 @@ header {
     text-shadow: 0.1rem 0.1rem 0.1rem rgba(0, 0, 0, 0.322); }
 
 .airport {
-  background-color: #202020; }
+  background-color: #202020;
+  padding-bottom: 6rem; }
   .airport__background {
     width: 100%;
     height: 500px;
