@@ -14,43 +14,30 @@ block content
             .airport__map-contname
                p.airport__map-name - #{airport.name} -
 
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
-         br
+         .airport__flights
+            each flight in airport.flights
+               .airport__flights-card
+                  table
+                     thead 
+                        tr
+                           th From
+                           th To
+                           th Depart Date
+                           th Price
+                           th 
+                     tbody
+                        tr
+                           - const conditionFrom = flight.from.startsWith(airport.iata);
+                           - const conditionTo = flight.to.startsWith(`${airport.iata}`);
+                           if conditionFrom
+                              td <span class="flightImportant">#{flight.from}</span>
+                           else
+                              td #{flight.from}
+                           if conditionTo
+                              td <span class="flightImportant">#{flight.to}</span>
+                           else
+                              td #{flight.to}
+                           td #{flight.departDate}
+                           td #{flight.price} $
+                           td.buttonCell 
+                              a(class="waves-effect waves-light btn-small") Purchase&nbsp;&nbsp; <i class="fas fa-cart-plus"></i>

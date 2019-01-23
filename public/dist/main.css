@@ -918,6 +918,48 @@ header {
     transition: all .3s; }
     .airport__map-name:hover {
       letter-spacing: 3.5px; }
+  .airport__flights {
+    padding: 3rem 4rem; }
+    .airport__flights-card {
+      margin-bottom: 2rem;
+      padding: .8rem 2rem;
+      background-image: -webkit-gradient(linear, left bottom, right top, from(#4e4d4d), to(#363333));
+      background-image: -o-linear-gradient(bottom left, #4e4d4d, #363333);
+      background-image: linear-gradient(to top right, #4e4d4d, #363333);
+      color: #d4d4d4;
+      -webkit-box-shadow: 0.6rem 0.6rem 1rem rgba(0, 0, 0, 0.39);
+              box-shadow: 0.6rem 0.6rem 1rem rgba(0, 0, 0, 0.39);
+      -webkit-transition: all .2s;
+      -o-transition: all .2s;
+      transition: all .2s;
+      border-radius: 2px; }
+      .airport__flights-card:hover {
+        -webkit-box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.315);
+                box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.315);
+        -webkit-transform: scale(1.005) translateY(-1px);
+            -ms-transform: scale(1.005) translateY(-1px);
+                transform: scale(1.005) translateY(-1px); }
+      .airport__flights-card table {
+        border-collapse: separate;
+        cursor: default; }
+      .airport__flights-card th {
+        padding: 0;
+        padding-bottom: .2rem;
+        font-size: .8rem;
+        text-transform: uppercase;
+        width: 20%; }
+      .airport__flights-card td {
+        font-size: 1.5rem;
+        padding: .2rem 0rem; }
+      .airport__flights-card .buttonCell {
+        text-align: center;
+        margin-top: -.5rem; }
+        .airport__flights-card .buttonCell a {
+          margin-top: -1.5rem; }
+      .airport__flights-card .flightImportant {
+        font-weight: 900;
+        color: #6bc8bd;
+        text-shadow: 0.2rem 0.2rem 0.1rem rgba(0, 0, 0, 0.308); }
 
 
 /*# sourceMappingURL=main.css.map*/

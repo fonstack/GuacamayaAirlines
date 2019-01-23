@@ -102,4 +102,56 @@
          }
       }
    }
+
+   &__flights {
+      padding: 3rem 4rem;
+
+      &-card {
+         margin-bottom: 2rem;
+         padding: .8rem 2rem;
+         background-image: linear-gradient(to top right, rgb(78, 77, 77), rgb(54, 51, 51));
+         color: rgb(212, 212, 212);
+         box-shadow: .6rem .6rem 1rem rgba(0, 0, 0, 0.39);
+         transition: all .2s;
+         border-radius: 2px;
+
+         &:hover {
+            box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.315);
+            transform: scale(1.005) translateY(-1px);
+         }
+
+         table {
+            border-collapse: separate;
+            cursor: default;
+         }
+
+         th {
+            padding: 0;
+            padding-bottom: .2rem;
+            font-size: .8rem;
+            text-transform: uppercase;
+            width: 20%;
+         }
+
+         td {
+            font-size: 1.5rem;
+            padding: .2rem 0rem;
+         }
+
+         .buttonCell {
+            text-align: center;
+            margin-top: -.5rem;
+
+            a {
+               margin-top: -1.5rem;
+            }
+         }
+
+         .flightImportant {
+            font-weight: 900;
+            color: rgb(107, 200, 189);
+            text-shadow: .2rem .2rem .1rem rgba(0, 0, 0, 0.308);
+         }
+      }
+   }
 }

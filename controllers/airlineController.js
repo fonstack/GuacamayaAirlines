@@ -26,7 +26,28 @@ exports.viewAirport = (req, res) => {
       iata,
       city: 'MIAMI',
       coordinates: [-79.5455, 43.59934],
-      name: 'Hartsfield–Jackson International Airport'
+      name: 'Hartsfield–Jackson International Airport',
+      flights: [
+        {
+          from: 'MIA - Miami',
+          to: 'CCS - Caracas',
+          departDate: '12-02-2019',
+          price: 965
+        },
+        {
+          from: 'CCS - Caracas',
+          to: 'DXB - Dubai',
+          departDate: '12-02-2019',
+          price: 620
+        },
+        {
+          from: 'JFK - New York',
+          to: 'CCS - Caracas',
+          departDate: '12-02-2019',
+          price: 1630
+        }
+
+      ]
     };
     res.render("airport", { title: 'airport', airport });
   }
