@@ -6,8 +6,8 @@
    background-size: cover;
    background-position: center;
    width: 100%;
-   height: 115vh;
-   clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+   height: 125vh;
+   clip-path: polygon(0 0, 100% 0, 100% 82%, 0 100%);
    position: relative;
    z-index: 5;
 
@@ -15,7 +15,7 @@
       text-align: center;
       position: absolute;
       width: 90%;
-      top: 35%;
+      top: 30%;
       left: 50%;
       transform: translate(-50%, -50%);
       color: rgb(230, 230, 230);
@@ -24,6 +24,7 @@
    &__text-primary {
       font-size: 5rem;
       font-weight: 900;
+      text-shadow: .1rem .1rem .1rem #000;
    }
 
    &__text-secondary {
@@ -38,7 +39,7 @@
       background-color: #FFF;
       position: absolute;
       z-index: 300;
-      top: 75%;
+      top: 70%;
       left: 50%;
       border-radius: 2px;
       box-shadow: 0rem .5rem 1rem rgba(0, 0, 0, 0.452);
@@ -86,8 +87,8 @@
 .countrySelector {
    // background-color: rgb(68, 68, 68);
    background-image: linear-gradient(to top left, rgb(107, 100, 100),rgb(87, 85, 85), rgb(107, 100, 100));
-   margin-top: -10rem;
-   padding-top: 15rem;
+   margin-top: -15rem;
+   padding-top: 17rem;
    display: flex;
    flex-direction: column;
    justify-content: center;
@@ -114,52 +115,54 @@
 
    svg {
       position: relative;
+      top: -2rem;
       left: 7%;
+      margin-bottom: -6rem;
       z-index: 5;
    }
 
 
-   .restoDelMundo {fill:rgba(202, 202, 202, 0.849);}
+   .restoDelMundo {fill:rgba(214, 214, 214, 0.849);}
    .francia {
-      fill:rgb(180, 162, 57);
+      fill:#2BBBAD;
       transition: all .5s;
       &:hover {
-         fill:#2BBBAD;
+         fill:rgb(49, 61, 61);
       }
    }
    .nuevaYork {
-      fill:rgb(61, 131, 59);
+      fill:#2BBBAD;
       transition: all .5s;
       &:hover {
-         fill:#2BBBAD;
+         fill:rgb(49, 61, 61);
       }
    }
    .miami{
-      fill:rgb(180, 118, 60);
+      fill:#2BBBAD;
       transition: all .5s;
       &:hover {
-         fill:#2BBBAD;
+         fill:rgb(49, 61, 61);
       }
    }
    .atlanta {
-      fill:rgb(63, 146, 118);
+      fill:#2BBBAD;
       transition: all .5s;
       &:hover {
-         fill:#2BBBAD;
+         fill:rgb(49, 61, 61);
       }
    }
    .arabiaSaudita {
-      fill:rgb(65, 32, 32);
+      fill:#2BBBAD;
       transition: all .5s;
       &:hover {
-         fill:#2BBBAD;
+         fill:rgb(49, 61, 61);
       }
    }
    .venezuela {
-      fill:rgb(94, 51, 102);
+      fill:#2BBBAD;
       transition: all .5s;
       &:hover {
-         fill:#2BBBAD;
+         fill:rgb(49, 61, 61);
       }
    }
 

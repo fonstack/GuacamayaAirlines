@@ -120,16 +120,16 @@ a, a:link, a:visited {
   background-size: cover;
   background-position: center;
   width: 100%;
-  height: 115vh;
-  -webkit-clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
-          clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+  height: 125vh;
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 82%, 0 100%);
+          clip-path: polygon(0 0, 100% 0, 100% 82%, 0 100%);
   position: relative;
   z-index: 5; }
   .home__text-container {
     text-align: center;
     position: absolute;
     width: 90%;
-    top: 35%;
+    top: 30%;
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
@@ -137,7 +137,8 @@ a, a:link, a:visited {
     color: #e6e6e6; }
   .home__text-primary {
     font-size: 5rem;
-    font-weight: 900; }
+    font-weight: 900;
+    text-shadow: .1rem .1rem .1rem #000; }
   .home__text-secondary {
     font-size: 1.5rem;
     width: 75%;
@@ -148,7 +149,7 @@ a, a:link, a:visited {
     background-color: #FFF;
     position: absolute;
     z-index: 300;
-    top: 75%;
+    top: 70%;
     left: 50%;
     border-radius: 2px;
     -webkit-box-shadow: 0rem 0.5rem 1rem rgba(0, 0, 0, 0.452);
@@ -189,8 +190,8 @@ a, a:link, a:visited {
   background-image: -webkit-gradient(linear, right bottom, left top, from(#6b6464), color-stop(#575555), to(#6b6464));
   background-image: -o-linear-gradient(bottom right, #6b6464, #575555, #6b6464);
   background-image: linear-gradient(to top left, #6b6464, #575555, #6b6464);
-  margin-top: -10rem;
-  padding-top: 15rem;
+  margin-top: -15rem;
+  padding-top: 17rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -223,52 +224,54 @@ a, a:link, a:visited {
       letter-spacing: 12px; }
   .countrySelector svg {
     position: relative;
+    top: -2rem;
     left: 7%;
+    margin-bottom: -6rem;
     z-index: 5; }
   .countrySelector .restoDelMundo {
-    fill: rgba(202, 202, 202, 0.849); }
+    fill: rgba(214, 214, 214, 0.849); }
   .countrySelector .francia {
-    fill: #b4a239;
+    fill: #2BBBAD;
     -webkit-transition: all .5s;
     -o-transition: all .5s;
     transition: all .5s; }
     .countrySelector .francia:hover {
-      fill: #2BBBAD; }
+      fill: #313d3d; }
   .countrySelector .nuevaYork {
-    fill: #3d833b;
+    fill: #2BBBAD;
     -webkit-transition: all .5s;
     -o-transition: all .5s;
     transition: all .5s; }
     .countrySelector .nuevaYork:hover {
-      fill: #2BBBAD; }
+      fill: #313d3d; }
   .countrySelector .miami {
-    fill: #b4763c;
+    fill: #2BBBAD;
     -webkit-transition: all .5s;
     -o-transition: all .5s;
     transition: all .5s; }
     .countrySelector .miami:hover {
-      fill: #2BBBAD; }
+      fill: #313d3d; }
   .countrySelector .atlanta {
-    fill: #3f9276;
+    fill: #2BBBAD;
     -webkit-transition: all .5s;
     -o-transition: all .5s;
     transition: all .5s; }
     .countrySelector .atlanta:hover {
-      fill: #2BBBAD; }
+      fill: #313d3d; }
   .countrySelector .arabiaSaudita {
-    fill: #412020;
+    fill: #2BBBAD;
     -webkit-transition: all .5s;
     -o-transition: all .5s;
     transition: all .5s; }
     .countrySelector .arabiaSaudita:hover {
-      fill: #2BBBAD; }
+      fill: #313d3d; }
   .countrySelector .venezuela {
-    fill: #5e3366;
+    fill: #2BBBAD;
     -webkit-transition: all .5s;
     -o-transition: all .5s;
     transition: all .5s; }
     .countrySelector .venezuela:hover {
-      fill: #2BBBAD; }
+      fill: #313d3d; }
   .countrySelector #RestoDelMundo {
     cursor: default; }
   .countrySelector .mapWrap {
@@ -623,8 +626,8 @@ header {
 .footer {
   width: 100%;
   background-color: rgba(32, 32, 32, 0.924);
-  -webkit-box-shadow: 0rem -1rem 1rem #000;
-          box-shadow: 0rem -1rem 1rem #000; }
+  -webkit-box-shadow: 0rem -0.6rem 0.6rem rgba(0, 0, 0, 0.144);
+          box-shadow: 0rem -0.6rem 0.6rem rgba(0, 0, 0, 0.144); }
   .footer__content {
     color: lightgray;
     font-size: 1.4rem;
@@ -638,7 +641,10 @@ header {
 
 .footerlink {
   background-color: rgba(24, 23, 23, 0.356);
-  padding: .3rem .7rem; }
+  padding: .3rem .7rem;
+  -webkit-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s; }
   .footerlink:hover {
     -webkit-box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.37);
             box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.37);
@@ -827,7 +833,14 @@ header {
       background-color: rgba(32, 32, 32, 0.8);
       position: relative;
       -webkit-clip-path: polygon(8% 3%, 100% 0, 92% 97%, 0 100%);
-              clip-path: polygon(8% 3%, 100% 0, 92% 97%, 0 100%); }
+              clip-path: polygon(8% 3%, 100% 0, 92% 97%, 0 100%);
+      -webkit-transition: all .3s;
+      -o-transition: all .3s;
+      transition: all .3s; }
+      .airport__background-conttext:hover {
+        -webkit-transform: scale(1.03);
+            -ms-transform: scale(1.03);
+                transform: scale(1.03); }
     .airport__background-text {
       text-transform: uppercase;
       font-size: 12rem;
@@ -837,10 +850,7 @@ header {
       background-image: -webkit-gradient(linear, left top, right bottom, from(#2dbbab), to(#62b17b));
       background-image: -o-linear-gradient(left top, #2dbbab, #62b17b);
       background-image: linear-gradient(to right bottom, #2dbbab, #62b17b);
-      -webkit-background-clip: text;
-      -webkit-transition: all .2s;
-      -o-transition: all .2s;
-      transition: all .2s; }
+      -webkit-background-clip: text; }
       .airport__background-text span {
         font-weight: 400; }
   .airport__info {
@@ -849,14 +859,14 @@ header {
     width: 70%;
     margin: 0 auto;
     margin-top: -8rem;
-    -webkit-box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.15);
-            box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.25);
+            box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.25);
     background-color: rgba(255, 255, 255, 0.8); }
   .airport__map-image {
     width: 100%;
-    border-top: 2px solid #353535;
-    border-left: 2px solid #353535;
-    border-right: 2px solid #353535; }
+    border-top: 1px solid #353535;
+    border-left: 1px solid #353535;
+    border-right: 1px solid #353535; }
   .airport__map-contname {
     position: absolute;
     background-color: #353535;
@@ -868,7 +878,12 @@ header {
     font-weight: 100;
     text-align: center;
     color: #d2d2d3;
-    letter-spacing: 2px; }
+    letter-spacing: 2px;
+    -webkit-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s; }
+    .airport__map-name:hover {
+      letter-spacing: 3.5px; }
 
 
 /*# sourceMappingURL=main.css.map*/

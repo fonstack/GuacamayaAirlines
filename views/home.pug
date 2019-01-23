@@ -18,7 +18,7 @@ block content
                      option(value='ATL') ATL - Atlanta
                      option(value='DXB') DXB - Dubai
                      option(value='CDG') CDG - Paris
-                  label From
+                  label From *
                .input-field.col.s2
                   select(required name="to").select-home
                      option(value='' disabled hidden selected) Choose option
@@ -28,17 +28,17 @@ block content
                      option(value='ATL') ATL - Atlanta
                      option(value='DXB') DXB - Dubai
                      option(value='CDG') CDG - Paris
-                  label To
+                  label To *
                .input-field.col.s2.datePicker
                   i(class="far fa-calendar prefix material-icons")
                   input.datepicker.datepickerHome(placeholder="" type='text' name="dateDepart")
                   label(for='depart') Depart
                .input-field.col.s2.checkbox
-                  p One way
+                  p With scales?
                   .switch
                      label
                         | Yes
-                        input(type='checkbox')
+                        input(type='checkbox' name="scales")
                         span.lever
                         |       No
                .input-field.col.s2
