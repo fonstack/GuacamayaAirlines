@@ -8,12 +8,14 @@
    width: 100%;
    height: 115vh;
    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+   position: relative;
+   z-index: 5;
 
    &__text-container {
       text-align: center;
       position: absolute;
       width: 90%;
-      top: 45%;
+      top: 40%;
       left: 50%;
       transform: translate(-50%, -50%);
       color: rgb(184, 183, 183);
@@ -35,7 +37,8 @@
       height: 7rem;
       background-color: #FFF;
       position: absolute;
-      top: 85%;
+      z-index: 300;
+      top: 75%;
       left: 50%;
       border-radius: 2px;
       box-shadow: 0rem .5rem 1rem rgba(0, 0, 0, 0.452);
@@ -81,18 +84,45 @@
 }
 
 .countrySelector {
-   .restoDelMundo{fill:#845F5F;}
-   .francia{fill:#0D722E;}
-   .nuevaYork{fill:#1B003F;}
-   .miami{fill:#D60DD1;}
-   .atlanta{fill:#E3E831;}
-   .arabiaSaudita{fill:#1411A5;}
-   .venezuela{fill:#DB0B0B;}
+   background-color: rgb(51, 51, 51);
+   margin-top: -10rem;
+   padding-top: 15rem;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   position: relative;
+   overflow: hidden;
+
+   &__text {
+      text-align: center;
+      font-weight: 100;
+      color: #2BBBAD;
+      text-transform: uppercase;
+      letter-spacing: 6px;
+      font-size: 7rem;
+      border-bottom: 1px solid #2BBBAD;
+      width: 80%;
+      margin-bottom: 1rem;
+   }
+
+   svg {
+      position: relative;
+      left: 7%;
+      z-index: 5;
+   }
+
+
+   .restoDelMundo {fill:rgb(206, 198, 198);}
+   .francia, .nuevaYork, .miami, .atlanta, .arabiaSaudita, .venezuela {
+      fill:rgb(206, 51, 51);
+      transition: all .5s;
+      &:hover {
+         fill:#2BBBAD;
+      }
+   }
+
+   #RestoDelMundo {
+      cursor: default;
+   }
 }
-
-
-         #RestoDelMundo:hover {
-            .restoDelMundo {
-               fill:rgb(58, 36, 36);
-            }
-         }

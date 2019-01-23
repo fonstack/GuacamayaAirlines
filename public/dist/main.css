@@ -108,12 +108,14 @@ a, a:link, a:visited {
   width: 100%;
   height: 115vh;
   -webkit-clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
-          clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); }
+          clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+  position: relative;
+  z-index: 5; }
   .home__text-container {
     text-align: center;
     position: absolute;
     width: 90%;
-    top: 45%;
+    top: 40%;
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
@@ -131,7 +133,8 @@ a, a:link, a:visited {
     height: 7rem;
     background-color: #FFF;
     position: absolute;
-    top: 85%;
+    z-index: 300;
+    top: 75%;
     left: 50%;
     border-radius: 2px;
     -webkit-box-shadow: 0rem 0.5rem 1rem rgba(0, 0, 0, 0.452);
@@ -168,29 +171,50 @@ a, a:link, a:visited {
 .row .col {
   padding: 0 1.5rem; }
 
-.countrySelector .restoDelMundo {
-  fill: #845F5F; }
-
-.countrySelector .francia {
-  fill: #0D722E; }
-
-.countrySelector .nuevaYork {
-  fill: #1B003F; }
-
-.countrySelector .miami {
-  fill: #D60DD1; }
-
-.countrySelector .atlanta {
-  fill: #E3E831; }
-
-.countrySelector .arabiaSaudita {
-  fill: #1411A5; }
-
-.countrySelector .venezuela {
-  fill: #DB0B0B; }
-
-#RestoDelMundo:hover .restoDelMundo {
-  fill: #3a2424; }
+.countrySelector {
+  background-color: #333333;
+  margin-top: -10rem;
+  padding-top: 15rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  overflow: hidden; }
+  .countrySelector__text {
+    text-align: center;
+    font-weight: 100;
+    color: #2BBBAD;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    font-size: 7rem;
+    border-bottom: 1px solid #2BBBAD;
+    width: 80%;
+    margin-bottom: 1rem; }
+  .countrySelector svg {
+    position: relative;
+    left: 7%;
+    z-index: 5; }
+  .countrySelector .restoDelMundo {
+    fill: #cec6c6; }
+  .countrySelector .francia, .countrySelector .nuevaYork, .countrySelector .miami, .countrySelector .atlanta, .countrySelector .arabiaSaudita, .countrySelector .venezuela {
+    fill: #ce3333;
+    -webkit-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s; }
+    .countrySelector .francia:hover, .countrySelector .nuevaYork:hover, .countrySelector .miami:hover, .countrySelector .atlanta:hover, .countrySelector .arabiaSaudita:hover, .countrySelector .venezuela:hover {
+      fill: #2BBBAD; }
+  .countrySelector #RestoDelMundo {
+    cursor: default; }
 
 header {
   position: relative; }

@@ -119,6 +119,13 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
   var elems = document.querySelectorAll('.select-home');
   var instances = M.FormSelect.init(elems, {});
+}); // Tooltips
+
+$(document).ready(function () {
+  $('.tooltip').tooltipster({
+    theme: 'tooltipster-punk',
+    contentAsHTML: true
+  });
 }); // Validation of the confirm password on Register
 
 var confirmPassRegister = document.getElementById('confirmpasswordRegister');
