@@ -25,8 +25,8 @@ exports.viewAirport = (req, res) => {
     const airport = {
       iata,
       city: 'MIAMI',
-      coordinates: [-79.5455, 43.58933],
-      name: 'Miami International Airport'
+      coordinates: [-79.5455, 43.59934],
+      name: 'Hartsfield–Jackson International Airport'
     };
     res.render("airport", { title: 'airport', airport });
   }

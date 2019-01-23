@@ -115,10 +115,11 @@
 
    svg {
       position: relative;
-      top: -2rem;
-      left: 7%;
+      top: -7rem;
+      left: 14%;
       margin-bottom: -6rem;
       z-index: 5;
+      width: 90%;
    }
 
 
@@ -177,9 +178,9 @@
       &__info {
          position: absolute;
          background-color: rgb(32, 32, 32);
-         top: 61%;
-         left: 65%;
-         width: 31%;
+         top: 43%;
+         left: 3%;
+         width: 19%;
          padding: 1.5rem 2rem;
          z-index: 1001;
          border-radius: 2px;
@@ -195,30 +196,68 @@
             text-align: center;
             font-size: 1.5rem;
             color: #d1cece;
+            font-weight: 300;
          }
       }
 
       &__info2 {
+         text-align: center;
+         font-size: 1.5rem;
+         color: #d1cece;
          position: absolute;
          background-color: rgb(32, 32, 32);
-         top: 70%;
-         left: 2%;
-         width: 18%;
-         padding: 1.5rem 2rem 1rem 2rem;
+         top: 52%;
+         left: 69%;
+         width: 23%;
          z-index: 1001;
          border-radius: 2px;
          box-shadow: .7rem .7rem 1rem rgba(0, 0, 0, 0.465);
          transition: all .3s;
 
-         &:hover {
-            transform: scale(1.02) translateY(-4px);
-            box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.376);
-         }
+         // &:hover {
+         //    transform: scale(1.02) translateY(-4px);
+         //    box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.376);
+         // }
 
-         p {
-            text-align: center;
-            font-size: 1.5rem;
-            color: #d1cece;
+         li {
+            font-weight: 100;
+            padding: .4rem 1rem;
+            position: relative;
+            transition: all .3s;
+            cursor: default;
+
+            span {
+               visibility: hidden;
+               opacity: 0;
+               position: absolute;
+               top: 50%;
+               left: 50%;
+               transform: translate(-50%, -50%);
+               display: block;
+               width: 100%;
+               height: 100%;
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               cursor: default;
+               letter-spacing: 2px;
+               color: #2BBBAD;
+               font-weight: 300;
+               transition: all .4s;
+            }
+            
+            &:hover {
+               
+            }
+
+            &:hover span {
+               background-color: rgb(24, 24, 24);
+               visibility: visible;
+               opacity: 1;
+            }
+
+
+            //&:hover 
          }
       }
    }
@@ -234,29 +273,29 @@
    }
    
    .firstPlane {
-      top: 50%;
-      left: 28%;
+      top: 44%;
+      left: 33%;
       transform: rotate(-30deg);
       animation: vzlafran 10s 4s infinite;
    }
 
    .secondPlane {
-      top: 28%;
-      left: 46%;
+      top: 20%;
+      left: 49%;
       transform: rotate(29deg);
       animation: frandub 10s infinite;
    }
 
    .thirdPlane {
-      top: 43%;
-      left: 58%;
+      top: 33%;
+      left: 60%;
       transform: rotate(200deg);
       animation: dubnewyork 13s 6s infinite;
    }
 
    .fourthPlane {
-      top: 38%;
-      left: 24%;
+      top: 31%;
+      left: 29.5%;
       transform: rotate(-23deg);
       animation: miafran 10s 8s infinite;
    }
@@ -271,22 +310,22 @@
    30% {
       opacity: 1;
       visibility: visible;
-      top: 28%;
-      left: 45.5%;
+      top: 19%;
+      left: 49%;
    }
 
    31% {
       opacity: 0;
       visibility: hidden;
-      top: 28%;
-      left: 45.5%;
+      top: 19%;
+      left: 49%;
    }
 
    100% {
       opacity: 0;
       visibility: hidden;
-      top: 28%;
-      left: 45.5%;
+      top: 19%;
+      left: 49%;
    }
 }
 
@@ -299,22 +338,22 @@
    30% {
       opacity: 1;
       visibility: visible;
-      top: 41%;
-      left: 58%;
+      top: 35%;
+      left: 60%;
    }
 
    31% {
       opacity: 0;
       visibility: hidden;
-      top: 41%;
-      left: 58%;
+      top: 35%;
+      left: 60%;
    }
 
    100% {
       opacity: 0;
       visibility: hidden;
-      top: 41%;
-      left: 58%;
+      top: 35%;
+      left: 60%;
    }
 }
 
@@ -327,22 +366,22 @@
    30% {
       opacity: 1;
       visibility: visible;
-      top: 30%;
-      left: 27%;
+      top: 22%;
+      left: 32%;
    }
 
    31% {
       opacity: 0;
       visibility: hidden;
-      top: 30%;
-      left: 27%;
+      top: 22%;
+      left: 32%;
    }
 
    100% {
       opacity: 0;
       visibility: hidden;
-      top: 30%;
-      left: 27%;
+      top: 22%;
+      left: 32%;
    }
 }
 
@@ -355,22 +394,22 @@
    30% {
       opacity: 1;
       visibility: visible;
-      top: 28%;
-      left: 45%;
+      top: 20%;
+      left: 48.5%;
    }
 
    31% {
       opacity: 0;
       visibility: hidden;
-      top: 28%;
-      left: 45%;
+      top: 20%;
+      left: 48.5%;
    }
 
    100% {
       opacity: 0;
       visibility: hidden;
-      top: 28%;
-      left: 45%;
+      top: 20%;
+      left: 48.5%;
    }
 }
 
