@@ -52,6 +52,7 @@ header {
 .footer {
    width: 100%;
    background-color: rgba(32, 32, 32, 0.897);
+   box-shadow: 0rem -1rem 1rem #000;
 
    &__content {
       color: rgb(211, 211, 211);
@@ -65,8 +66,13 @@ header {
 .footerlink {
    background-color: rgba(24, 23, 23, 0.233);
    padding: .3rem .7rem;
-
+   
    &:hover {
       box-shadow: 0 .5rem .5rem rgba(0, 0, 0, 0.37);
+      transform: scale(1.1) rotate(2deg);
+   }
+   
+   &:last-child:hover {
+      transform: scale(1.1) rotate(-2deg);
    }
 }

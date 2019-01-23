@@ -15,10 +15,10 @@
       text-align: center;
       position: absolute;
       width: 90%;
-      top: 40%;
+      top: 35%;
       left: 50%;
       transform: translate(-50%, -50%);
-      color: rgb(184, 183, 183);
+      color: rgb(230, 230, 230);
    }
 
    &__text-primary {
@@ -84,7 +84,7 @@
 }
 
 .countrySelector {
-   background-color: rgb(51, 51, 51);
+   background-color: rgb(68, 68, 68);
    margin-top: -10rem;
    padding-top: 15rem;
    display: flex;
@@ -114,8 +114,43 @@
 
 
    .restoDelMundo {fill:rgb(206, 198, 198);}
-   .francia, .nuevaYork, .miami, .atlanta, .arabiaSaudita, .venezuela {
-      fill:rgb(206, 51, 51);
+   .francia {
+      fill:rgb(138, 144, 83);
+      transition: all .5s;
+      &:hover {
+         fill:#2BBBAD;
+      }
+   }
+   .nuevaYork {
+      fill:rgb(61, 131, 59);
+      transition: all .5s;
+      &:hover {
+         fill:#2BBBAD;
+      }
+   }
+   .miami{
+      fill:rgb(180, 118, 60);
+      transition: all .5s;
+      &:hover {
+         fill:#2BBBAD;
+      }
+   }
+   .atlanta {
+      fill:rgb(63, 146, 118);
+      transition: all .5s;
+      &:hover {
+         fill:#2BBBAD;
+      }
+   }
+   .arabiaSaudita {
+      fill:rgb(65, 32, 32);
+      transition: all .5s;
+      &:hover {
+         fill:#2BBBAD;
+      }
+   }
+   .venezuela {
+      fill:rgb(94, 51, 102);
       transition: all .5s;
       &:hover {
          fill:#2BBBAD;
@@ -125,4 +160,198 @@
    #RestoDelMundo {
       cursor: default;
    }
+
+   .mapWrap {
+      position: relative;
+      width: 100%;
+   }
+
+   .firstPlane, .secondPlane, .thirdPlane, .fourthPlane {
+      color: rgb(0, 0, 0);
+      font-size: 25px;
+      position: absolute;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      text-shadow: .1rem .1rem 1rem rgba(0, 0, 0, 0.315);
+   }
+   
+   .firstPlane {
+      top: 50%;
+      left: 28%;
+      transform: rotate(-30deg);
+      animation: vzlafran 10s 4s infinite;
+   }
+
+   .secondPlane {
+      top: 28%;
+      left: 46%;
+      transform: rotate(29deg);
+      animation: frandub 10s infinite;
+   }
+
+   .thirdPlane {
+      top: 43%;
+      left: 58%;
+      transform: rotate(200deg);
+      animation: dubnewyork 13s 6s infinite;
+   }
+
+   .fourthPlane {
+      top: 38%;
+      left: 24%;
+      transform: rotate(-23deg);
+      animation: miafran 10s 8s infinite;
+   }
+}
+
+@keyframes vzlafran {
+   0% {
+      opacity: 1;
+      visibility: visible;
+   }
+
+   30% {
+      opacity: 1;
+      visibility: visible;
+      top: 28%;
+      left: 45.5%;
+   }
+
+   31% {
+      opacity: 0;
+      visibility: hidden;
+      top: 28%;
+      left: 45.5%;
+   }
+
+   100% {
+      opacity: 0;
+      visibility: hidden;
+      top: 28%;
+      left: 45.5%;
+   }
+}
+
+@keyframes frandub {
+   0% {
+      opacity: 1;
+      visibility: visible;
+   }
+
+   30% {
+      opacity: 1;
+      visibility: visible;
+      top: 41%;
+      left: 58%;
+   }
+
+   31% {
+      opacity: 0;
+      visibility: hidden;
+      top: 41%;
+      left: 58%;
+   }
+
+   100% {
+      opacity: 0;
+      visibility: hidden;
+      top: 41%;
+      left: 58%;
+   }
+}
+
+@keyframes dubnewyork {
+   0% {
+      opacity: 1;
+      visibility: visible;
+   }
+
+   30% {
+      opacity: 1;
+      visibility: visible;
+      top: 30%;
+      left: 27%;
+   }
+
+   31% {
+      opacity: 0;
+      visibility: hidden;
+      top: 30%;
+      left: 27%;
+   }
+
+   100% {
+      opacity: 0;
+      visibility: hidden;
+      top: 30%;
+      left: 27%;
+   }
+}
+
+@keyframes miafran {
+   0% {
+      opacity: 1;
+      visibility: visible;
+   }
+
+   30% {
+      opacity: 1;
+      visibility: visible;
+      top: 28%;
+      left: 45%;
+   }
+
+   31% {
+      opacity: 0;
+      visibility: hidden;
+      top: 28%;
+      left: 45%;
+   }
+
+   100% {
+      opacity: 0;
+      visibility: hidden;
+      top: 28%;
+      left: 45%;
+   }
+}
+
+@keyframes scroll {
+   0% {
+      opacity: 1;
+   }  
+
+   100% {
+      opacity: 0;
+      transform: translateY(46px);
+   }
+}
+
+.icon-scroll, .icon-scroll:before {
+   position: absolute;
+   left: 50%;
+}
+
+.icon-scroll {
+   width: 40px;
+   height: 70px;
+   margin-left: -20px;
+   top: 150%;
+   margin-top: -35px;
+   box-shadow: inset 0 0 0 1px #fff;
+   border-radius: 25px;
+}
+
+.icon-scroll:before {
+   content: '';
+   width: 8px;
+   height: 8px;
+   background: #fff;
+   margin-left: -4px;
+   top: 8px;
+   border-radius: 4px;
+   animation-duration: 2.5s;
+   animation-iteration-count: infinite;
+   animation-name: scroll;
 }

@@ -124,7 +124,10 @@ document.addEventListener('DOMContentLoaded', function () {
 $(document).ready(function () {
   $('.tooltip').tooltipster({
     theme: 'tooltipster-punk',
-    contentAsHTML: true
+    contentAsHTML: true,
+    animation: 'swing',
+    delay: 100,
+    interactive: true
   });
 }); // Validation of the confirm password on Register
 
