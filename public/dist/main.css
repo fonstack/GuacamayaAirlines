@@ -186,7 +186,9 @@ a, a:link, a:visited {
   padding: 0 1.5rem; }
 
 .countrySelector {
-  background-color: #444444;
+  background-image: -webkit-gradient(linear, right bottom, left top, from(#6b6464), color-stop(#575555), to(#6b6464));
+  background-image: -o-linear-gradient(bottom right, #6b6464, #575555, #6b6464);
+  background-image: linear-gradient(to top left, #6b6464, #575555, #6b6464);
   margin-top: -10rem;
   padding-top: 15rem;
   display: -webkit-box;
@@ -213,15 +215,20 @@ a, a:link, a:visited {
     font-size: 7rem;
     border-bottom: 1px solid #2BBBAD;
     width: 80%;
-    margin-bottom: 1rem; }
+    margin-bottom: 1rem;
+    -webkit-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s; }
+    .countrySelector__text:hover {
+      letter-spacing: 12px; }
   .countrySelector svg {
     position: relative;
     left: 7%;
     z-index: 5; }
   .countrySelector .restoDelMundo {
-    fill: #cec6c6; }
+    fill: rgba(202, 202, 202, 0.849); }
   .countrySelector .francia {
-    fill: #8a9053;
+    fill: #b4a239;
     -webkit-transition: all .5s;
     -o-transition: all .5s;
     transition: all .5s; }
@@ -267,6 +274,54 @@ a, a:link, a:visited {
   .countrySelector .mapWrap {
     position: relative;
     width: 100%; }
+    .countrySelector .mapWrap__info {
+      position: absolute;
+      background-color: #202020;
+      top: 61%;
+      left: 65%;
+      width: 31%;
+      padding: 1.5rem 2rem;
+      z-index: 1001;
+      border-radius: 2px;
+      -webkit-box-shadow: 0.7rem 0.7rem 1rem rgba(0, 0, 0, 0.465);
+              box-shadow: 0.7rem 0.7rem 1rem rgba(0, 0, 0, 0.465);
+      -webkit-transition: all .3s;
+      -o-transition: all .3s;
+      transition: all .3s; }
+      .countrySelector .mapWrap__info:hover {
+        -webkit-transform: scale(1.02) translateY(-4px);
+            -ms-transform: scale(1.02) translateY(-4px);
+                transform: scale(1.02) translateY(-4px);
+        -webkit-box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.376);
+                box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.376); }
+      .countrySelector .mapWrap__info p {
+        text-align: center;
+        font-size: 1.5rem;
+        color: #d1cece; }
+    .countrySelector .mapWrap__info2 {
+      position: absolute;
+      background-color: #202020;
+      top: 70%;
+      left: 2%;
+      width: 18%;
+      padding: 1.5rem 2rem 1rem 2rem;
+      z-index: 1001;
+      border-radius: 2px;
+      -webkit-box-shadow: 0.7rem 0.7rem 1rem rgba(0, 0, 0, 0.465);
+              box-shadow: 0.7rem 0.7rem 1rem rgba(0, 0, 0, 0.465);
+      -webkit-transition: all .3s;
+      -o-transition: all .3s;
+      transition: all .3s; }
+      .countrySelector .mapWrap__info2:hover {
+        -webkit-transform: scale(1.02) translateY(-4px);
+            -ms-transform: scale(1.02) translateY(-4px);
+                transform: scale(1.02) translateY(-4px);
+        -webkit-box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.376);
+                box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.376); }
+      .countrySelector .mapWrap__info2 p {
+        text-align: center;
+        font-size: 1.5rem;
+        color: #d1cece; }
   .countrySelector .firstPlane, .countrySelector .secondPlane, .countrySelector .thirdPlane, .countrySelector .fourthPlane {
     color: black;
     font-size: 25px;
@@ -567,7 +622,7 @@ header {
 
 .footer {
   width: 100%;
-  background-color: rgba(32, 32, 32, 0.897);
+  background-color: rgba(32, 32, 32, 0.924);
   -webkit-box-shadow: 0rem -1rem 1rem #000;
           box-shadow: 0rem -1rem 1rem #000; }
   .footer__content {
@@ -582,7 +637,7 @@ header {
             justify-content: space-between; }
 
 .footerlink {
-  background-color: rgba(24, 23, 23, 0.233);
+  background-color: rgba(24, 23, 23, 0.356);
   padding: .3rem .7rem; }
   .footerlink:hover {
     -webkit-box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.37);

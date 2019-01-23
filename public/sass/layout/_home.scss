@@ -84,7 +84,8 @@
 }
 
 .countrySelector {
-   background-color: rgb(68, 68, 68);
+   // background-color: rgb(68, 68, 68);
+   background-image: linear-gradient(to top left, rgb(107, 100, 100),rgb(87, 85, 85), rgb(107, 100, 100));
    margin-top: -10rem;
    padding-top: 15rem;
    display: flex;
@@ -104,6 +105,11 @@
       border-bottom: 1px solid #2BBBAD;
       width: 80%;
       margin-bottom: 1rem;
+      transition: all .3s;
+
+      &:hover {
+         letter-spacing: 12px;
+      }
    }
 
    svg {
@@ -113,9 +119,9 @@
    }
 
 
-   .restoDelMundo {fill:rgb(206, 198, 198);}
+   .restoDelMundo {fill:rgba(202, 202, 202, 0.849);}
    .francia {
-      fill:rgb(138, 144, 83);
+      fill:rgb(180, 162, 57);
       transition: all .5s;
       &:hover {
          fill:#2BBBAD;
@@ -164,6 +170,54 @@
    .mapWrap {
       position: relative;
       width: 100%;
+
+      &__info {
+         position: absolute;
+         background-color: rgb(32, 32, 32);
+         top: 61%;
+         left: 65%;
+         width: 31%;
+         padding: 1.5rem 2rem;
+         z-index: 1001;
+         border-radius: 2px;
+         box-shadow: .7rem .7rem 1rem rgba(0, 0, 0, 0.465);
+         transition: all .3s;
+
+         &:hover {
+            transform: scale(1.02) translateY(-4px);
+            box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.376);
+         }
+
+         p {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #d1cece;
+         }
+      }
+
+      &__info2 {
+         position: absolute;
+         background-color: rgb(32, 32, 32);
+         top: 70%;
+         left: 2%;
+         width: 18%;
+         padding: 1.5rem 2rem 1rem 2rem;
+         z-index: 1001;
+         border-radius: 2px;
+         box-shadow: .7rem .7rem 1rem rgba(0, 0, 0, 0.465);
+         transition: all .3s;
+
+         &:hover {
+            transform: scale(1.02) translateY(-4px);
+            box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.376);
+         }
+
+         p {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #d1cece;
+         }
+      }
    }
 
    .firstPlane, .secondPlane, .thirdPlane, .fourthPlane {
