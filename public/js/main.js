@@ -38,6 +38,20 @@ $(document).ready(function() {
   });
 });
 
+// Sidenav
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.sidenav');
+  var instances = M.Sidenav.init(elems, {
+
+  });
+});
+
+const botonSidenav = document.querySelector('.openButton__image');
+
+botonSidenav.addEventListener('click', function() {
+  const instance = M.Sidenav.getInstance(document.querySelector('.sidenav'));
+    instance.open();
+});
 
 
 

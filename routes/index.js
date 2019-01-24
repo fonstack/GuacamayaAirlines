@@ -22,4 +22,7 @@ router.get("/airport/:iata", airlineController.viewAirport);
 // Logout User
 router.get("/logout", authController.logout);
 
+// Admin View
+router.get("/admin", airlineController.viewAdmin);
+
 module.exports = router;

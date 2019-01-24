@@ -1,0 +1,46 @@
+.admin-section {
+   height: 110vh;
+   width: 100%;
+   background-color: rgb(88, 85, 85);
+}
+
+.openButton {
+
+   &__image {
+      position: fixed;
+      top: 50%;
+      left: .3%;
+      transform: translate(-50%, -50%);
+      width: 3rem;
+      cursor: pointer;
+      transition: all .2s;
+      filter: contrast(80%);
+      transform: rotate(180deg);
+
+      &:hover {
+         filter: contrast(70%);
+      }
+   }
+}
+
+.sidenav {
+   z-index: 1000;
+
+   .background {
+      filter: brightness(50%);
+
+      img {
+         width: 100%;
+      }
+   }
+
+   .circle {
+      border-radius: 0;
+      height: 40px !important;
+      width: 142px !important;
+   }
+
+   .user-view {
+      padding: 32px 32px 8px !important;
+   }
+}

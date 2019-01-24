@@ -46,14 +46,13 @@ html(lang="en")
                      .navbar__options
                         a(href="/login").navbar__options__login Log In
       main
-         block messages
-            if locals.flashes
-               - const categories = Object.keys(locals.flashes)
-               each category in categories
-                  each message in flashes[category]
-                     .flash(class=`flash--${category}`)
-                        p.flash__text!= message
-                        button.flash__remove(onClick="this.parentElement.remove()") &times;
+         if locals.flashes
+            - const categories = Object.keys(locals.flashes);
+            each category in categories
+               each message in flashes[category]
+                  .flash(class=`flash--${category}`)
+                     p.flash__text!= message
+                     button.flash__remove(onClick="this.parentElement.remove()") &times;
 
          block content
       footer

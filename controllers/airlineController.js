@@ -52,3 +52,7 @@ exports.viewAirport = (req, res) => {
     res.render("airport", { title: 'airport', airport });
   }
 };
+
+exports.viewAdmin = (req, res) => {
+  res.render("admin", { title: 'admin' });
+}

@@ -1,0 +1,30 @@
+extends layout
+
+block content
+   ul#slide-out.sidenav
+      li
+         .user-view
+            .background
+               img(src='/images/fondoAvion.jpg')
+            a
+               img.circle(src='/images/logoTexto.png')
+            a
+               span.white-text.name Administrator Options
+      li
+         a(href='#')
+            i.material-icons cloud
+            | First Link With Icon
+      li
+         a(href='#') Second Link
+      li
+         .divider
+      li
+         a.subheader Subheader
+      li
+         a.waves-effect(href='#') Third Link With Waves
+   
+   .openButton
+      img(src="/images/arrow.png", alt="Arrow").openButton__image.close
+      
+
+   .admin-section 

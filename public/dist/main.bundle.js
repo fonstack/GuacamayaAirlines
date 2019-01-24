@@ -129,6 +129,16 @@ $(document).ready(function () {
     delay: 100,
     interactive: true
   });
+}); // Sidenav
+
+document.addEventListener('DOMContentLoaded', function () {
+  var elems = document.querySelectorAll('.sidenav');
+  var instances = M.Sidenav.init(elems, {});
+});
+var botonSidenav = document.querySelector('.openButton__image');
+botonSidenav.addEventListener('click', function () {
+  var instance = M.Sidenav.getInstance(document.querySelector('.sidenav'));
+  instance.open();
 }); // Validation of the confirm password on Register
 
 var confirmPassRegister = document.getElementById('confirmpasswordRegister');
