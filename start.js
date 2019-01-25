@@ -12,7 +12,11 @@ sequelize.authenticate()
     console.log(`✕✕✕✕ ${err.message} ✕✕✕✕`);
   });
 
-sequelize.sync()
+// Declaramos los modelos que tendrá nuestra Base de Datos
+const User = require('./models/User');
+const Office = require('./models/Office');
+
+sequelize.sync({force: true})
   .then(result => {
     console.log(result);
   })
