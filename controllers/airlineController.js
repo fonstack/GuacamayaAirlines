@@ -1,4 +1,4 @@
-
+const Office = require('../models/Office');
 
 exports.viewHome = (req, res) => {
   res.render("home", { title: 'home' });
@@ -57,6 +57,32 @@ exports.viewAdmin = (req, res) => {
   res.render("admin", { title: 'admin' });
 };
 
-exports.viewProject = (req, res) => {
-  res.render("project", { title: 'project' });
+
+
+
+// #################################
+// ######## PRIMERA ENTREGA ########
+// #################################
+exports.viewOffices = (req, res) => {
+  let offices = [];
+
+  res.render("project", { title: 'project', offices });
+};
+
+exports.createOffice = (req, res) => {
+  Office.create({
+    phone: req.body.phone,
+    address: req.body.address,
+    country: req.body.country})
+      .then(result => console.log(result))
+        .catch(err => console.log(err));
+
+  req.flash('success', 'An Office was added succesfully!');
+  res.redirect('/project');
+};
+
+exports.deleteOffice = (req, res) => {
+  const idToDelete = req.params.id;
+
+  res.redirect('/project');
 };

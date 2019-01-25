@@ -1,5 +1,54 @@
 .project {
    width: 100%;
-   height: 100vh;
-   background-color: bisque;
+   min-height: 100vh;
+   background-color: rgb(194, 188, 179);
+
+   &__create-form {
+      position: absolute;
+      top: 34%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      padding: 2rem 1.8rem 1.2rem 1.8rem;
+      background-color: rgb(68, 64, 64);
+      box-shadow: .7rem .7rem .7rem rgba(0, 0, 0, 0.246);
+      border-radius: 2px;
+
+      i {
+         color: whitesmoke;
+      }
+
+      input, label, ::-webkit-input-placeholder {
+         color: whitesmoke;
+      }
+   }
+
+   .rowButton {
+      display: flex;
+      justify-content: center;
+
+      button {
+         margin-left: initial !important;
+      }
+   }
+
+   &__view-offices {
+      padding-top: 35rem;
+      padding-bottom: 4rem;
+
+      table {
+         width: 80%;
+         margin: 0 auto;
+
+         th {
+            font-size: 2.1rem;
+            text-transform: uppercase;
+            text-shadow: .1rem .1rem .1rem rgba(0, 0, 0, 0.226);
+         }
+
+         td {
+            font-size: 1.4rem;
+         }
+      }
+   }
 }

@@ -9,19 +9,11 @@ const Office = sequelize.define('Office', {
     unique: true,
     primaryKey: true
   },
-  city: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
   phone: {
     type: Sequelize.STRING,
     allowNull: false
   },
-  addressLine1: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  state: {
+  address: {
     type: Sequelize.STRING,
     allowNull: false
   },

@@ -2,3 +2,46 @@ extends layout
 
 block content
    .project
+      .project__create-form
+         form(action="project/create" method="POST")
+            .row
+               .input-field.col.s4
+                  i(class="prefix fas fa-phone")
+                  input#phone.validate(type="number" name="phone" required)
+                  label(for="phone") Office phone
+                  span.helper-text(data-error="This field is required!" data-success="Good")
+               .input-field.col.s4
+                  i(class="prefix fas fa-map-marked-alt")
+                  input#address.validate(type="text" name="address" required minlength="10")
+                  label(for="address") Address
+                  span.helper-text(data-error="Min 10 characters" data-success="Good")
+               .input-field.col.s4
+                  i(class="prefix fas fa-globe-americas")
+                  input#country.validate(type="text" name="country" required minlength="2")
+                  label(for="country") Country
+                  span.helper-text(data-error="Min 2 characters" data-success="Good")
+            .row.rowButton
+               button.btn.waves-effect.waves-light(type="submit").col.s8
+                  | Add new Office  &nbsp;&nbsp;
+                  i(class="fas fa-plus")
+      
+      .project__view-offices
+         table.centered.highlight
+            thead
+               tr
+                  th Office Code
+                  th Phone
+                  th Address
+                  th Country
+                  th
+            tbody
+               each office in offices
+                  tr
+                     td #{office.officeCode}
+                     td #{office.phone}
+                     td #{office.address}
+                     td #{office.country}
+                     td 
+                        form(action=`project/delete/${office.officeCode}` method="POST")
+                           button.btn.waves-effect.waves-light.red.darken-4(type="submit")
+                              i(class="fas fa-trash")

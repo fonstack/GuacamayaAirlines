@@ -26,6 +26,8 @@ router.get("/logout", authController.logout);
 router.get("/admin", airlineController.viewAdmin);
 
 // Project
-router.get("/project", airlineController.viewProject);
+router.get("/project", airlineController.viewOffices);
+router.post("/project/create", airlineController.createOffice);
+router.post("/project/delete/:id", airlineController.deleteOffice);
 
 module.exports = router;
