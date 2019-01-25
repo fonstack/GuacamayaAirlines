@@ -79,11 +79,12 @@ exports.createOffice = (req, res) => {
     phone: req.body.phone,
     address: req.body.address,
     country: req.body.country})
-      .then(result => console.log(result))
+      .then(result => {
+        req.flash('success', 'An Office was added succesfully!');
+        res.redirect('/project');
+      })
         .catch(err => console.log('ERROR IN CreateOffice ' + err));
 
-  req.flash('success', 'An Office was added succesfully!');
-  res.redirect('/project');
 };
 
 exports.deleteOffice = (req, res) => {

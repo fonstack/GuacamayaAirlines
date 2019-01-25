@@ -59,7 +59,7 @@ a, a:link, a:visited {
   -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
           box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
   padding: 1.2rem 2rem;
-  position: absolute;
+  position: fixed;
   top: 93%;
   left: 50%;
   width: 40%;
