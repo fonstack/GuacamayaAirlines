@@ -58,5 +58,5 @@ exports.viewAdmin = (req, res) => {
 };
 
 exports.viewProject = (req, res) => {
-  res.render("project", { title: 'admin' });
+  res.render("project", { title: 'project' });
 };

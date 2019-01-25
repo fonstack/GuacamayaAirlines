@@ -28,6 +28,11 @@ const Office = sequelize.define('Office', {
   country: {
     type: Sequelize.STRING,
     allowNull: false
+  },
+  rip: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
   }
 });
 
