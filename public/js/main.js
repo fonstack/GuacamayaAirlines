@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-const botonSidenav = document.querySelector('.openButton__image');
+const botonSidenav = document.querySelector('.openButton');
 
 botonSidenav.addEventListener('click', function() {
   const instance = M.Sidenav.getInstance(document.querySelector('.sidenav'));

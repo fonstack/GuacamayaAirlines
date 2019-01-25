@@ -6,7 +6,7 @@ header {
    height: 8rem;
    position: absolute;
    width: 100%;
-   z-index: 1000;
+   z-index: 900;
 
    &.navbar-two {
       background-color: rgba(32, 32, 32, .9);
@@ -75,5 +75,18 @@ header {
    
    &:last-child:hover {
       transform: scale(1.1) rotate(-2deg);
+   }
+}
+
+.openButton {
+   color: rgb(230, 230, 230);
+   font-size: 3rem;
+   padding-right: 2.5rem;
+   padding-bottom: 0.6rem;
+   cursor: pointer;
+   transition: all .3s;
+   
+   &:hover {
+      color: rgb(151, 151, 151);
    }
 }

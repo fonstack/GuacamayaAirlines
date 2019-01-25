@@ -28,6 +28,15 @@ html(lang="en")
                   .navbar__logo
                      a(href="/") 
                         img(src="/images/logoTexto.png", alt="").navbar__logo__img
+         else if title === 'admin'
+            .navbar.navbar-two
+               .navbar__links
+                  .navbar__logo
+                     i(class="fas fa-bars").openButton
+                     a(href="/") 
+                        img(src="/images/logoTexto.png", alt="").navbar__logo__img
+                  .navbar__options
+                     a(href="/logout").navbar__options__login Log Out
          else
             if user
                .navbar.navbar-two

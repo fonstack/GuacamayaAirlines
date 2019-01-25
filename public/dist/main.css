@@ -610,7 +610,7 @@ header {
   height: 8rem;
   position: absolute;
   width: 100%;
-  z-index: 1000; }
+  z-index: 900; }
   .navbar.navbar-two {
     background-color: rgba(32, 32, 32, 0.9);
     -webkit-box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.2);
@@ -687,6 +687,18 @@ header {
     -webkit-transform: scale(1.1) rotate(-2deg);
         -ms-transform: scale(1.1) rotate(-2deg);
             transform: scale(1.1) rotate(-2deg); }
+
+.openButton {
+  color: #e6e6e6;
+  font-size: 3rem;
+  padding-right: 2.5rem;
+  padding-bottom: 0.6rem;
+  cursor: pointer;
+  -webkit-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s; }
+  .openButton:hover {
+    color: #979797; }
 
 .login {
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(56, 56, 56, 0.95)), to(rgba(56, 56, 56, 0.8))), url("/images/fondoAvion.jpg");
@@ -963,27 +975,6 @@ header {
   height: 110vh;
   width: 100%;
   background-color: #585555; }
-
-.openButton__image {
-  position: fixed;
-  top: 50%;
-  left: .3%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  width: 3rem;
-  cursor: pointer;
-  -webkit-transition: all .2s;
-  -o-transition: all .2s;
-  transition: all .2s;
-  -webkit-filter: contrast(80%);
-          filter: contrast(80%);
-  -webkit-transform: rotate(180deg);
-      -ms-transform: rotate(180deg);
-          transform: rotate(180deg); }
-  .openButton__image:hover {
-    -webkit-filter: contrast(70%);
-            filter: contrast(70%); }
 
 .sidenav {
   z-index: 1000; }

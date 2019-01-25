@@ -4,25 +4,6 @@
    background-color: rgb(88, 85, 85);
 }
 
-.openButton {
-
-   &__image {
-      position: fixed;
-      top: 50%;
-      left: .3%;
-      transform: translate(-50%, -50%);
-      width: 3rem;
-      cursor: pointer;
-      transition: all .2s;
-      filter: contrast(80%);
-      transform: rotate(180deg);
-
-      &:hover {
-         filter: contrast(70%);
-      }
-   }
-}
-
 .sidenav {
    z-index: 1000;
 

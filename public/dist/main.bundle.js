@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var elems = document.querySelectorAll('.sidenav');
   var instances = M.Sidenav.init(elems, {});
 });
-var botonSidenav = document.querySelector('.openButton__image');
+var botonSidenav = document.querySelector('.openButton');
 botonSidenav.addEventListener('click', function () {
   var instance = M.Sidenav.getInstance(document.querySelector('.sidenav'));
   instance.open();
