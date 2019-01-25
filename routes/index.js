@@ -25,4 +25,7 @@ router.get("/logout", authController.logout);
 // Admin View
 router.get("/admin", airlineController.viewAdmin);
 
+// Project
+router.get("/project", airlineController.viewProject);
+
 module.exports = router;

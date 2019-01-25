@@ -55,4 +55,8 @@ exports.viewAirport = (req, res) => {
 
 exports.viewAdmin = (req, res) => {
   res.render("admin", { title: 'admin' });
-}
+};
+
+exports.viewProject = (req, res) => {
+  res.render("project", { title: 'admin' });
+};
