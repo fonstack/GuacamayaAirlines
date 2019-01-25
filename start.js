@@ -16,7 +16,7 @@ sequelize.authenticate()
 const User = require('./models/User');
 const Office = require('./models/Office');
 
-sequelize.sync({force: true})
+sequelize.sync()
   .then(result => {
     console.log(result);
   })
