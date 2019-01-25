@@ -12,6 +12,12 @@ sequelize.authenticate()
     console.log(`✕✕✕✕ ${err.message} ✕✕✕✕`);
   });
 
+sequelize.sync()
+  .then(result => {
+    console.log(result);
+  })
+    .catch(err => console.log(err));
+
 // Empezamos la aplicación
 const app = require("./app");
 app.set("port", process.env.PORT || 7777);

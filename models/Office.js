@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
-const db = require('../config/database');
+const sequelize = require("../config/database");
 
-const Office = db.define('Office', {
+const Office = sequelize.define('Office', {
   officeCode: {
     type: Sequelize.INTEGER,
     allowNull: false,
