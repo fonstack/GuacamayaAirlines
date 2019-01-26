@@ -63,7 +63,7 @@ a, a:link, a:visited {
   top: 93%;
   left: 50%;
   width: 40%;
-  z-index: 1;
+  z-index: 100000000000000;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

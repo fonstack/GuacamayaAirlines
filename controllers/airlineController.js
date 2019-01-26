@@ -60,18 +60,19 @@ exports.viewAdmin = (req, res) => {
 
 
 
+
+
+
+
 // #################################
 // ######## PRIMERA ENTREGA ########
 // #################################
 exports.viewOffices = (req, res) => {
-  let offices = [];
   Office.findAll({ where: { rip: 0 } })
-    .then(result => {
-      offices = result.map(res => res.dataValues);
+    .then(offices => {
       res.render("project", { title: 'project', offices });
     })
       .catch(err => console.log('ERROR IN ViewOffices ' + err));
-
 };
 
 exports.createOffice = (req, res) => {
@@ -84,11 +85,16 @@ exports.createOffice = (req, res) => {
         res.redirect('/project');
       })
         .catch(err => console.log('ERROR IN CreateOffice ' + err));
-
 };
 
 exports.deleteOffice = (req, res) => {
   const idToDelete = req.params.id;
+  Office.update({ rip: 1 }, { where: { officeCode: idToDelete } })
+    .then(result => {
+      req.flash('success', 'The Office was deleted succesfully!');
+      res.redirect('/project');
+    })
+      .catch(err => console.log('ERROR IN DeleteOffice ' + err));
 
   res.redirect('/project');
 };
