@@ -1,4 +1,6 @@
 const Office = require('../models/Office');
+const sequelize = require("../config/database");
+
 
 exports.viewHome = (req, res) => {
   res.render("home", { title: 'home' });
@@ -73,6 +75,12 @@ exports.viewOffices = (req, res) => {
       res.render("project", { title: 'project', offices });
     })
       .catch(err => console.log('ERROR IN ViewOffices ' + err));
+
+  // sequelize.query('SELECT * FROM Offices WHERE rip = 0', { type: sequelize.QueryTypes.SELECT})
+  //   .then(offices => {
+  //     res.render("project", { title: 'project', offices });
+  //   })
+  //     .catch(err => console.log('ERROR IN ViewOffices ' + err));
 };
 
 exports.createOffice = (req, res) => {
@@ -96,5 +104,10 @@ exports.deleteOffice = (req, res) => {
     })
       .catch(err => console.log('ERROR IN DeleteOffice ' + err));
 
-  res.redirect('/project');
+  // sequelize.query(`UPDATE Offices SET rip = 1 WHERE officeCode = ${idToDelete}`)
+  //   .then(result => {
+  //     req.flash('success', 'The Office was deleted succesfully!');
+  //     res.redirect('/project');
+  //   })
+  //     .catch(err => console.log('ERROR IN DeleteOffice ' + err));
 };

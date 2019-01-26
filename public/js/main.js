@@ -48,10 +48,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 const botonSidenav = document.querySelector('.openButton');
 
-botonSidenav.addEventListener('click', function() {
-  const instance = M.Sidenav.getInstance(document.querySelector('.sidenav'));
-    instance.open();
-});
+if (botonSidenav) {
+  botonSidenav.addEventListener('click', function() {
+    const instance = M.Sidenav.getInstance(document.querySelector('.sidenav'));
+      instance.open();
+  });
+}
 
 
 

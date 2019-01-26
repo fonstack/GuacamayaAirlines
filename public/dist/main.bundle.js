@@ -136,10 +136,14 @@ document.addEventListener('DOMContentLoaded', function () {
   var instances = M.Sidenav.init(elems, {});
 });
 var botonSidenav = document.querySelector('.openButton');
-botonSidenav.addEventListener('click', function () {
-  var instance = M.Sidenav.getInstance(document.querySelector('.sidenav'));
-  instance.open();
-}); // Validation of the confirm password on Register
+
+if (botonSidenav) {
+  botonSidenav.addEventListener('click', function () {
+    var instance = M.Sidenav.getInstance(document.querySelector('.sidenav'));
+    instance.open();
+  });
+} // Validation of the confirm password on Register
+
 
 var confirmPassRegister = document.getElementById('confirmpasswordRegister');
 var passRegister = document.getElementById('passwordRegister');
