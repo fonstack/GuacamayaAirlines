@@ -16,11 +16,7 @@ sequelize.authenticate()
 const User = require('./models/User');
 const Office = require('./models/Office');
 
-sequelize.sync()
-  .then(result => {
-    // console.log(result);
-  })
-    .catch(err => console.log(err));
+sequelize.sync();
 
 // Empezamos la aplicación
 const app = require("./app");

@@ -5,20 +5,24 @@ block content
       .register__container
          .register__register
             h1.register__title Register
-            form(action="" method="")
+            form(action="/register" method="POST")
                .row
-                  .input-field.col.s4
-                     input#firstnameRegister.validate(placeholder="First Name" type='text' name="firstname" minlength="3" required)
+                  .input-field.col.s3
+                     input#firstnameRegister.validate(placeholder="First Name" type='text' name="firstName" minlength="3" required)
                      label(for='firstnameRegister').label First Name
                      span.helper-text(data-error='Minimum 3 characters', data-success='Good')
-                  .input-field.col.s4
-                     input#lasttnameRegister.validate(placeholder="Last Name" type='text' name="lastname" minlength="3" required)
+                  .input-field.col.s3
+                     input#lasttnameRegister.validate(placeholder="Last Name" type='text' name="lastName" minlength="3" required)
                      label(for='lasttnameRegister').label Last Name
                      span.helper-text(data-error='Minimum 3 characters', data-success='Good')
-                  .input-field.col.s4
-                     input#identityRegister.validate(placeholder="Identity Card" type='number' name="identitycard" min="1000000" max="30000000" required)
+                  .input-field.col.s3
+                     input#identityRegister.validate(placeholder="Identity Card" type='number' name="identityCard" min="1000000" max="30000000" required)
                      label(for='identityRegister').label Identity Card
                      span.helper-text(data-error='Min 1.000.000 and max 30.000.000', data-success='Good')
+                  .input-field.col.s3
+                     input#emailRegister.validate(placeholder="Email" type='email' name="email" required)
+                     label(for='emailRegister').label Email
+                     span.helper-text(data-error='Wrong email format', data-success='Good')
                .row
                   .input-field.col.s6
                      input#passwordRegister.validate(placeholder="Password" type='password' name="password" minlength="6" required)

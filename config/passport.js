@@ -9,19 +9,18 @@ passport.use(
       passwordField: "password",
       session: false
     },
-    async (email, password, done) => {
-      try {
-        const user = await User.findOne({ email });
-        if (!user) {
-          return done(null, false, { message: "Incorrect username." });
-        }
-        if (!user.compare(password)) {
-          return done(null, false, { message: "Incorrect password." });
-        }
-        return done(null, user);
-      } catch (err) {
-        return done(err);
-      }
+    (email, password, done) => {
+      User.findOne({ where: { email } })
+        .then(user => {
+          if (!user) {
+            return done(null, false, { message: "Incorrect username!" });
+          }
+          if (!user.compare(password)) {
+            return done(null, false, { message: "Incorrect password!" });
+          }
+          return done(null, user);
+        })
+          .catch(err => done(err));
     }
   )
 );

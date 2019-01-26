@@ -12,7 +12,7 @@ const User = sequelize.define("User", {
     unique: true,
     primaryKey: true
   },
-  cedula: {
+  identityCard: {
     type: Sequelize.INTEGER,
     allowNull: false,
     unique: true

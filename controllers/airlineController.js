@@ -89,7 +89,7 @@ exports.createOffice = (req, res) => {
     address: req.body.address,
     country: req.body.country})
       .then(result => {
-        // req.flash('success', 'An Office was added succesfully!');
+        req.flash('success', 'An Office was added succesfully!');
         res.redirect('/project');
       })
         .catch(err => console.log('ERROR IN CreateOffice ' + err));
@@ -99,7 +99,7 @@ exports.deleteOffice = (req, res) => {
   const idToDelete = req.params.id;
   Office.update({ rip: 1 }, { where: { officeCode: idToDelete } })
     .then(result => {
-      // req.flash('success', 'The Office was deleted succesfully!');
+      req.flash('success', 'The Office was deleted succesfully!');
       res.redirect('/project');
     })
       .catch(err => console.log('ERROR IN DeleteOffice ' + err));

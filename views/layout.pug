@@ -14,7 +14,7 @@ html(lang="en")
       title #{h.siteTitle}
    body
       header
-         if title === 'home'
+         if title === 'home' && !user
             .navbar
                .navbar__links
                   .navbar__logo
@@ -22,6 +22,14 @@ html(lang="en")
                         img(src="/images/logoTexto.png", alt="").navbar__logo__img
                   .navbar__options
                      a(href="/login").navbar__options__login Log In
+         else if title === 'home' && user
+            .navbar
+               .navbar__links
+                  .navbar__logo
+                     a(href="/") 
+                        img(src="/images/logoTexto.png", alt="").navbar__logo__img
+                  .navbar__options
+                     a(href="/logout").navbar__options__login Log Out
          else if title === 'login' || title === 'register'
             .navbar
                .navbar__links
@@ -46,6 +54,7 @@ html(lang="en")
                            img(src="/images/logoTexto.png", alt="").navbar__logo__img
                      .navbar__options
                         a(href="/logout").navbar__options__login Log Out
+                        != h.dump(user)
             else
                .navbar.navbar-two
                   .navbar__links
