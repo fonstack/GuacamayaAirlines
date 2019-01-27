@@ -40,21 +40,18 @@ exports.validateRegister = (req, res, next) => {
   User.findOne({ where: { email: req.body.email } })
     .then(result => {
       if (!result) {
-
-        User.findOne({ where: { identityCard: req.body.identityCard } })
-          .then(resultt => {
-            if (!resultt) {
-              next();
-            } else {
-              req.flash('error', 'This identity card is alredy registered!');
-              res.render('register', { title: 'register', body: req.body, flashes: req.flash() });
-              return;
-            }
-          })
-            .catch(err => console.log(err));
-
+        return User.findOne({ where: { identityCard: req.body.identityCard } });
       } else {
         req.flash('error', 'This email is alredy taken!');
+        res.render('register', { title: 'register', body: req.body, flashes: req.flash() });
+        return;
+      }
+    })
+    .then(result => {
+      if (!result) {
+        next();
+      } else {
+        req.flash('error', 'This identity card is alredy registered!');
         res.render('register', { title: 'register', body: req.body, flashes: req.flash() });
         return;
       }
