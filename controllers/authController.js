@@ -9,7 +9,10 @@ exports.login = passport.authenticate('local', {
 
 exports.logout = (req, res) => {
   req.logout();
-  res.redirect('/');
+  req.flash('success', 'You are now Logged Out!');
+  req.session.save(function () {
+    res.redirect('/');
+  });
 };
 
 exports.needLogged = (req, res, next) => {
@@ -18,7 +21,9 @@ exports.needLogged = (req, res, next) => {
     return;
   }
   req.flash('error', 'Oops! You must be logged in to go that');
-  res.render("login", { title: 'login', flashes: req.flash() });
+  req.session.save(function () {
+    res.redirect('/login');
+  });
 };
 
 exports.noNeedLogged = (req, res, next) => {

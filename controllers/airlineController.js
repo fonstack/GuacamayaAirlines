@@ -22,7 +22,9 @@ exports.viewAirport = (req, res) => {
   const iata = req.params.iata.toUpperCase();
   if ( iata !== 'MIA' && iata !== 'CCS' && iata !== 'JFK' && iata !== 'ATL' && iata !== 'CDG' && iata !== 'DXB') {
     req.flash('error', 'This airport does not exists.');
-    res.redirect('/');
+    req.session.save(function () {
+      res.redirect('/');
+    });
   } else {
     const airport = {
       iata,
@@ -90,7 +92,9 @@ exports.createOffice = (req, res) => {
     country: req.body.country})
       .then(result => {
         req.flash('success', 'An Office was added succesfully!');
-        res.redirect('/project');
+        req.session.save(function () {
+          res.redirect('/project');
+        });
       })
         .catch(err => console.log('ERROR IN CreateOffice ' + err));
 };
@@ -100,7 +104,9 @@ exports.deleteOffice = (req, res) => {
   Office.update({ rip: 1 }, { where: { officeCode: idToDelete } })
     .then(result => {
       req.flash('success', 'The Office was deleted succesfully!');
-      res.redirect('/project');
+      req.session.save(function () {
+        res.redirect('/project');
+      });
     })
       .catch(err => console.log('ERROR IN DeleteOffice ' + err));
 
