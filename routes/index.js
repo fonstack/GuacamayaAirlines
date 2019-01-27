@@ -30,7 +30,7 @@ router.get("/airport/:iata", airlineController.viewAirport);
 router.get("/logout", authController.logout);
 
 // Admin View
-router.get("/admin", airlineController.viewAdmin);
+router.get("/admin", authController.needLogged, airlineController.viewAdmin);
 
 // Project
 router.get("/project", airlineController.viewOffices);
