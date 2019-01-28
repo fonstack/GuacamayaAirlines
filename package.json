@@ -1,10 +1,13 @@
 {
   "name": "guacamayaairlines",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Guacamaya Airlines website.",
   "main": "start.js",
   "engines": {
     "node": ">= 7.6.0"
+  },
+  "now": {
+    "dotenv": "variables.env.now"
   },
   "scripts": {
     "prod": "node ./start.js",
