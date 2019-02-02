@@ -4,7 +4,7 @@ const md5 = require("md5");
 const bcrypt = require("bcryptjs");
 const sequelize = require("../config/database");
 
-const User = sequelize.define("User", {
+const Employee = sequelize.define("Employee", {
   id: {
     type: Sequelize.INTEGER,
     allowNull: false,
@@ -37,14 +37,14 @@ const User = sequelize.define("User", {
 });
 
 
-User.encrypt = function ({ password }) {
+Employee.encrypt = function ({ password }) {
   const salt = bcrypt.genSaltSync(process.env.SALT);
   return bcrypt.hashSync(password, salt);
 };
 
-User.prototype.compare = function(password) {
+Employee.prototype.compare = function(password) {
   const hash = this.password;
   return bcrypt.compareSync(password, hash);
 };
 
-module.exports = User;
+module.exports = Employee;

@@ -1,4 +1,3 @@
-const Office = require('../models/Office');
 const sequelize = require("../config/database");
 
 
@@ -71,49 +70,49 @@ exports.viewAdmin = (req, res) => {
 // #################################
 // ######## PRIMERA ENTREGA ########
 // #################################
-exports.viewOffices = (req, res) => {
-  Office.findAll({ where: { rip: 0 } })
-    .then(offices => {
-      res.render("project", { title: 'project', offices });
-    })
-      .catch(err => console.log('ERROR IN ViewOffices ' + err));
+// exports.viewOffices = (req, res) => {
+//   Office.findAll({ where: { rip: 0 } })
+//     .then(offices => {
+//       res.render("project", { title: 'project', offices });
+//     })
+//       .catch(err => console.log('ERROR IN ViewOffices ' + err));
 
-  // sequelize.query('SELECT * FROM Offices WHERE rip = 0', { type: sequelize.QueryTypes.SELECT})
-  //   .then(offices => {
-  //     res.render("project", { title: 'project', offices });
-  //   })
-  //     .catch(err => console.log('ERROR IN ViewOffices ' + err));
-};
+//   // sequelize.query('SELECT * FROM Offices WHERE rip = 0', { type: sequelize.QueryTypes.SELECT})
+//   //   .then(offices => {
+//   //     res.render("project", { title: 'project', offices });
+//   //   })
+//   //     .catch(err => console.log('ERROR IN ViewOffices ' + err));
+// };
 
-exports.createOffice = (req, res) => {
-  Office.create({
-    phone: req.body.phone,
-    address: req.body.address,
-    country: req.body.country})
-      .then(result => {
-        req.flash('success', 'An Office was added succesfully!');
-        req.session.save(function () {
-          res.redirect('/project');
-        });
-      })
-        .catch(err => console.log('ERROR IN CreateOffice ' + err));
-};
+// exports.createOffice = (req, res) => {
+//   Office.create({
+//     phone: req.body.phone,
+//     address: req.body.address,
+//     country: req.body.country})
+//       .then(result => {
+//         req.flash('success', 'An Office was added succesfully!');
+//         req.session.save(function () {
+//           res.redirect('/project');
+//         });
+//       })
+//         .catch(err => console.log('ERROR IN CreateOffice ' + err));
+// };
 
-exports.deleteOffice = (req, res) => {
-  const idToDelete = req.params.id;
-  Office.update({ rip: 1 }, { where: { officeCode: idToDelete } })
-    .then(result => {
-      req.flash('success', 'The Office was deleted succesfully!');
-      req.session.save(function () {
-        res.redirect('/project');
-      });
-    })
-      .catch(err => console.log('ERROR IN DeleteOffice ' + err));
+// exports.deleteOffice = (req, res) => {
+//   const idToDelete = req.params.id;
+//   Office.update({ rip: 1 }, { where: { officeCode: idToDelete } })
+//     .then(result => {
+//       req.flash('success', 'The Office was deleted succesfully!');
+//       req.session.save(function () {
+//         res.redirect('/project');
+//       });
+//     })
+//       .catch(err => console.log('ERROR IN DeleteOffice ' + err));
 
-  // sequelize.query(`UPDATE Offices SET rip = 1 WHERE officeCode = ${idToDelete}`)
-  //   .then(result => {
-  //     req.flash('success', 'The Office was deleted succesfully!');
-  //     res.redirect('/project');
-  //   })
-  //     .catch(err => console.log('ERROR IN DeleteOffice ' + err));
-};
+//   // sequelize.query(`UPDATE Offices SET rip = 1 WHERE officeCode = ${idToDelete}`)
+//   //   .then(result => {
+//   //     req.flash('success', 'The Office was deleted succesfully!');
+//   //     res.redirect('/project');
+//   //   })
+//   //     .catch(err => console.log('ERROR IN DeleteOffice ' + err));
+// };

@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const Employee = require('../models/Employee');
 const bcrypt = require("bcryptjs");
 const { ROUNDS } = process.env;
 
@@ -9,7 +9,7 @@ exports.register = async (req, res, next) => {
     const salt = await bcrypt.genSalt(parseInt(ROUNDS));
     const hash = await bcrypt.hash(password, salt);
     
-    const response = await User.create({
+    const response = await Employee.create({
       firstName,
       lastName,
       identityCard,
@@ -37,10 +37,10 @@ exports.validateRegister = (req, res, next) => {
   req.body.lastName = req.body.lastName.toLowerCase();
   req.body.lastName = req.body.lastName.charAt(0).toUpperCase() + req.body.lastName.slice(1);
 
-  User.findOne({ where: { email: req.body.email } })
+  Employee.findOne({ where: { email: req.body.email } })
     .then(result => {
       if (!result) {
-        return User.findOne({ where: { identityCard: req.body.identityCard } });
+        return Employee.findOne({ where: { identityCard: req.body.identityCard } });
       } else {
         req.flash('error', 'This email is alredy taken!');
         res.render('register', { title: 'register', body: req.body, flashes: req.flash() });

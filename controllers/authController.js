@@ -2,12 +2,26 @@ const passport = require('passport');
 const crypto = require('crypto');
 const promisify = require('es6-promisify');
 
-exports.login = passport.authenticate('local', {
-  failureRedirect: '/login',
-  successRedirect: '/',
-  successFlash: 'You are now Logged In!',
-  failureFlash: 'Error on login!'
-});
+exports.login = (req, res, next) => {
+  passport.authenticate('local', {
+    failureRedirect: '/login',
+    successRedirect: '/',
+    successFlash: 'You are now Logged In!',
+    failureFlash: 'Error on login!'
+  }, function(err, user, info) {
+    if (err) { return next(err); }
+    if (!user) { return res.redirect('/'); }
+
+    // req / res held in closure
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      req.flash('success', 'You are now Logged In!');
+      return req.session.save(function () {
+        return res.redirect('/');
+      });
+    });
+  })(req, res, next);
+};
 
 exports.logout = (req, res) => {
   req.logout();

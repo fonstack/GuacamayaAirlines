@@ -13,8 +13,7 @@ sequelize.authenticate()
   });
 
 // Declaramos los modelos que tendrá nuestra Base de Datos
-const User = require('./models/User');
-const Office = require('./models/Office');
+const Employee = require('./models/Employee');
 
 sequelize.sync();
 
