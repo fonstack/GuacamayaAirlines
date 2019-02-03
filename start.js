@@ -9,10 +9,10 @@ sequelize.authenticate()
     console.log('✔✔✔✔ Database connected succesfully ✔✔✔✔');
   })
   .catch(err => {
-    console.log(`✕✕✕✕ ${err.message} ✕✕✕✕`);
+    console.log(`✕✕✕✕ ${err.message} ✕✕✕✕`); 
   });
 
-// Declaramos los modelos que tendrá nuestra Base de Datos
+// Declaramos los modelos que tendrá nuestra Base de Dat os
 const Employee = require('./models/Employee');
 const Aircraft = require('./models/Aircraft');
 const Provider = require('./models/Provider');
