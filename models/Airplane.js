@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../config/database");
 
-const Aircraft = sequelize.define("Aircraft", {
+const Airplane = sequelize.define("Airplane", {
   id: {
     type: Sequelize.INTEGER,
     allowNull: false,
@@ -9,6 +9,7 @@ const Aircraft = sequelize.define("Aircraft", {
     unique: true,
     primaryKey: true
   },
+  // Clave Foránea con AirplaneModel
   model: {
     type: Sequelize.STRING,
     allowNull: false
@@ -19,4 +20,4 @@ const Aircraft = sequelize.define("Aircraft", {
   }
 });
 
-module.exports = Aircraft;
+module.exports = Airplane;

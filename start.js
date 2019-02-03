@@ -14,14 +14,16 @@ sequelize.authenticate()
 
 // Declaramos los modelos que tendrá nuestra Base de Dat os
 const Employee = require('./models/Employee');
-const Aircraft = require('./models/Aircraft');
+const Airplane = require('./models/Airplane');
+const AirplaneModel = require('./models/AirplaneModel');
 const Provider = require('./models/Provider');
 const Customer = require('./models/Customer');
+const Airport = require('./models/Airport');
 
 
 
 // Declaramos todas las relaciones entre nuestros modelos
-Airplane.hasMany(Aircraft, {foreignKey: 'Model'});
+AirplaneModel.hasMany(Airplane, {foreignKey: 'model'});
 
 
 // Le decimos a sequelize que cree las tablas
