@@ -10,7 +10,12 @@ exports.login = (req, res, next) => {
     failureFlash: 'Error on login!'
   }, function(err, user, info) {
     if (err) { return next(err); }
-    if (!user) { return res.redirect('/'); }
+    if (!user) { 
+      req.flash('error', 'The email address or password provided is incorrect!');
+      return req.session.save(function () {
+        return res.redirect('/login');
+      });
+    }
 
     // req / res held in closure
     req.logIn(user, function(err) {

@@ -15,6 +15,10 @@ sequelize.authenticate()
 // Declaramos los modelos que tendrá nuestra Base de Datos
 const Employee = require('./models/Employee');
 
+// Declaramos todas las relaciones entre nuestros modelos
+
+
+// Le decimos a sequelize que cree las tablas
 sequelize.sync();
 
 // Empezamos la aplicación
