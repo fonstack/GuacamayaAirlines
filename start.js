@@ -24,37 +24,39 @@ const DetourManifest = require('./models/DetourManifest');
 const FailureReport = require('./models/FailureReport');
 const MaintenanceReport = require('./models/MaintenanceReport');
 const CancelationManifest = require('./models/CancelationManifest');
+const FlightTicket = require('./models/FlightTicket');
+const Route = require('./models/Route');
 
 
-// Declaramos todas las relaciones entre nuestros modelos
-Airplane.belongsTo(AirplaneModel, { foreignKey: 'model', targetKey: 'model' });
-AirplaneModel.hasMany(Airplane, { foreignKey: 'model', sourceKey: 'model' });
+// // Declaramos todas las relaciones entre nuestros modelos
+// Airplane.belongsTo(AirplaneModel, { foreignKey: 'model', targetKey: 'model' });
+// AirplaneModel.hasMany(Airplane, { foreignKey: 'model', sourceKey: 'model' });
 
-MaintenanceReport.belongsTo(Airplane, { foreignKey: 'airplaneId', targetKey: 'id' });
-Airplane.hasMany(MaintenanceReport, { foreignKey: 'airplaneId', sourceKey: 'id' });
+// MaintenanceReport.belongsTo(Airplane, { foreignKey: 'airplaneId', targetKey: 'id' });
+// Airplane.hasMany(MaintenanceReport, { foreignKey: 'airplaneId', sourceKey: 'id' });
 
-// Necesito la clase de Flight
-// CancelationManifest.belongsTo(Flight, { foreignKey: 'flightCode', targetKey: 'code' })
-// Flight.hasMany(CancelationManifest, { foreignKey: 'flightCode', sourceKey: 'code' })
+// // Necesito la clase de Flight
+// // CancelationManifest.belongsTo(Flight, { foreignKey: 'flightCode', targetKey: 'code' })
+// // Flight.hasMany(CancelationManifest, { foreignKey: 'flightCode', sourceKey: 'code' })
 
-FailureReport.belongsTo(Airplane, { foreignKey: 'airplaneId', targetKey: 'id' });
-Airplane.hasMany(FailureReport, { foreignKey: 'airplaneId', sourceKey: 'id' });
+// FailureReport.belongsTo(Airplane, { foreignKey: 'airplaneId', targetKey: 'id' });
+// Airplane.hasMany(FailureReport, { foreignKey: 'airplaneId', sourceKey: 'id' });
 
 // Necesito la clase de Flight
 // DetourManifest.belongsTo(Flight, { foreignKey: 'flightCode', targetKey: 'code' })
 // Flight.hasMany(DetourManifest, { foreignKey: 'flightCode', sourceKey: 'code' })
 
-CharterTicket.belongsTo(Customer, { as: 'Passenger', foreignKey: 'passengerId', targetKey: 'id' });
-Customer.hasMany(CharterTicket, { as: 'Passenger', foreignKey: 'passengerId', sourceKey: 'id' });
-// Necesito la clase de CharterFlight
-// CharterTicket.belongsTo(Charter, { foreignKey: 'charterId', targetKey: 'id' });
-// Charter.hasMany(CharterTicket, { foreignKey: 'charterId', sourcetKey: 'id' });
+// CharterTicket.belongsTo(Customer, { foreignKey: 'passengerId', targetKey: 'id' });
+// Customer.hasMany(CharterTicket, { as: 'Passenger', foreignKey: 'passengerId', sourceKey: 'id' });
+// // Necesito la clase de CharterFlight
+// // CharterTicket.belongsTo(Charter, { foreignKey: 'charterId', targetKey: 'id' });
+// // Charter.hasMany(CharterTicket, { foreignKey: 'charterId', sourcetKey: 'id' });
 
 
-FlightTicket.belongsTo(Customer, { as: 'buyer', foreignKey: 'buyerId', targetKey: 'id' });
-Customer.hasMany(FlightTicket, { as: 'buyer', foreignKey: 'buyerId', sourceKey: 'id' });
-FlightTicket.belongsTo(Customer, { as: 'Passenger', foreignKey: 'passengerId', targetKey: 'id' });
-Customer.hasMany(FlightTicket, { as: 'Passenger', foreignKey: 'passengerId', sourceKey: 'id' });
+// FlightTicket.belongsTo(Customer, { foreignKey: 'buyerId', targetKey: 'id' });
+// Customer.hasMany(FlightTicket, { as: 'buyer', foreignKey: 'buyerId', sourceKey: 'id' });
+// FlightTicket.belongsTo(Customer, { foreignKey: 'passengerId', targetKey: 'id' });
+// Customer.hasMany(FlightTicket, { as: 'Passenger', foreignKey: 'passengerId', sourceKey: 'id' });
 
 
 // Le decimos a sequelize que cree las tablas
