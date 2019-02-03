@@ -14,7 +14,7 @@ sequelize.authenticate()
 
 // Declaramos los modelos que tendrá nuestra Base de Datos
 const Employee = require('./models/Employee');
-const Airplane = require('./models/AirplaneModel');
+const Airplane = require('./models/Airplane');
 const AirplaneModel = require('./models/AirplaneModel');
 const Provider = require('./models/Provider');
 const Customer = require('./models/Customer');
