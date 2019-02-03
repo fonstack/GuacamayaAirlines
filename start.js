@@ -53,6 +53,12 @@ Customer.hasMany(CharterTicket, { as: 'Passenger', foreignKey: 'passengerId', so
 FlightTicket.belongsToMany(Flight, { through: 'FlightTicket-Flights', foreignKey: 'id', otherKey: 'code' });
 
 
+FlightTicket.belongsTo(Customer, { as: 'buyer', foreignKey: 'buyerId', targetKey: 'id' });
+Customer.hasMany(FlightTicket, { as: 'buyer', foreignKey: 'buyerId', sourceKey: 'id' });
+FlightTicket.belongsTo(Customer, { as: 'Passenger', foreignKey: 'passengerId', targetKey: 'id' });
+Customer.hasMany(FlightTicket, { as: 'Passenger', foreignKey: 'passengerId', sourceKey: 'id' });
+
+
 // Le decimos a sequelize que cree las tablas
 sequelize.sync({ force: true });
 
