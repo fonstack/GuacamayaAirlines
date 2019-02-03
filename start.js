@@ -9,26 +9,32 @@ sequelize.authenticate()
     console.log('✔✔✔✔ Database connected succesfully ✔✔✔✔');
   })
   .catch(err => {
-    console.log(`✕✕✕✕ ${err.message} ✕✕✕✕`);
+    console.log(`✕✕✕✕ ${err.message} ✕✕✕✕`); 
   });
 
-// Declaramos los modelos que tendrá nuestra Base de Datos
+// Declaramos los modelos que tendrá nuestra Base de Dat os
 const Employee = require('./models/Employee');
+const MaintenanceReport = require('./models/MaintenanceReport');
 const Airplane = require('./models/Airplane');
 const AirplaneModel = require('./models/AirplaneModel');
 const Provider = require('./models/Provider');
 const Customer = require('./models/Customer');
 const Airport = require('./models/Airport');
 const CharterTicket = require('./models/CharterTicket');
-
+const DetourManifest = require('./models/DetourManifest');
+const FailureReport = require('./models/FailureReport');
+const CancelationManifest = require('./models/CancelationManifest');
 
 
 // Declaramos todas las relaciones entre nuestros modelos
-AirplaneModel.hasMany(Airplane, {foreignKey: 'model'});
-
+AirplaneModel.hasMany(Airplane, { foreignKey: 'model' });
+Airplane.hasMany(MaintenanceReport, { foreignKey: 'airplane' });
+MaintenanceReport.belongsTo(Airplane);
 
 // Le decimos a sequelize que cree las tablas
-sequelize.sync();
+sequelize.sync({ force: true });
+
+
 
 // Empezamos la aplicación
 const app = require("./app");
