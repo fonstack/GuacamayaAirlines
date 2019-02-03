@@ -24,8 +24,9 @@ const Flight = sequelize.define("Flight", {
   //   allowNull: false
   // },
   state: {
-    type: Sequelize.DOUBLE,
-    allowNull: false
+    type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: 'On Time'
   }
 });
 

@@ -25,6 +25,8 @@ const FailureReport = require('./models/FailureReport');
 const MaintenanceReport = require('./models/MaintenanceReport');
 const CancelationManifest = require('./models/CancelationManifest');
 const Flight = require('./models/Flight');
+const FlightTicket = require('./models/FlightTicket');
+const FlightTicket_Flights = require('./models/FlightTicket_Flights');
 
 // Declaramos todas las relaciones entre nuestros modelos
 Airplane.belongsTo(AirplaneModel, { foreignKey: 'model', targetKey: 'model' });
@@ -45,18 +47,18 @@ Airplane.hasMany(FailureReport, { foreignKey: 'airplaneId', sourceKey: 'id' });
 // Flight.hasMany(DetourManifest, { foreignKey: 'flightCode', sourceKey: 'code' })
 
 CharterTicket.belongsTo(Customer, { as: 'Passenger', foreignKey: 'passengerId', targetKey: 'id' });
-Customer.hasMany(CharterTicket, { as: 'Passenger', foreignKey: 'passengerId', sourceKey: 'id' });
+Customer.hasMany(CharterTicket, { foreignKey: 'passengerId', sourceKey: 'id' });
 // Necesito la clase de CharterFlight
 // CharterTicket.belongsTo(Charter, { foreignKey: 'charterId', targetKey: 'id' });
 // Charter.hasMany(CharterTicket, { foreignKey: 'charterId', sourcetKey: 'id' });
 
-FlightTicket.belongsToMany(Flight, { through: 'FlightTicket-Flights', foreignKey: 'id', otherKey: 'code' });
+FlightTicket.belongsToMany(Flight, { through: 'FlightTicket_Flights', foreignKey: 'flightTicketId', otherKey: 'flightCode' });
 
 
-FlightTicket.belongsTo(Customer, { as: 'buyer', foreignKey: 'buyerId', targetKey: 'id' });
-Customer.hasMany(FlightTicket, { as: 'buyer', foreignKey: 'buyerId', sourceKey: 'id' });
+FlightTicket.belongsTo(Customer, { as: 'Buyer', foreignKey: 'buyerId', targetKey: 'id' });
+Customer.hasMany(FlightTicket, { foreignKey: 'buyerId', sourceKey: 'id' });
 FlightTicket.belongsTo(Customer, { as: 'Passenger', foreignKey: 'passengerId', targetKey: 'id' });
-Customer.hasMany(FlightTicket, { as: 'Passenger', foreignKey: 'passengerId', sourceKey: 'id' });
+Customer.hasMany(FlightTicket, { foreignKey: 'passengerId', sourceKey: 'id' });
 
 
 // Le decimos a sequelize que cree las tablas
