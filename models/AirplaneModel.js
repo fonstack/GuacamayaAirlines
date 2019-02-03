@@ -3,7 +3,7 @@ const sequelize = require("../config/database");
 
 const AirplaneModel = sequelize.define("AirplaneModel", {
   model: {
-    type: Sequelize.STRING(),
+    type: Sequelize.STRING,
     allowNull: false,
     unique: true,
     primaryKey: true
