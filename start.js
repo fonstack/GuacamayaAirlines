@@ -53,12 +53,14 @@ Customer.hasMany(CharterTicket, { foreignKey: 'passengerId', sourceKey: 'id' });
 // Charter.hasMany(CharterTicket, { foreignKey: 'charterId', sourcetKey: 'id' });
 
 FlightTicket.belongsToMany(Flight, { through: 'FlightTicket_Flights', foreignKey: 'flightTicketId', otherKey: 'flightCode' });
+Flight.belongsToMany(FlightTicket, { through: 'FlightTicket_Flights', foreignKey: 'flightCode', otherKey: 'flightTicketId' });
 
 
 FlightTicket.belongsTo(Customer, { as: 'Buyer', foreignKey: 'buyerId', targetKey: 'id' });
 Customer.hasMany(FlightTicket, { foreignKey: 'buyerId', sourceKey: 'id' });
 FlightTicket.belongsTo(Customer, { as: 'Passenger', foreignKey: 'passengerId', targetKey: 'id' });
 Customer.hasMany(FlightTicket, { foreignKey: 'passengerId', sourceKey: 'id' });
+
 
 
 // Le decimos a sequelize que cree las tablas
