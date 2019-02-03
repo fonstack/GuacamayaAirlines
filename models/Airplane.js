@@ -9,10 +9,11 @@ const Airplane = sequelize.define("Airplane", {
     unique: true,
     primaryKey: true
   },
-  // model: {
-  //   type: Sequelize.STRING,
-  //   allowNull: false
-  // },
+  // Clave Foránea con AirplaneModel
+  model: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
   state: {
     type: Sequelize.STRING,
     allowNull: false

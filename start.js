@@ -18,12 +18,12 @@ const Airplane = require('./models/AirplaneModel');
 const AirplaneModel = require('./models/AirplaneModel');
 const Provider = require('./models/Provider');
 const Customer = require('./models/Customer');
+const Airport = require('./models/Airport');
 
 
 
 // Declaramos todas las relaciones entre nuestros modelos
-// Airplane.hasMany(Aircraft, {foreignKey: 'model'});
-AirplaneModel.hasMany(Airplane);
+AirplaneModel.hasMany(Airplane, {foreignKey: 'model'});
 
 
 // Le decimos a sequelize que cree las tablas
