@@ -10,19 +10,19 @@ const CharterTicket = sequelize.define("CharterTicket", {
     primaryKey: true
   },
   // Clave Foránea con Customer
-  idPassenger: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
+  // passengerId: {
+  //   type: Sequelize.INTEGER,
+  //   allowNull: false
+  // },
   type: {
     type: Sequelize.STRING,
     allowNull: false
   },
   // Clave Foránea con CharterFlight
-  idCharterFlight: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
+  // charterId: {
+  //   type: Sequelize.INTEGER,
+  //   allowNull: false
+  // },
   seatNumber: {
     type: Sequelize.STRING,
     allowNull: false

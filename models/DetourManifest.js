@@ -10,10 +10,10 @@ const DetourManifest = sequelize.define("DetourManifest", {
     primaryKey: true
   },
   // Clave Foránea con Flight
-  flightCode: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
+  // flightCode: {
+  //   type: Sequelize.INTEGER,
+  //   allowNull: false
+  // },
   newDestination: {
     type: Sequelize.STRING,
     allowNull: false

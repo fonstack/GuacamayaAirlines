@@ -10,10 +10,10 @@ const MaintenanceReport = sequelize.define("MaintenanceReport", {
     primaryKey: true
   },
   // Clave Foránea con Airplane
-  airplane: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
+  // airplaneId: {
+  //   type: Sequelize.STRING,
+  //   allowNull: false
+  // },
   startDate: {
     type: Sequelize.DATE,
     allowNull: false

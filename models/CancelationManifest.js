@@ -10,10 +10,10 @@ const CancelationManifest = sequelize.define("CancelationManifest", {
     primaryKey: true
   },
   // Clave Foránea con Flight
-  flightCode: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
+  // flightCode: {
+  //   type: Sequelize.INTEGER,
+  //   allowNull: false
+  // },
   isPending: {
     type: Sequelize.BOOLEAN,
     allowNull: false,

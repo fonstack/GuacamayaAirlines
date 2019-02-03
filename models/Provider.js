@@ -14,11 +14,11 @@ const Provider = sequelize.define("Provider", {
     allowNull: false
   },
   responseTime: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.DOUBLE,
     allowNull: false
   },
   pricePerKilometer: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.DOUBLE,
     allowNull: false
   }
 });

@@ -14,7 +14,6 @@ sequelize.authenticate()
 
 // Declaramos los modelos que tendrá nuestra Base de Dat os
 const Employee = require('./models/Employee');
-const MaintenanceReport = require('./models/MaintenanceReport');
 const Airplane = require('./models/Airplane');
 const AirplaneModel = require('./models/AirplaneModel');
 const Provider = require('./models/Provider');
@@ -23,18 +22,37 @@ const Airport = require('./models/Airport');
 const CharterTicket = require('./models/CharterTicket');
 const DetourManifest = require('./models/DetourManifest');
 const FailureReport = require('./models/FailureReport');
+const MaintenanceReport = require('./models/MaintenanceReport');
 const CancelationManifest = require('./models/CancelationManifest');
 
 
 // Declaramos todas las relaciones entre nuestros modelos
-AirplaneModel.hasMany(Airplane, { foreignKey: 'model' });
-Airplane.hasMany(MaintenanceReport, { foreignKey: 'airplane' });
-MaintenanceReport.belongsTo(Airplane);
+Airplane.belongsTo(AirplaneModel, { foreignKey: 'model', targetKey: 'model' });
+AirplaneModel.hasMany(Airplane, { foreignKey: 'model', sourceKey: 'model' });
+
+MaintenanceReport.belongsTo(Airplane, { foreignKey: 'airplaneId', targetKey: 'id' });
+Airplane.hasMany(MaintenanceReport, { foreignKey: 'airplaneId', sourceKey: 'id' });
+
+// Necesito la clase de Flight
+// CancelationManifest.belongsTo(Flight, { foreignKey: 'flightCode', targetKey: 'code' })
+// Flight.hasMany(CancelationManifest, { foreignKey: 'flightCode', sourceKey: 'code' })
+
+FailureReport.belongsTo(Airplane, { foreignKey: 'airplaneId', targetKey: 'id' });
+Airplane.hasMany(FailureReport, { foreignKey: 'airplaneId', sourceKey: 'id' });
+
+// Necesito la clase de Flight
+// DetourManifest.belongsTo(Flight, { foreignKey: 'flightCode', targetKey: 'code' })
+// Flight.hasMany(DetourManifest, { foreignKey: 'flightCode', sourceKey: 'code' })
+
+CharterTicket.belongsTo(Customer, { as: 'Passenger', foreignKey: 'passengerId', targetKey: 'id' });
+Customer.hasMany(CharterTicket, { as: 'Passenger', foreignKey: 'passengerId', sourceKey: 'id' });
+// Necesito la clase de CharterFlight
+// CharterTicket.belongsTo(Charter, { foreignKey: 'charterId', targetKey: 'id' });
+// Charter.hasMany(CharterTicket, { foreignKey: 'charterId', sourcetKey: 'id' });
+
 
 // Le decimos a sequelize que cree las tablas
 sequelize.sync({ force: true });
-
-
 
 // Empezamos la aplicación
 const app = require("./app");
