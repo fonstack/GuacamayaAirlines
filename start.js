@@ -24,9 +24,15 @@ const DetourManifest = require('./models/DetourManifest');
 const FailureReport = require('./models/FailureReport');
 const MaintenanceReport = require('./models/MaintenanceReport');
 const CancelationManifest = require('./models/CancelationManifest');
+<<<<<<< HEAD
 const Flight = require('./models/Flight');
 const FlightTicket = require('./models/FlightTicket');
 const FlightTicket_Flights = require('./models/FlightTicket_Flights');
+=======
+// const Flight = require('./models/Flight');
+const FlightTicket = require('./models/FlightTicket');
+// const FlightTicket_Flights = require('./models/FlightTicket_Flights');
+>>>>>>> Sucre
 
 // Declaramos todas las relaciones entre nuestros modelos
 Airplane.belongsTo(AirplaneModel, { foreignKey: 'model', targetKey: 'model' });
@@ -53,14 +59,20 @@ Customer.hasMany(CharterTicket, { foreignKey: 'passengerId', sourceKey: 'id' });
 // Charter.hasMany(CharterTicket, { foreignKey: 'charterId', sourcetKey: 'id' });
 
 FlightTicket.belongsToMany(Flight, { through: 'FlightTicket_Flights', foreignKey: 'flightTicketId', otherKey: 'flightCode' });
+<<<<<<< HEAD
 Flight.belongsToMany(FlightTicket, { through: 'FlightTicket_Flights', foreignKey: 'flightCode', otherKey: 'flightTicketId' });
+=======
+>>>>>>> Sucre
 
 
 FlightTicket.belongsTo(Customer, { as: 'Buyer', foreignKey: 'buyerId', targetKey: 'id' });
 Customer.hasMany(FlightTicket, { foreignKey: 'buyerId', sourceKey: 'id' });
 FlightTicket.belongsTo(Customer, { as: 'Passenger', foreignKey: 'passengerId', targetKey: 'id' });
 Customer.hasMany(FlightTicket, { foreignKey: 'passengerId', sourceKey: 'id' });
+<<<<<<< HEAD
 
+=======
+>>>>>>> Sucre
 
 
 // Le decimos a sequelize que cree las tablas
@@ -70,5 +82,5 @@ sequelize.sync({ force: true });
 const app = require("./app");
 app.set("port", process.env.PORT || 7777);
 const server = app.listen(app.get("port"), () => {
-  console.log(`Express running → PORT ${server.address().port}`);
+  console.log(`Express running ? PORT ${server.address().port}`);
 });
