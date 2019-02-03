@@ -19,6 +19,9 @@ const AirplaneModel = require('./models/AirplaneModel');
 const Provider = require('./models/Provider');
 const Customer = require('./models/Customer');
 const Airport = require('./models/Airport');
+const DetourManifest = require('./models/DetourManifest');
+const FailureReport = require('./models/FailureReport');
+const MaintenanceReport = require('./models/MaintenanceReport');
 
 
 
