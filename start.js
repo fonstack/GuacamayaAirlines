@@ -24,7 +24,7 @@ const DetourManifest = require('./models/DetourManifest');
 const FailureReport = require('./models/FailureReport');
 const MaintenanceReport = require('./models/MaintenanceReport');
 const CancelationManifest = require('./models/CancelationManifest');
-
+const Flight = require('./models/Flight');
 
 // Declaramos todas las relaciones entre nuestros modelos
 Airplane.belongsTo(AirplaneModel, { foreignKey: 'model', targetKey: 'model' });
