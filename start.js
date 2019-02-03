@@ -24,9 +24,9 @@ const DetourManifest = require('./models/DetourManifest');
 const FailureReport = require('./models/FailureReport');
 const MaintenanceReport = require('./models/MaintenanceReport');
 const CancelationManifest = require('./models/CancelationManifest');
-// const Flight = require('./models/Flight');
+const Flight = require('./models/Flight');
 const FlightTicket = require('./models/FlightTicket');
-// const FlightTicket_Flights = require('./models/FlightTicket_Flights');
+const FlightTicket_Flights = require('./models/FlightTicket_Flights');
 
 // Declaramos todas las relaciones entre nuestros modelos
 Airplane.belongsTo(AirplaneModel, { foreignKey: 'model', targetKey: 'model' });
@@ -59,6 +59,19 @@ FlightTicket.belongsTo(Customer, { as: 'Buyer', foreignKey: 'buyerId', targetKey
 Customer.hasMany(FlightTicket, { foreignKey: 'buyerId', sourceKey: 'id' });
 FlightTicket.belongsTo(Customer, { as: 'Passenger', foreignKey: 'passengerId', targetKey: 'id' });
 Customer.hasMany(FlightTicket, { foreignKey: 'passengerId', sourceKey: 'id' });
+
+//probar
+
+Charter.belongsTo(DetourManifest, { foreignKey: 'detourId', targetKey: 'id' });
+DetourManifest.hasMany(Charter, { foreignKey: 'detourId', sourceKey: 'id' });
+
+Charter.belongsTo(Provider, { foreignKey: 'providerId', targetKey: 'id' });
+Provider.hasMany(Charter, { foreignKey: 'providerId', sourceKey: 'id' });
+
+Charter.belongsTo(Routes, { foreignKey: ['origin', 'destiny'], targetKey: ['origin', 'destiny'] });
+Routes.hasMany(Charter, { foreignKey: ['origin', 'destiny'], sourceKey: ['origin', 'destiny'] });
+
+
 
 
 // Le decimos a sequelize que cree las tablas
