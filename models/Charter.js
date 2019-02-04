@@ -24,9 +24,8 @@ const Charter = sequelize.define("Charter", {
 //     defaultValue: true
 //   },
   date: {
-    type: Sequelize.Date,
-    allowNull: false,
-    defaultValue: true
+    type: Sequelize.DATE,
+    allowNull: false
   },
   state: {
     type: Sequelize.STRING,
