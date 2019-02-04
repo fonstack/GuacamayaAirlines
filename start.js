@@ -71,8 +71,10 @@ DetourManifest.hasMany(Charter, { foreignKey: 'detourId', sourceKey: 'id' });
 Charter.belongsTo(Provider, { foreignKey: 'providerId', targetKey: 'id' });
 Provider.hasMany(Charter, { foreignKey: 'providerId', sourceKey: 'id' });
 
-Charter.belongsTo(Route, { foreignKey: ['origin', 'destiny'], targetKey: ['origin', 'destiny'] });
-Route.hasMany(Charter, { foreignKey: ['origin', 'destiny'], sourceKey: ['origin', 'destiny'] });
+Charter.belongsTo(Route, { as: 'Origin', foreignKey: 'origin', targetKey: 'origin' });
+Route.hasMany(Charter, { foreignKey: 'origin', sourceKey: 'origin' });
+Charter.belongsTo(Route, { as: 'Destiny', foreignKey: 'destiny', targetKey: 'destiny' });
+Route.hasMany(Charter, { foreignKey: 'destiny', sourceKey: 'destiny' });
 
 
 
