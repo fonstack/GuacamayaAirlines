@@ -27,6 +27,7 @@ const CancelationManifest = require('./models/CancelationManifest');
 const Flight = require('./models/Flight');
 const FlightTicket = require('./models/FlightTicket');
 const FlightTicket_Flights = require('./models/FlightTicket_Flights');
+const Airplane_Routes = require('./models/Airplane_Routes');
 const Charter = require('./models/Charter');
 const Route = require('./models/Route');
 
@@ -69,13 +70,13 @@ Charter.belongsTo(Route, { foreignKey: 'routeId', targetKey: 'id' });
 Route.hasMany(Charter, { foreignKey: 'routeId', sourceKey: 'id' });
 
 Flight.belongsTo(Airplane, { foreignKey: 'airplaneId', targetKey: 'id' });
-Airplane.hasMany(Flight, { foreignKey: 'routeId', sourceKey: 'id' });
+Airplane.hasMany(Flight, { foreignKey: 'airplaneId', sourceKey: 'id' });
 
 Flight.belongsTo(Route, { foreignKey: 'routeId', targetKey: 'id' });
 Route.hasMany(Flight, { foreignKey: 'routeId', sourceKey: 'id' });
 
-
-
+Airplane.belongsToMany(Route, { through: 'Airplane_Routes', foreignKey: 'airplaneId', otherKey: 'routeId' });
+Route.belongsToMany(Airplane, { through: 'Airplane_Routes', foreignKey: 'routeId', otherKey: 'airplaneId' });
 
 
 
