@@ -78,10 +78,15 @@ Route.hasMany(Flight, { foreignKey: 'routeId', sourceKey: 'id' });
 Airplane.belongsToMany(Route, { through: 'Airplane_Routes', foreignKey: 'airplaneId', otherKey: 'routeId' });
 Route.belongsToMany(Airplane, { through: 'Airplane_Routes', foreignKey: 'routeId', otherKey: 'airplaneId' });
 
+Route.belongsTo(Airport, { foreignKey: 'IATAOrigin', targetKey: 'IATACode' });
+Airport.hasMany(Route, { foreignKey: 'IATAOrigin', sourceKey: 'IATACode' });
+
+Route.belongsTo(Airport, { foreignKey: 'IATADestiny', targetKey: 'IATACode' });
+Airport.hasMany(Route, { foreignKey: 'IATADestiny', sourceKey: 'IATACode' });
 
 
 // Le decimos a sequelize que cree las tablas
-sequelize.sync();
+sequelize.sync({ });
 
 // Empezamos la aplicación
 const app = require("./app");
