@@ -37,33 +37,27 @@ AirplaneModel.hasMany(Airplane, { foreignKey: 'model', sourceKey: 'model' });
 MaintenanceReport.belongsTo(Airplane, { foreignKey: 'airplaneId', targetKey: 'id' });
 Airplane.hasMany(MaintenanceReport, { foreignKey: 'airplaneId', sourceKey: 'id' });
 
-// Necesito la clase de Flight
-// CancelationManifest.belongsTo(Flight, { foreignKey: 'flightCode', targetKey: 'code' })
-// Flight.hasMany(CancelationManifest, { foreignKey: 'flightCode', sourceKey: 'code' })
+CancelationManifest.belongsTo(Flight, { foreignKey: 'flightCode', targetKey: 'code' })
+Flight.hasMany(CancelationManifest, { foreignKey: 'flightCode', sourceKey: 'code' })
 
 FailureReport.belongsTo(Airplane, { foreignKey: 'airplaneId', targetKey: 'id' });
 Airplane.hasMany(FailureReport, { foreignKey: 'airplaneId', sourceKey: 'id' });
 
-// Necesito la clase de Flight
-// DetourManifest.belongsTo(Flight, { foreignKey: 'flightCode', targetKey: 'code' })
-// Flight.hasMany(DetourManifest, { foreignKey: 'flightCode', sourceKey: 'code' })
+DetourManifest.belongsTo(Flight, { foreignKey: 'flightCode', targetKey: 'code' })
+Flight.hasMany(DetourManifest, { foreignKey: 'flightCode', sourceKey: 'code' })
 
 CharterTicket.belongsTo(Customer, { as: 'Passenger', foreignKey: 'passengerId', targetKey: 'id' });
 Customer.hasMany(CharterTicket, { foreignKey: 'passengerId', sourceKey: 'id' });
-// Necesito la clase de CharterFlight
-// CharterTicket.belongsTo(Charter, { foreignKey: 'charterId', targetKey: 'id' });
-// Charter.hasMany(CharterTicket, { foreignKey: 'charterId', sourcetKey: 'id' });
+CharterTicket.belongsTo(Charter, { foreignKey: 'charterId', targetKey: 'id' });
+Charter.hasMany(CharterTicket, { foreignKey: 'charterId', sourcetKey: 'id' });
 
 FlightTicket.belongsToMany(Flight, { through: 'FlightTicket_Flights', foreignKey: 'flightTicketId', otherKey: 'flightCode' });
 Flight.belongsToMany(FlightTicket, { through: 'FlightTicket_Flights', foreignKey: 'flightCode', otherKey: 'flightTicketId' });
-
 
 FlightTicket.belongsTo(Customer, { as: 'Buyer', foreignKey: 'buyerId', targetKey: 'id' });
 Customer.hasMany(FlightTicket, { foreignKey: 'buyerId', sourceKey: 'id' });
 FlightTicket.belongsTo(Customer, { as: 'Passenger', foreignKey: 'passengerId', targetKey: 'id' });
 Customer.hasMany(FlightTicket, { foreignKey: 'passengerId', sourceKey: 'id' });
-
-//probar
 
 Charter.belongsTo(DetourManifest, { foreignKey: 'detourId', targetKey: 'id' });
 DetourManifest.hasMany(Charter, { foreignKey: 'detourId', sourceKey: 'id' });
@@ -71,10 +65,10 @@ DetourManifest.hasMany(Charter, { foreignKey: 'detourId', sourceKey: 'id' });
 Charter.belongsTo(Provider, { foreignKey: 'providerId', targetKey: 'id' });
 Provider.hasMany(Charter, { foreignKey: 'providerId', sourceKey: 'id' });
 
-Charter.belongsTo(Route, { as: 'Origin', foreignKey: 'origin', targetKey: 'origin' });
-Route.hasMany(Charter, { foreignKey: 'origin', sourceKey: 'origin' });
-Charter.belongsTo(Route, { as: 'Destiny', foreignKey: 'destiny', targetKey: 'destiny' });
-Route.hasMany(Charter, { foreignKey: 'destiny', sourceKey: 'destiny' });
+Charter.belongsTo(Route, { foreignKey: 'routeId', targetKey: 'id' });
+Route.hasMany(Charter, { foreignKey: 'routeId', sourceKey: 'id' });
+
+
 
 
 
