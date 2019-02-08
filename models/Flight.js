@@ -19,7 +19,7 @@ const Flight = sequelize.define("Flight", {
   //   allowNull: false
   // },
   // Clave Foránea con AirplaneScales
-  // scaleNumber: {
+  // routeId: {
   //   type: Sequelize.INTEGER,
   //   allowNull: false
   // },

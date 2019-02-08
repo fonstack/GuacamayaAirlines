@@ -68,6 +68,12 @@ Provider.hasMany(Charter, { foreignKey: 'providerId', sourceKey: 'id' });
 Charter.belongsTo(Route, { foreignKey: 'routeId', targetKey: 'id' });
 Route.hasMany(Charter, { foreignKey: 'routeId', sourceKey: 'id' });
 
+Flight.belongsTo(Airplane, { foreignKey: 'airplaneId', targetKey: 'id' });
+Airplane.hasMany(Flight, { foreignKey: 'routeId', sourceKey: 'id' });
+
+Flight.belongsTo(Route, { foreignKey: 'routeId', targetKey: 'id' });
+Route.hasMany(Flight, { foreignKey: 'routeId', sourceKey: 'id' });
+
 
 
 
