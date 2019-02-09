@@ -91,6 +91,14 @@ sequelize.query(`
 `).then(result => res.json(result[0]))
     .catch(err => console.log(err));
 
+// Tabla con ID de cada vuelo acompañado de #Tickets, #Abordados y %Abordados
+sequelize.query(`
+  SELECT flightCode, COUNT(flightCode) as cantTickets, SUM(isBoard) as cantBoard, concat( truncate( ( (SUM(isBoard) / COUNT(isBoard)) * 100), 2 ), '%' ) as percentageBoard
+  FROM FlightTicket_Flights
+  GROUP BY flightCode
+`).then(result => res.json(result[0]))
+    .catch(err => console.log(err));
+
 
 
 
