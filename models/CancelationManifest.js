@@ -14,10 +14,14 @@ const CancelationManifest = sequelize.define("CancelationManifest", {
   //   type: Sequelize.INTEGER,
   //   allowNull: false
   // },
-  isPending: {
-    type: Sequelize.BOOLEAN,
+  state: {
+    type: Sequelize.STRING,
     allowNull: false,
-    defaultValue: true
+    defaultValue: 'Pending'
+  },
+  date: {
+    type: Sequelize.DATE,
+    allowNull: false
   }
 });
 
