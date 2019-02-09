@@ -74,6 +74,15 @@ sequelize.query(`
 `).then(table => res.json(table[0]))
     .catch(err => console.log(err));
 
+// Precio de todos los vuelos charter en una fecha determinada
+sequelize.query(`
+  SELECT SUM(Providers.pricePerKilometer * Routes.travelDistance) as total 
+  FROM Charters 
+  INNER JOIN Providers ON Charters.providerId = Providers.id
+  INNER JOIN Routes ON Charters.routeId = Routes.id
+  WHERE date = '2019-11-15'
+`).then(table => res.json(table[0]))
+    .catch(err => console.log(err));
 
 
 
@@ -90,8 +99,7 @@ sequelize.query(`
 
 
 
-
-
+    
 
 
 
