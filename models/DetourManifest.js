@@ -18,6 +18,9 @@ const DetourManifest = sequelize.define("DetourManifest", {
     type: Sequelize.STRING,
     allowNull: false
   },
+  date: {
+    type: Sequelize.DATE
+  },
   state: {
     type: Sequelize.STRING,
     allowNull: false,
