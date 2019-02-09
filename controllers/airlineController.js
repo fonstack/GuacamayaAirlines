@@ -14,7 +14,7 @@ exports.viewRegister = (req, res) => {
 };
 
 exports.viewDashboard = (req, res) => {
-  res.render("dashboard", { title: 'dashboard' });
+  res.render("dashboard", { title: 'dashboard' });  
 };
 
 exports.viewAirport = (req, res) => {
@@ -59,6 +59,34 @@ exports.viewAirport = (req, res) => {
 exports.viewAdmin = (req, res) => {
   res.render("admin", { title: 'admin' });
 };
+
+
+
+
+// -------- QUERYS --------
+
+// Tabla con el precio de todos los vuelos charter y su ID
+sequelize.query(`
+  SELECT Charters.id, Providers.pricePerKilometer * Routes.travelDistance as charterCost
+  FROM Charters 
+  INNER JOIN Providers ON Charters.providerId = Providers.id
+  INNER JOIN Routes ON Charters.routeId = Routes.id
+`).then(table => res.json(table[0]))
+    .catch(err => console.log(err));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
