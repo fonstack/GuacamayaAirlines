@@ -170,6 +170,9 @@ a, a:link, a:visited {
 .datePicker {
   padding-left: 2rem; }
 
+.buttoncito {
+  top: 1rem; }
+
 .checkbox {
   text-align: center;
   margin-top: .4rem !important; }

@@ -99,6 +99,12 @@ sequelize.query(`
 `).then(result => res.json(result[0]))
     .catch(err => console.log(err));
 
+// Tabla con ID de vuelo, Origen, Destino, Fecha Salida, Precio (Solo elige origen y destino)
+
+
+// Tabla con ID de vuelo, Origen, Destino, Fecha de salida, Precio (Elige origen, destino y fecha)
+
+// Tabla con ID de vuelo, Origen, Destino, Fecha de salida, Precio (Elige origen, destino, fecha y con escala)
 
 
 
