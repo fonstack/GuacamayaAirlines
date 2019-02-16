@@ -148,7 +148,7 @@ sequelize.query(`
 
 // Tabla con id de avión y peso promedio de los vuelos
 sequelize.query(`
-  SELECT Flights.airplaneId, (SUM(FlightTicket_Flights.cantPacking*23)/count(DISTINCT Flights.code)) as promedio
+  SELECT Flights.airplaneId, (SUM(FlightTicket_Flights.cantPacking * 23) / count(DISTINCT Flights.code)) as promedio
   FROM Flights
   INNER JOIN FlightTicket_Flights ON Flights.code = FlightTicket_Flights.flightCode
   GROUP BY Flights.airplaneId
