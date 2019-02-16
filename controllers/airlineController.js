@@ -99,6 +99,73 @@ sequelize.query(`
 `).then(result => res.json(result[0]))
     .catch(err => console.log(err));
 
+// Tabla con destinos más visitados con la cantidad de Tickets
+sequelize.query(`
+  SELECT count(Routes.destiny), Routes.destiny
+  FROM Flights
+  INNER JOIN Routes ON Flights.routeId = Routes.id
+  INNER JOIN FlightTicket_Flights ON Flights.code = FlightTicket_Flights.flightCode
+  GROUP BY Routes.destiny
+  ORDER BY count(Routes.destiny) DESC
+`).then(result => res.json(result[0]))
+    .catch(err => console.log(err));
+
+    // Tabla con cantidad de personas de n edad
+    sequelize.query(`
+      SELECT count(age) as totalCustomers, age
+      FROM Customers
+      GROUP BY age
+      ORDER BY totalCustomers DESC
+    `).then(result => res.json(result[0]))
+        .catch(err => console.log(err));
+
+    // Tabla con cantidad de personas de n nacionalidad
+    sequelize.query(`
+      SELECT count(nationality) as totalCustomers, nationality
+      FROM Customers
+      GROUP BY nationality
+      ORDER BY totalCustomers DESC
+    `).then(result => res.json(result[0]))
+        .catch(err => console.log(err));
+
+    // Tabla con cantidad de personas de n género
+    sequelize.query(`
+      SELECT count(gender) as totalCustomers, gender
+      FROM Customers
+      GROUP BY gender
+      ORDER BY gender DESC
+    `).then(result => res.json(result[0]))
+        .catch(err => console.log(err));
+
+// Tabla con cantidad de pasajes con sobreventa de un vuelo específico
+sequelize.query(`
+  SELECT flightTicketId, count(flightCode)
+  FROM FlightTicket_Flights
+  WHERE affectOverbooking = 1
+  GROUP BY flightCode
+`).then(result => res.json(result[0]))
+    .catch(err => console.log(err));
+
+// Tabla con id de avión y peso promedio de los vuelos
+sequelize.query(`
+  SELECT Flights.airplaneId, (SUM(FlightTicket_Flights.cantPacking*23)/count(DISTINCT Flights.code)) as promedio
+  FROM Flights
+  INNER JOIN FlightTicket_Flights ON Flights.code = FlightTicket_Flights.flightCode
+  GROUP BY Flights.airplaneId
+`).then(result => res.json(result[0]))
+    .catch(err => console.log(err));
+
+// Porcentaje de vuelos son sobreventa
+sequelize.query(`
+  SELECT count(DISTINCT flightTicketId) as uniqueFlight, count(DISTINCT flightTicketId), count(case flightTicketId when affectOverbooking = 1 then 1 else null end)
+  FROM FlightTicket_Flights
+  SELECT concat((100*(count(case flightTicketId when affectOverbooking = 1 then 1 else null end)/count(DISTINCT flightTicketId))), '%') as uniqueFlight 
+  FROM FlightTicket_Flights
+`).then(result => res.json(result[0]))
+    .catch(err => console.log(err));
+
+
+
 // Tabla con ID de vuelo, Origen, Destino, Fecha Salida, Precio (Solo elige origen y destino)
 
 
@@ -120,7 +187,7 @@ sequelize.query(`
 
 
 
-    
+
 
 
 
