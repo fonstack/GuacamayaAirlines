@@ -25,32 +25,7 @@ exports.viewAirport = (req, res) => {
       res.redirect('/');
     });
   } else {
-    // const airport = {
-    //   iata,
-    //   city: 'MIAMI',
-    //   coordinates: [-66.902, 10.491],
-    //   name: 'Hartsfield–Jackson International Airport',
-    //   flights: [
-    //     {
-    //       from: 'MIA - Miami',
-    //       to: 'CCS - Caracas',
-    //       departDate: '12-02-2019',
-    //       price: 965
-    //     },
-    //     {
-    //       from: 'CCS - Caracas',
-    //       to: 'DXB - Dubai',
-    //       departDate: '12-02-2019',
-    //       price: 620
-    //     },
-    //     {
-    //       from: 'JFK - New York',
-    //       to: 'CCS - Caracas',
-    //       departDate: '12-02-2019',
-    //       price: 1630
-    //     }
-    //   ]
-    // };
+    let airport = {};
 
     sequelize.query(`
       SELECT city, lon, lat, name 
@@ -58,7 +33,7 @@ exports.viewAirport = (req, res) => {
       WHERE IATACode = '${iata}'
     `, { type: sequelize.QueryTypes.SELECT})
     .then(result => {
-      const airport = {
+      airport = {
         iata,
         city: result[0].city,
         lon: result[0].lon,
@@ -66,31 +41,118 @@ exports.viewAirport = (req, res) => {
         name: result[0].name
       };
 
-      sequelize.query(`
+      return sequelize.query(`
         SELECT Routes.origin, Routes.destiny, Flights.date, Routes.basePrice
         FROM Flights
         INNER JOIN Routes ON Flights.routeId = Routes.id
         WHERE Routes.origin = '${iata}' OR Routes.destiny = '${iata}'
-      `, { type: sequelize.QueryTypes.SELECT})
-        .then(result => {
-          airport.flights = result;
-          res.render("airport", { title: 'airport', airport });
-        })
-          .catch(err => console.log(err));
-
-
-
-
-
-
+      `, { type: sequelize.QueryTypes.SELECT});
+    })
+    .then(result => {
+      airport.flights = result;
+      res.render("airport", { title: 'airport', airport });
     })
       .catch(err => console.log(err));
-
   }
 };
 
 exports.viewAdmin = (req, res) => {
   res.render("admin", { title: 'admin' });
+};
+
+exports.searchFlights = (req, res) => {
+  if (req.body.from === req.body.to) {
+    req.flash('error', 'Can\'t search a flight with same origin and destiny.');
+    req.session.save(function () {
+      res.redirect('/');
+    });
+    return;
+  }
+
+  const from = req.body.from;
+  const to = req.body.to;
+  const dateDepart = req.body.dateDepart;
+  const [day, month, year] = dateDepart.split('/');
+  const newdate = `${year}-${month}-${day}`;
+  const scales = req.body.scales;
+
+  
+  if (req.body.from && req.body.to && req.body.from && !req.body.dateDepart && !req.body.scales) { // From, To, NoScales
+    sequelize.query(`
+      SELECT city, lon, lat, name 
+      FROM Airports
+      WHERE IATACode = '${to}'
+    `, { type: sequelize.QueryTypes.SELECT})
+    .then(result => {
+      airport = {
+        iata: to,
+        city: result[0].city,
+        lon: result[0].lon,
+        lat: result[0].lat,
+        name: result[0].name
+      };
+
+      return sequelize.query(`
+        SELECT Routes.origin, Routes.destiny, Flights.date, Routes.basePrice
+        FROM Flights
+        INNER JOIN Routes ON Flights.routeId = Routes.id
+        WHERE Routes.origin = '${from}' AND Routes.destiny = '${to}'
+      `, { type: sequelize.QueryTypes.SELECT});
+    })
+    .then(result => {
+      airport.flights = result;
+      if (airport.flights.length === 0) {
+        req.flash('info', 'Not found flights like that.');
+        req.session.save(function () {
+          res.redirect('/');
+        });
+      } else {
+        res.render("airport", { title: 'airport', airport });
+      }
+    })
+      .catch(err => console.log(err));
+
+  } else if (req.body.from && req.body.to && req.body.from && req.body.dateDepart && !req.body.scales) { // From, To, Date, NoScales
+    sequelize.query(`
+      SELECT city, lon, lat, name 
+      FROM Airports
+      WHERE IATACode = '${to}'
+    `, { type: sequelize.QueryTypes.SELECT})
+    .then(result => {
+      airport = {
+        iata: to,
+        city: result[0].city,
+        lon: result[0].lon,
+        lat: result[0].lat,
+        name: result[0].name
+      };
+
+      return sequelize.query(`
+        SELECT Routes.origin, Routes.destiny, Flights.date, Routes.basePrice
+        FROM Flights
+        INNER JOIN Routes ON Flights.routeId = Routes.id
+        WHERE Routes.origin = '${from}' AND Routes.destiny = '${to}' AND Flights.date = '${newdate}'
+      `, { type: sequelize.QueryTypes.SELECT});
+    })
+    .then(result => {
+      airport.flights = result;
+      if (airport.flights.length === 0) {
+        req.flash('info', 'Not found flights like that.');
+        req.session.save(function () {
+          res.redirect('/');
+        });
+      } else {
+        res.render("airport", { title: 'airport', airport });
+      }
+    })
+      .catch(err => console.log(err));
+
+  } else if (req.body.from && req.body.to && req.body.from && !req.body.dateDepart && req.body.scales) { // From, To, Scales
+
+  } else if (req.body.from && req.body.to && req.body.from && req.body.dateDepart && req.body.scales) { // From, To, Date, Scales
+
+  }
+
 };
 
 

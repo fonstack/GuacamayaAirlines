@@ -10,6 +10,7 @@ const { catchErrors } = require('../handlers/errorHandlers')
 
 // Home
 router.get("/", airlineController.viewHome);
+router.post("/searchFlight", airlineController.searchFlights);
 
 // Login
 router.get("/login", authController.noNeedLogged, airlineController.viewLogin);
