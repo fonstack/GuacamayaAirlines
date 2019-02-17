@@ -142,8 +142,13 @@ if (botonSidenav) {
     var instance = M.Sidenav.getInstance(document.querySelector('.sidenav'));
     instance.open();
   });
-} // Validation of the confirm password on Register
+} // Collapsible
 
+
+document.addEventListener('DOMContentLoaded', function () {
+  var elems = document.querySelectorAll('.collapsible');
+  var instances = M.Collapsible.init(elems, {});
+}); // Validation of the confirm password on Register
 
 var confirmPassRegister = document.getElementById('confirmpasswordRegister');
 var passRegister = document.getElementById('passwordRegister');

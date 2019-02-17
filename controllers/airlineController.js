@@ -25,34 +25,67 @@ exports.viewAirport = (req, res) => {
       res.redirect('/');
     });
   } else {
-    const airport = {
-      iata,
-      city: 'MIAMI',
-      coordinates: [-79.5455, 43.59934],
-      name: 'Hartsfield–Jackson International Airport',
-      flights: [
-        {
-          from: 'MIA - Miami',
-          to: 'CCS - Caracas',
-          departDate: '12-02-2019',
-          price: 965
-        },
-        {
-          from: 'CCS - Caracas',
-          to: 'DXB - Dubai',
-          departDate: '12-02-2019',
-          price: 620
-        },
-        {
-          from: 'JFK - New York',
-          to: 'CCS - Caracas',
-          departDate: '12-02-2019',
-          price: 1630
-        }
+    // const airport = {
+    //   iata,
+    //   city: 'MIAMI',
+    //   coordinates: [-66.902, 10.491],
+    //   name: 'Hartsfield–Jackson International Airport',
+    //   flights: [
+    //     {
+    //       from: 'MIA - Miami',
+    //       to: 'CCS - Caracas',
+    //       departDate: '12-02-2019',
+    //       price: 965
+    //     },
+    //     {
+    //       from: 'CCS - Caracas',
+    //       to: 'DXB - Dubai',
+    //       departDate: '12-02-2019',
+    //       price: 620
+    //     },
+    //     {
+    //       from: 'JFK - New York',
+    //       to: 'CCS - Caracas',
+    //       departDate: '12-02-2019',
+    //       price: 1630
+    //     }
+    //   ]
+    // };
 
-      ]
-    };
-    res.render("airport", { title: 'airport', airport });
+    sequelize.query(`
+      SELECT city, lon, lat, name 
+      FROM Airports
+      WHERE IATACode = '${iata}'
+    `, { type: sequelize.QueryTypes.SELECT})
+    .then(result => {
+      const airport = {
+        iata,
+        city: result[0].city,
+        lon: result[0].lon,
+        lat: result[0].lat,
+        name: result[0].name
+      };
+
+      sequelize.query(`
+        SELECT Routes.origin, Routes.destiny, Flights.date, Routes.basePrice
+        FROM Flights
+        INNER JOIN Routes ON Flights.routeId = Routes.id
+        WHERE Routes.origin = '${iata}' OR Routes.destiny = '${iata}'
+      `, { type: sequelize.QueryTypes.SELECT})
+        .then(result => {
+          airport.flights = result;
+          res.render("airport", { title: 'airport', airport });
+        })
+          .catch(err => console.log(err));
+
+
+
+
+
+
+    })
+      .catch(err => console.log(err));
+
   }
 };
 
@@ -158,18 +191,29 @@ sequelize.query(`
 // Porcentaje de vuelos son sobreventa
 sequelize.query(`
   SELECT count(DISTINCT flightTicketId) as uniqueFlight, count(DISTINCT flightTicketId), count(case flightTicketId when affectOverbooking = 1 then 1 else null end)
-  FROM FlightTicket_Flights
+  FROM FlightTicket_Flights;
   SELECT concat((100*(count(case flightTicketId when affectOverbooking = 1 then 1 else null end)/count(DISTINCT flightTicketId))), '%') as uniqueFlight 
-  FROM FlightTicket_Flights
+  FROM FlightTicket_Flights;
 `).then(result => res.json(result[0]))
     .catch(err => console.log(err));
 
+// Tabla con ID de vuelo, Origen, Destino, Fecha Salida, Precio (Solo elige origen y destino) NO ESCALA
+sequelize.query(`
+  SELECT Flights.code, Routes.origin, Routes.destiny, Flights.date, Routes.basePrice
+  FROM Flights
+  INNER JOIN Routes ON Flights.routeId = Routes.id
+  WHERE Routes.origin = 'ATL' AND Routes.destiny = 'CDG'; 
+`).then(result => res.json(result[0]))
+    .catch(err => console.log(err));
 
-
-// Tabla con ID de vuelo, Origen, Destino, Fecha Salida, Precio (Solo elige origen y destino)
-
-
-// Tabla con ID de vuelo, Origen, Destino, Fecha de salida, Precio (Elige origen, destino y fecha)
+// Tabla con ID de vuelo, Origen, Destino, Fecha de salida, Precio (Elige origen, destino y fecha) NO ESCALA
+sequelize.query(`
+  SELECT Flights.code, Routes.origin, Routes.destiny, Flights.date, Routes.basePrice
+  FROM Flights
+  INNER JOIN Routes ON Flights.routeId = Routes.id
+  WHERE Routes.origin = 'ATL' AND Routes.destiny = 'CDG' AND Flights.date = '2019-04-13'; 
+`).then(result => res.json(result[0]))
+    .catch(err => console.log(err));
 
 // Tabla con ID de vuelo, Origen, Destino, Fecha de salida, Precio (Elige origen, destino, fecha y con escala)
 

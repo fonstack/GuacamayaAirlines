@@ -25,3 +25,25 @@
       padding: 32px 32px 8px !important;
    }
 }
+
+.collapsible-body {
+
+   a {
+      display: block;
+      padding-left: 5rem;
+      font-size: 1.4rem;
+      transition: all .3s;
+
+      &:hover {
+         background-color: rgb(245, 245, 245);
+      }
+   }
+}
+
+.collapsible-header i {
+   color: #2FBCAC;
+}
+
+.ml-4 {
+   margin-left: 2rem;
+}

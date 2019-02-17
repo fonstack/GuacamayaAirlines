@@ -36,7 +36,7 @@ header {
       text-transform: uppercase;
       color: rgb(184, 183, 183);
 
-      &__login, &__register {
+      &__login, &__register, &__admin {
          text-shadow: 0rem .1rem .1rem #000;
          transition: all .3s;
 
@@ -45,6 +45,10 @@ header {
             text-shadow: 0rem .2rem .2rem #000;
             transform: translateY(-.2rem) scale(1.1);
          }
+      }
+
+      &__admin {
+         margin-right: 2rem;
       }
    }
 }

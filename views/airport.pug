@@ -10,7 +10,7 @@ block content
                | - #{airport.city}
       .airport__info
          .airport__map
-            img.airport__map-image(src=h.staticMap(airport.coordinates))
+            img.airport__map-image(src=h.staticMap(airport.lon, airport.lat))
             .airport__map-contname
                p.airport__map-name - #{airport.name} -
 
@@ -27,17 +27,17 @@ block content
                            th 
                      tbody
                         tr
-                           - const conditionFrom = flight.from.startsWith(airport.iata);
-                           - const conditionTo = flight.to.startsWith(`${airport.iata}`);
+                           - const conditionFrom = flight.origin.startsWith(airport.iata);
+                           - const conditionTo = flight.destiny.startsWith(`${airport.iata}`);
                            if conditionFrom
-                              td <span class="flightImportant">#{flight.from}</span>
+                              td <span class="flightImportant">#{flight.origin}</span>
                            else
-                              td #{flight.from}
+                              td #{flight.origin}
                            if conditionTo
-                              td <span class="flightImportant">#{flight.to}</span>
+                              td <span class="flightImportant">#{flight.destiny}</span>
                            else
-                              td #{flight.to}
-                           td #{flight.departDate}
-                           td #{flight.price} $
+                              td #{flight.destiny}
+                           td= h.moment(flight.date).format('MMMM Do YYYY')
+                           td #{flight.basePrice} $
                            td.buttonCell 
                               a(class="waves-effect waves-light btn-small") Purchase&nbsp;&nbsp; <i class="fas fa-cart-plus"></i>

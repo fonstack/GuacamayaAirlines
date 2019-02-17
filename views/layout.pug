@@ -29,6 +29,7 @@ html(lang="en")
                      a(href="/") 
                         img(src="/images/logoTexto.png", alt="").navbar__logo__img
                   .navbar__options
+                     a(href="/admin").navbar__options__admin Admin Panel
                      a(href="/logout").navbar__options__login Log Out
          else if title === 'login' || title === 'register'
             .navbar
@@ -53,8 +54,8 @@ html(lang="en")
                         a(href="/") 
                            img(src="/images/logoTexto.png", alt="").navbar__logo__img
                      .navbar__options
+                        a(href="/admin").navbar__options__admin Admin Panel
                         a(href="/logout").navbar__options__login Log Out
-                        != h.dump(user)
             else
                .navbar.navbar-two
                   .navbar__links
