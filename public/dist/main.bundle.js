@@ -167,11 +167,12 @@ http.onload = function () {
     var ds = function ds() {
       var elems = document.querySelectorAll('.autocomplete');
       var array = JSON.parse(http.responseText).reduce(function (acc, cur) {
-        return _objectSpread({}, acc, _defineProperty({}, cur.identityCard, "https://randomuser.me/api/portraits/men/".concat(Math.floor(Math.random() * 100), ".jpg")));
+        return _objectSpread({}, acc, _defineProperty({}, cur.identityCard, "https://randomuser.me/api/portraits/".concat(cur.gender === 'Male' ? 'men' : 'women', "/").concat(Math.floor(Math.random() * 100), ".jpg")));
       }, {});
       var instances = M.Autocomplete.init(elems, {
         data: array,
-        onAutocomplete: disabledOtherInputs
+        onAutocomplete: disabledOtherInputs,
+        limit: 4
       });
     };
 

@@ -79,10 +79,11 @@ http.onload = function() {
     ds();
     function ds() {
       var elems = document.querySelectorAll('.autocomplete');
-      const array = JSON.parse(http.responseText).reduce((acc, cur) => ({...acc, [cur.identityCard]: `https://randomuser.me/api/portraits/men/${Math.floor((Math.random() * 100))}.jpg`}), {});
+      const array = JSON.parse(http.responseText).reduce((acc, cur) => ({...acc, [cur.identityCard]: `https://randomuser.me/api/portraits/${cur.gender === 'Male' ? 'men' : 'women'}/${Math.floor((Math.random() * 100))}.jpg`}), {});
       var instances = M.Autocomplete.init(elems, {
         data: array,
-        onAutocomplete: disabledOtherInputs
+        onAutocomplete: disabledOtherInputs,
+        limit: 4
       });
     };
 

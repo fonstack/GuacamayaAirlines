@@ -2,7 +2,7 @@ const sequelize = require("../config/database");
 
 exports.getCustomers = (req, res) => {
   sequelize.query(`
-    SELECT identityCard, CONCAT(firstName, ' ', lastName) as name 
+    SELECT identityCard, gender
     FROM Customers
   `, { type: sequelize.QueryTypes.SELECT})
     .then(result => {
