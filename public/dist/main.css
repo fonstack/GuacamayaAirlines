@@ -980,6 +980,12 @@ header {
   text-align: center;
   font-size: 2.4rem; }
 
+.modal-content {
+  text-align: center; }
+
+.firstRow {
+  margin-top: 3rem; }
+
 .admin-section {
   height: 110vh;
   width: 100%;
@@ -1009,8 +1015,10 @@ header {
   .collapsible-body a:hover {
     background-color: whitesmoke; }
 
-.collapsible-header i {
-  color: #2FBCAC; }
+.collapsible-header {
+  font-size: 1.7rem; }
+  .collapsible-header i {
+    color: #2FBCAC; }
 
 .ml-4 {
   margin-left: 2rem; }

@@ -97,7 +97,12 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sass_styles_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../sass/styles.scss */ "./public/sass/styles.scss");
 /* harmony import */ var _sass_styles_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_sass_styles_scss__WEBPACK_IMPORTED_MODULE_0__);
- // Initialization Materialize Components
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var http = new XMLHttpRequest(); // Initialization Materialize Components
 // Datepicker Home
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -148,6 +153,100 @@ if (botonSidenav) {
 document.addEventListener('DOMContentLoaded', function () {
   var elems = document.querySelectorAll('.collapsible');
   var instances = M.Collapsible.init(elems, {});
+}); // Modals
+
+document.addEventListener('DOMContentLoaded', function () {
+  var elems = document.querySelectorAll('.modal');
+  var instances = M.Modal.init(elems, {});
+}); // Autocomplete
+
+http.open("GET", '/getCustomers', true);
+
+http.onload = function () {
+  if (http.status === 200) {
+    var ds = function ds() {
+      var elems = document.querySelectorAll('.autocomplete');
+      var array = JSON.parse(http.responseText).reduce(function (acc, cur) {
+        return _objectSpread({}, acc, _defineProperty({}, cur.identityCard, "https://randomuser.me/api/portraits/men/".concat(Math.floor(Math.random() * 100), ".jpg")));
+      }, {});
+      var instances = M.Autocomplete.init(elems, {
+        data: array,
+        onAutocomplete: disabledOtherInputs
+      });
+    };
+
+    ds();
+    ;
+  } else {
+    console.log("Error: " + http.status);
+  }
+};
+
+http.send();
+var identityC = document.querySelector('#identityCardPur');
+var firstName = document.querySelector('#firstNamePur');
+var lastName = document.querySelector('#lastNamePur');
+var age = document.querySelector('#agePur');
+var nationality = document.querySelector('#nationalityPur');
+var gender = document.querySelector('#genderPur');
+var email = document.querySelector('#emailPur');
+
+function disabledOtherInputs() {
+  http.open("GET", "/getCustomer/".concat(identityC.value), true);
+
+  http.onload = function () {
+    if (http.status === 200) {
+      var customerData = JSON.parse(http.responseText)[0]; // Llenamos los campos
+
+      identityC.disabled = true;
+      firstName.value = customerData.firstName;
+      firstName.disabled = true;
+      lastName.value = customerData.lastName;
+      lastName.disabled = true;
+      age.value = customerData.age;
+      age.disabled = true;
+      email.value = customerData.email;
+      email.disabled = true;
+      setSelectBoxByText('nationalityPur', customerData.nationality);
+      nationality.disabled = true;
+      setSelectBoxByText('genderPur', customerData.gender);
+      gender.disabled = true;
+      document.querySelectorAll('#fre').forEach(function (entry) {
+        entry.classList.add('active');
+      });
+    } else {
+      console.log("Error: " + http.status);
+    }
+  };
+
+  http.send();
+}
+
+function setSelectBoxByText(eid, etxt) {
+  var eid = document.getElementById(eid);
+
+  for (var i = 0; i < eid.options.length; ++i) {
+    if (eid.options[i].text === etxt) eid.options[i].selected = true;
+  }
+}
+
+document.querySelector('#cleanButton').addEventListener('click', function (e) {
+  identityC.value = '';
+  identityC.disabled = false;
+  firstName.value = '';
+  firstName.disabled = false;
+  lastName.value = '';
+  lastName.disabled = false;
+  age.value = '';
+  age.disabled = false;
+  email.value = '';
+  email.disabled = false;
+  nationality.selectedIndex = 0;
+  nationality.disabled = false;
+  gender.selectedIndex = 0;
+  gender.disabled = false;
+  console.log(2);
+  e.preventDefault();
 }); // Validation of the confirm password on Register
 
 var confirmPassRegister = document.getElementById('confirmpasswordRegister');

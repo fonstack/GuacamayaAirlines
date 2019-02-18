@@ -3,6 +3,7 @@ const router = express.Router();
 const airlineController = require('../controllers/airlineController');
 const authController = require('../controllers/authController');
 const userController = require('../controllers/userController');
+const apiController = require('../controllers/apiController');
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const { catchErrors } = require('../handlers/errorHandlers')
@@ -31,5 +32,11 @@ router.get("/logout", authController.logout);
 
 // Admin View
 router.get("/admin", authController.needLogged, airlineController.viewAdmin);
+
+
+
+// API
+router.get('/getCustomers', apiController.getCustomers);
+router.get('/getCustomer/:identityC', apiController.getCustomer);
 
 module.exports = router;

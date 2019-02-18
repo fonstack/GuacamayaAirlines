@@ -40,8 +40,12 @@
    }
 }
 
-.collapsible-header i {
-   color: #2FBCAC;
+.collapsible-header {
+   font-size: 1.7rem;
+   
+   i {
+      color: #2FBCAC;
+   }
 }
 
 .ml-4 {

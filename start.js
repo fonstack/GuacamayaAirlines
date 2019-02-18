@@ -81,7 +81,7 @@ Route.belongsToMany(Airplane, { through: 'Airplane_Routes', foreignKey: 'routeId
 
 
 // Le decimos a sequelize que cree las tablas
-sequelize.sync();
+// sequelize.sync();
 
 // Empezamos la aplicación
 const app = require("./app");

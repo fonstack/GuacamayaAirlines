@@ -51,7 +51,7 @@ app.use(
     store
   })
 );
-store.sync();
+// store.sync();
 
 // Definimos que usaremos passport
 app.use(passport.initialize());
