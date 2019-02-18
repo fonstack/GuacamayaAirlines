@@ -156,9 +156,10 @@ document.querySelector('#cleanButton').addEventListener('click', (e) => {
   nationality.disabled = false;
   gender.selectedIndex = 0;
   gender.disabled = false;
-  
-  console.log(2);
-  e.preventDefault();
+
+  document.querySelectorAll('#fre').forEach(entry => {
+    entry.classList.remove('active');
+  });  
 });
 
 

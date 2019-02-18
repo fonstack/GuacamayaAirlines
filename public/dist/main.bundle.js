@@ -245,8 +245,9 @@ document.querySelector('#cleanButton').addEventListener('click', function (e) {
   nationality.disabled = false;
   gender.selectedIndex = 0;
   gender.disabled = false;
-  console.log(2);
-  e.preventDefault();
+  document.querySelectorAll('#fre').forEach(function (entry) {
+    entry.classList.remove('active');
+  });
 }); // Validation of the confirm password on Register
 
 var confirmPassRegister = document.getElementById('confirmpasswordRegister');

@@ -44,11 +44,11 @@ block content
                //- PurchaseModal
                div(class="modal" id=`purchaseModal${index}`)
                   .modal-content
-                     h4 Purchase Flight (#{flight.origin} - #{flight.destiny})
-                     hr
+                     
+                     p.title Customer Information
                      .row.firstRow
                         .input-field.col.s4
-                           input(type="text" id="identityCardPur" class="autocomplete" name="identityCard")
+                           input(type="number" id="identityCardPur" class="autocomplete" name="identityCard")
                            label#fre(for="identityCard") Identity Card
                         .input-field.col.s4
                            input#firstNamePur.validate(type='text' name="firstName")
@@ -75,7 +75,7 @@ block content
                               option(value='' disabled hidden selected) Gender
                               option(value='male') Male
                               option(value='female') Female
-                     .row  
+                     .row.lastRow
                         .input-field.col.s6
                            input#emailPur.validate(type='email' name="email")
                            label#fre(for='email') Email

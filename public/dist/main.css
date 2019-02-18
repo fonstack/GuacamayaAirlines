@@ -980,11 +980,24 @@ header {
   text-align: center;
   font-size: 2.4rem; }
 
-.modal-content {
-  text-align: center; }
+.modal-content h4 {
+  font-size: 3.5rem;
+  text-align: center;
+  text-shadow: 0.1rem 0.1rem 0.1rem rgba(0, 0, 0, 0.212); }
+
+.modal-content .title {
+  font-size: 2rem;
+  font-weight: 500;
+  text-align: left;
+  margin-top: 1rem;
+  margin-left: .2rem;
+  text-transform: uppercase; }
 
 .firstRow {
-  margin-top: 3rem; }
+  margin-top: 2rem; }
+
+.lastRow {
+  margin-bottom: 0; }
 
 .admin-section {
   height: 110vh;
