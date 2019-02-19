@@ -1,5 +1,6 @@
 import "../sass/styles.scss";
 const http = new XMLHttpRequest();
+const axios = require('axios');
 
 // Initialization Materialize Components
 
@@ -73,25 +74,37 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Autocomplete
-http.open("GET", '/getCustomers', true);
-http.onload = function() {
-  if(http.status === 200) {
-    ds();
-    function ds() {
-      var elems = document.querySelectorAll('.autocomplete');
-      const array = JSON.parse(http.responseText).reduce((acc, cur) => ({...acc, [cur.identityCard]: `https://randomuser.me/api/portraits/${cur.gender === 'Male' ? 'men' : 'women'}/${Math.floor((Math.random() * 100))}.jpg`}), {});
-      var instances = M.Autocomplete.init(elems, {
-        data: array,
-        onAutocomplete: disabledOtherInputs,
-        limit: 4
-      });
-    };
+// http.open("GET", '/getCustomers', true);
+// http.onload = function() {
+//   if(http.status === 200) {
+//     ds();
+//     function ds() {
+//       var elems = document.querySelectorAll('.autocomplete');
+//       const array = JSON.parse(http.responseText).reduce((acc, cur) => ({...acc, [cur.identityCard]: `https://randomuser.me/api/portraits/${cur.gender === 'Male' ? 'men' : 'women'}/${Math.floor((Math.random() * 100))}.jpg`}), {});
+//       console.log(JSON.parse(http.responseText));
+//       var instances = M.Autocomplete.init(elems, {
+//         data: array,
+//         onAutocomplete: disabledOtherInputs,
+//         limit: 4
+//       });
+//     };
 
-  } else {
-    console.log("Error: " + http.status);
-  }
-}
-http.send();
+//   } else {
+//     console.log("Error: " + http.status);
+//   }
+// }
+// http.send();
+
+axios.get('/getCustomers')
+  .then(response => {
+    const elems = document.querySelectorAll('.autocomplete');
+    const array = response.data.reduce((acc, cur) => ({...acc, [cur.identityCard]: `https://randomuser.me/api/portraits/${cur.gender === 'Male' ? 'men' : 'women'}/${Math.floor((Math.random() * 100))}.jpg`}), {});
+    const instances = M.Autocomplete.init(elems, {
+      data: array,
+      onAutocomplete: disabledOtherInputs,
+      limit: 4
+    });
+  }).catch(err => console.log(err));
 
 const identityC = document.querySelector('#identityCardPur');
 const firstName = document.querySelector('#firstNamePur');
@@ -102,43 +115,38 @@ const gender = document.querySelector('#genderPur');
 const email = document.querySelector('#emailPur');
 
 function disabledOtherInputs() {
+  axios.get(`/getCustomer/${identityC.value}`)
+  .then(response => {
+    const customerData = response.data[0];
+    console.log(customerData);
+    // Llenamos los campos
+    identityC.disabled = true;
+    firstName.value = customerData.firstName;
+    firstName.disabled = true;
+    lastName.value = customerData.lastName;
+    lastName.disabled = true;
+    age.value = customerData.age;
+    age.disabled = true;
+    email.value = customerData.email;
+    email.disabled = true;
+    setSelectBoxByText('nationalityPur', customerData.nationality);
+    nationality.disabled = true;
+    setSelectBoxByText('genderPur', customerData.gender);
+    gender.disabled = true;
 
-  http.open("GET", `/getCustomer/${identityC.value}`, true);
-  http.onload = function() {
-    if (http.status === 200) {
-      const customerData = JSON.parse(http.responseText)[0];
-      
-      // Llenamos los campos
-      identityC.disabled = true;
-      firstName.value = customerData.firstName;
-      firstName.disabled = true;
-      lastName.value = customerData.lastName;
-      lastName.disabled = true;
-      age.value = customerData.age;
-      age.disabled = true;
-      email.value = customerData.email;
-      email.disabled = true;
-      setSelectBoxByText('nationalityPur', customerData.nationality);
-      nationality.disabled = true;
-      setSelectBoxByText('genderPur', customerData.gender);
-      gender.disabled = true;
+    document.querySelectorAll('#fre').forEach(entry => {
+      entry.classList.add('active');
+    });
 
-      document.querySelectorAll('#fre').forEach(entry => {
-        entry.classList.add('active');
-      });
+  }).catch(err => console.log(err));
 
-    } else {
-      console.log("Error: " + http.status);
-    }
-  }
-  http.send();
 }
 
 function setSelectBoxByText(eid, etxt) {
-  var eid = document.getElementById(eid);
-  for (var i = 0; i < eid.options.length; ++i) {
-      if (eid.options[i].text === etxt)
-          eid.options[i].selected = true;
+  let eidd = document.getElementById(eid);
+  for (let i = 0; i < eidd.options.length; ++i) {
+      if (eidd.options[i].text === etxt)
+        eidd.options[i].selected = true;
   }
 }
 
@@ -162,7 +170,6 @@ document.querySelector('#cleanButton').addEventListener('click', (e) => {
     entry.classList.remove('active');
   });  
 });
-
 
 
 
