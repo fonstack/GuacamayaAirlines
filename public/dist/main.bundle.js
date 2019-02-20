@@ -2025,14 +2025,27 @@ document.addEventListener('DOMContentLoaded', function () {
 }); // Autocomplete
 
 axios.get('/getCustomers').then(function (response) {
-  var elems = document.querySelectorAll('.autocomplete');
+  var elems = document.querySelectorAll('.autocompleteBuyer');
   var array = response.data.reduce(function (acc, cur) {
     return _objectSpread({}, acc, _defineProperty({}, cur.identityCard, "https://randomuser.me/api/portraits/".concat(cur.gender === 'Male' ? 'men' : 'women', "/").concat(Math.floor(Math.random() * 100), ".jpg")));
   }, {});
   var instances = M.Autocomplete.init(elems, {
     data: array,
-    onAutocomplete: disabledOtherInputs,
-    limit: 4
+    onAutocomplete: disabledOtherInputsBuyer,
+    limit: 3
+  });
+}).catch(function (err) {
+  return console.log(err);
+});
+axios.get('/getCustomers').then(function (response) {
+  var elems = document.querySelectorAll('.autocompletePass');
+  var array = response.data.reduce(function (acc, cur) {
+    return _objectSpread({}, acc, _defineProperty({}, cur.identityCard, "https://randomuser.me/api/portraits/".concat(cur.gender === 'Male' ? 'men' : 'women', "/").concat(Math.floor(Math.random() * 100), ".jpg")));
+  }, {});
+  var instances = M.Autocomplete.init(elems, {
+    data: array,
+    onAutocomplete: disabledOtherInputsPass,
+    limit: 3
   });
 }).catch(function (err) {
   return console.log(err);
@@ -2044,26 +2057,71 @@ var age = document.querySelector('#agePur');
 var nationality = document.querySelector('#nationalityPur');
 var gender = document.querySelector('#genderPur');
 var email = document.querySelector('#emailPur');
+var identityCPass = document.querySelector('#identityCardPurPass');
+var firstNamePass = document.querySelector('#firstNamePurPass');
+var lastNamePass = document.querySelector('#lastNamePurPass');
+var agePass = document.querySelector('#agePurPass');
+var nationalityPass = document.querySelector('#nationalityPurPass');
+var genderPass = document.querySelector('#genderPurPass');
+var emailPass = document.querySelector('#emailPurPass');
 
-function disabledOtherInputs() {
+function disabledOtherInputsBuyer() {
   axios.get("/getCustomer/".concat(identityC.value)).then(function (response) {
-    var customerData = response.data[0];
-    console.log(customerData); // Llenamos los campos
+    var customerData = response.data[0]; // Llenamos los campos
 
-    identityC.disabled = true;
+    identityC.readOnly = true;
+    identityC.classList.add('disabledPirata');
     firstName.value = customerData.firstName;
-    firstName.disabled = true;
+    firstName.readOnly = true;
+    firstName.classList.add('disabledPirata');
     lastName.value = customerData.lastName;
-    lastName.disabled = true;
+    lastName.readOnly = true;
+    lastName.classList.add('disabledPirata');
     age.value = customerData.age;
-    age.disabled = true;
+    age.readOnly = true;
+    age.classList.add('disabledPirata');
     email.value = customerData.email;
-    email.disabled = true;
+    email.readOnly = true;
+    email.classList.add('disabledPirata');
     setSelectBoxByText('nationalityPur', customerData.nationality);
-    nationality.disabled = true;
+    nationality.readOnly = true;
+    nationality.classList.add('disabledPirata');
     setSelectBoxByText('genderPur', customerData.gender);
-    gender.disabled = true;
+    gender.readOnly = true;
+    gender.classList.add('disabledPirata');
     document.querySelectorAll('#fre').forEach(function (entry) {
+      entry.classList.add('active');
+    });
+  }).catch(function (err) {
+    return console.log(err);
+  });
+}
+
+function disabledOtherInputsPass() {
+  axios.get("/getCustomer/".concat(identityCPass.value)).then(function (response) {
+    var customerData = response.data[0]; // Llenamos los campos
+
+    identityCPass.readOnly = true;
+    identityCPass.classList.add('disabledPirata');
+    firstNamePass.value = customerData.firstName;
+    firstNamePass.readOnly = true;
+    firstNamePass.classList.add('disabledPirata');
+    lastNamePass.value = customerData.lastName;
+    lastNamePass.readOnly = true;
+    lastNamePass.classList.add('disabledPirata');
+    agePass.value = customerData.age;
+    agePass.readOnly = true;
+    agePass.classList.add('disabledPirata');
+    emailPass.value = customerData.email;
+    emailPass.readOnly = true;
+    emailPass.classList.add('disabledPirata');
+    setSelectBoxByText('nationalityPurPass', customerData.nationality);
+    nationalityPass.readOnly = true;
+    nationalityPass.classList.add('disabledPirata');
+    setSelectBoxByText('genderPurPass', customerData.gender);
+    genderPass.readOnly = true;
+    genderPass.classList.add('disabledPirata');
+    document.querySelectorAll('#frex').forEach(function (entry) {
       entry.classList.add('active');
     });
   }).catch(function (err) {
@@ -2079,24 +2137,78 @@ function setSelectBoxByText(eid, etxt) {
   }
 }
 
-document.querySelector('#cleanButton').addEventListener('click', function (e) {
-  identityC.value = '';
-  identityC.disabled = false;
-  firstName.value = '';
-  firstName.disabled = false;
-  lastName.value = '';
-  lastName.disabled = false;
-  age.value = '';
-  age.disabled = false;
-  email.value = '';
-  email.disabled = false;
-  nationality.selectedIndex = 0;
-  nationality.disabled = false;
-  gender.selectedIndex = 0;
-  gender.disabled = false;
-  document.querySelectorAll('#fre').forEach(function (entry) {
-    entry.classList.remove('active');
+if (document.querySelector('#cleanButton')) {
+  document.querySelector('#cleanButton').addEventListener('click', function (e) {
+    identityC.value = '';
+    identityC.readOnly = false;
+    identityC.classList.remove('disabledPirata');
+    firstName.value = '';
+    firstName.readOnly = false;
+    firstName.classList.remove('disabledPirata');
+    lastName.value = '';
+    lastName.readOnly = false;
+    lastName.classList.remove('disabledPirata');
+    age.value = '';
+    age.readOnly = false;
+    age.classList.remove('disabledPirata');
+    email.value = '';
+    email.readOnly = false;
+    email.classList.remove('disabledPirata');
+    nationality.selectedIndex = 0;
+    nationality.readOnly = false;
+    nationality.classList.remove('disabledPirata');
+    gender.selectedIndex = 0;
+    gender.readOnly = false;
+    gender.classList.remove('disabledPirata');
+    document.querySelectorAll('#fre').forEach(function (entry) {
+      entry.classList.remove('active');
+    });
   });
+}
+
+if (document.querySelector('#nextForm')) {
+  document.querySelector('#nextForm').addEventListener('click', function (e) {
+    document.querySelector('.modalPurchase').classList.add('rotateActive');
+  });
+}
+
+if (document.querySelector('#backForm')) {
+  document.querySelector('#backForm').addEventListener('click', function (e) {
+    document.querySelector('.modalPurchase').classList.remove('rotateActive');
+  });
+}
+
+var checkBuyerPassenger = document.querySelector('#buyerIsPassenger');
+var passengerInformation = document.querySelector('.passengerInformation');
+var frontSide = document.querySelector('.frontSide');
+var backSide = document.querySelector('.backSide');
+var modalFooter = document.querySelector('.modal-footer');
+checkBuyerPassenger.addEventListener('click', function () {
+  if (checkBuyerPassenger.checked == true) {
+    passengerInformation.style.display = 'none';
+    frontSide.style.height = '37rem';
+    backSide.style.height = '37rem';
+    modalFooter.style.marginTop = '5rem';
+    identityCPass.disabled = true;
+    firstNamePass.disabled = true;
+    lastNamePass.disabled = true;
+    agePass.disabled = true;
+    nationalityPass.disabled = true;
+    genderPass.disabled = true;
+    emailPass.disabled = true;
+  } else {
+    passengerInformation.style.display = 'block';
+    frontSide.style.height = '45rem';
+    backSide.style.height = '45rem';
+    modalFooter.style.marginTop = '0';
+    identityCPass.disabled = false;
+    firstNamePass.disabled = false;
+    lastNamePass.disabled = false;
+    agePass.disabled = false;
+    nationalityPass.disabled = false;
+    genderPass.disabled = false;
+    emailPass.disabled = false;
+  }
 }); // Validation of the confirm password on Register
 
 var confirmPassRegister = document.getElementById('confirmpasswordRegister');

@@ -42,46 +42,136 @@ block content
                            td.buttonCell 
                               a(class="waves-effect waves-light btn-small modal-trigger" href=`#purchaseModal${index}`) Purchase&nbsp;&nbsp; <i class="fas fa-cart-plus"></i>
                //- PurchaseModal
-               div(class="modal" id=`purchaseModal${index}`)
+               div(class="modal modalPurchase" id=`purchaseModal${index}`)
                   .modal-content
                      
-                     p.title Customer Information
-                     .row.firstRow
-                        .input-field.col.s4
-                           input(type="number" id="identityCardPur" class="autocomplete" name="identityCard")
-                           label#fre(for="identityCard") Identity Card
-                        .input-field.col.s4
-                           input#firstNamePur.validate(type='text' name="firstName")
-                           label#fre(for='firstName') First Name
-                        .input-field.col.s4
-                           input#lastNamePur.validate(type='text' name="lastName")
-                           label#fre(for='lastName') Last Name
-                     .row  
-                        .input-field.col.s4
-                           input#agePur.validate(type='number' name="age")
-                           label#fre(for='age') Age
-                        .input-field.col.s4
-                           select(required name="nationality" id="nationalityPur").select-home.browser-default
-                              option(value='' disabled hidden selected) Nationality
-                              option(value='United States') United States
-                              option(value='Portugal') Portugal
-                              option(value='Spain') Spain
-                              option(value='England') England
-                              option(value='France') France
-                              option(value='Venezuela') Venezuela
-                              option(value='Singapur') Singapur
-                        .input-field.col.s4
-                           select(required name="gender" id="genderPur").select-home.browser-default
-                              option(value='' disabled hidden selected) Gender
-                              option(value='male') Male
-                              option(value='female') Female
-                     .row.lastRow
-                        .input-field.col.s6
-                           input#emailPur.validate(type='email' name="email")
-                           label#fre(for='email') Email
-                  .modal-footer
-                     a.waves-effect.waves-green.btn-flat#cleanButton Clean ↺
-                     a.modal-close.waves-effect.waves-green.btn-flat(href='#!') Next 🠞
+                     form(action="/sendCustomer" method="POST")
+
+                        .frontSide
+                           //- INFORMACIÓN DEL COMPRADOR
+                           p.title Buyer Information &nbsp;&nbsp;
+                              i(class="fas fa-credit-card")
+                           .row.firstRow
+                              .input-field.col.s3
+                                 input(type="number" id="identityCardPur" class="autocompleteBuyer" name="identityCardBuyer" required)
+                                 label#fre(for="identityCard") Identity Card
+                              .input-field.col.s3
+                                 input#firstNamePur.validate(type='text' name="firstNameBuyer" required)
+                                 label#fre(for='firstName') First Name
+                              .input-field.col.s3
+                                 input#lastNamePur.validate(type='text' name="lastNameBuyer" required)
+                                 label#fre(for='lastName') Last Name
+                              .input-field.col.s3
+                                 input#agePur.validate(type='number' name="ageBuyer" required)
+                                 label#fre(for='age') Age
+                           .row.lastRow
+                              .input-field.col.s4
+                                 input#emailPur.validate(type='email' name="emailBuyer" required)
+                                 label#fre(for='email') Email
+                              .input-field.col.s4
+                                 select(required name="nationalityBuyer" id="nationalityPur").select-home.browser-default
+                                    option(value='' disabled hidden selected) Nationality
+                                    option(value='United States') United States
+                                    option(value='Portugal') Portugal
+                                    option(value='Spain') Spain
+                                    option(value='England') England
+                                    option(value='France') France
+                                    option(value='Venezuela') Venezuela
+                                    option(value='Singapur') Singapur
+                              .input-field.col.s4
+                                 select(required name="genderBuyer" id="genderPur").select-home.browser-default
+                                    option(value='' disabled hidden selected) Gender
+                                    option(value='male') Male
+                                    option(value='female') Female
+
+                           //- INFORMACIÓN DEL PASAJERO
+                           p.title.title2 Passenger Information &nbsp;&nbsp;
+                              i(class="fas fa-user-tie")
+                           label
+                              input#buyerIsPassenger.filled-in(type='checkbox')
+                              span The Buyer is the Passenger?
+                           .passengerInformation
+                              .row.firstRow
+                                 .input-field.col.s3
+                                    input(type="number" id="identityCardPurPass" class="autocompletePass" name="identityCardPass" required)
+                                    label#frex(for="identityCard") Identity Card
+                                 .input-field.col.s3
+                                    input#firstNamePurPass.validate(type='text' name="firstNamePass" required )
+                                    label#frex(for='firstName') First Name
+                                 .input-field.col.s3
+                                    input#lastNamePurPass.validate(type='text' name="lastNamePass" required)
+                                    label#frex(for='lastName') Last Name
+                                 .input-field.col.s3
+                                    input#agePurPass.validate(type='number' name="agePass" required)
+                                    label#frex(for='age') Age
+                              .row.lastRow
+                                 .input-field.col.s4
+                                    input#emailPurPass.validate(type='email' name="emailPass" required)
+                                    label#frex(for='email') Email
+                                 .input-field.col.s4
+                                    select(required name="nationalityPass" id="nationalityPurPass").select-home.browser-default
+                                       option(value='' disabled hidden selected) Nationality
+                                       option(value='United States') United States
+                                       option(value='Portugal') Portugal
+                                       option(value='Spain') Spain
+                                       option(value='England') England
+                                       option(value='France') France
+                                       option(value='Venezuela') Venezuela
+                                       option(value='Singapur') Singapur
+                                 .input-field.col.s4
+                                    select(required name="genderPass" id="genderPurPass").select-home.browser-default
+                                       option(value='' disabled hidden selected) Gender
+                                       option(value='male') Male
+                                       option(value='female') Female
+                              
+                           .modal-footer
+                              a.waves-effect.waves-green.btn-flat#cleanButton Clean ↺
+                              a.waves-effect.waves-green.btn-flat#nextForm Next Step 🠞
+
+
+
+
+
+
+                        .backSide
+                           p.title Pene Information &nbsp;&nbsp;
+                              i(class="fas fa-user-edit")
+                           .row.firstRow
+                              .input-field.col.s4
+                                 input(type="number" id="identityCardPur" class="autocomplete" name="identityCard")
+                                 label#fre(for="identityCard") Identity Card
+                              .input-field.col.s4
+                                 input#firstNamePur.validate(type='text' name="firstName")
+                                 label#fre(for='firstName') First Name
+                              .input-field.col.s4
+                                 input#lastNamePur.validate(type='text' name="lastName")
+                                 label#fre(for='lastName') Last Name
+                           .row  
+                              .input-field.col.s4
+                                 input#agePur.validate(type='number' name="age")
+                                 label#fre(for='age') Age
+                              .input-field.col.s4
+                                 select(name="nationality" id="nationalityPur").select-home.browser-default
+                                    option(value='' disabled hidden selected) Nationality
+                                    option(value='United States') United States
+                                    option(value='Portugal') Portugal
+                                    option(value='Spain') Spain
+                                    option(value='England') England
+                                    option(value='France') France
+                                    option(value='Venezuela') Venezuela
+                                    option(value='Singapur') Singapur
+                              .input-field.col.s4
+                                 select(name="gender" id="genderPur").select-home.browser-default
+                                    option(value='' disabled hidden selected) Gender
+                                    option(value='male') Male
+                                    option(value='female') Female
+                           .row.lastRow
+                              .input-field.col.s6
+                                 input#emailPur.validate(type='email' name="email")
+                                 label#fre(for='email') Email
+                           .modal-footer
+                              a.waves-effect.waves-green.btn-flat#backForm Back Step 🠜
+                              a.waves-effect.waves-green.btn-flat Purchase Ticket ✓
 
             if airport.flights.length == 0
                p.notFoundText Not found flights like this

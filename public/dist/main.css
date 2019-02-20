@@ -993,11 +993,72 @@ header {
   margin-left: .2rem;
   text-transform: uppercase; }
 
+.modal-content .title2 {
+  margin-top: 2.5rem;
+  display: inline-block;
+  margin-right: 5rem; }
+
 .firstRow {
-  margin-top: 2rem; }
+  margin-top: 1rem; }
 
 .lastRow {
-  margin-bottom: 0; }
+  margin-bottom: 0;
+  margin-top: -1.5rem; }
+
+.disabledPirata {
+  color: rgba(0, 0, 0, 0.42);
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.42) !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important; }
+  .disabledPirata.invalid {
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.42) !important;
+    -webkit-box-shadow: none !important;
+            box-shadow: none !important; }
+    .disabledPirata.invalid:focus ~ label {
+      color: rgba(0, 0, 0, 0.42) !important; }
+  .disabledPirata ~ label {
+    color: rgba(0, 0, 0, 0.42) !important; }
+
+select.disabledPirata {
+  border-bottom: 1px solid #f2f2f2 !important;
+  -webkit-box-shadow: inherit !important;
+          box-shadow: inherit !important; }
+
+.modal {
+  background-color: transparent !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+  -webkit-transition: all .5s;
+  -o-transition: all .5s;
+  transition: all .5s; }
+  .modal.rotateActive .frontSide {
+    -webkit-transform: rotateY(-180deg);
+            transform: rotateY(-180deg); }
+  .modal.rotateActive .backSide {
+    -webkit-transform: rotateY(0);
+            transform: rotateY(0); }
+
+.modal-content {
+  height: 37rem;
+  padding: 0 !important; }
+
+.frontSide, .backSide {
+  position: absolute;
+  height: 46rem;
+  width: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2);
+  background-color: #fafafa;
+  padding: 24px;
+  -webkit-transition: all 1.5s ease;
+  -o-transition: all 1.5s ease;
+  transition: all 1.5s ease; }
+
+.backSide {
+  -webkit-transform: rotateY(-180deg);
+          transform: rotateY(-180deg); }
 
 .admin-section {
   height: 110vh;

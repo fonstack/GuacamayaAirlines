@@ -34,6 +34,11 @@ router.get("/logout", authController.logout);
 router.get("/admin", authController.needLogged, airlineController.viewAdmin);
 
 
+router.post("/sendCustomer", (req, res) => {
+  res.json(req.body)
+});
+
+
 
 // API
 router.get('/getCustomers', apiController.getCustomers);

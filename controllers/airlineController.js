@@ -41,7 +41,7 @@ exports.viewAirport = (req, res) => {
       };
 
       return sequelize.query(`
-        SELECT Routes.origin, Routes.destiny, Flights.date, Routes.basePrice
+        SELECT Flights.code, Routes.origin, Routes.destiny, Flights.date, Routes.basePrice
         FROM Flights
         INNER JOIN Routes ON Flights.routeId = Routes.id
         WHERE Routes.origin = '${iata}' OR Routes.destiny = '${iata}'
@@ -345,3 +345,5 @@ exports.searchFlights = (req, res) => {
 //   //   })
 //   //     .catch(err => console.log('ERROR IN DeleteOffice ' + err));
 // };
+
+// Saber Cantidad de pasajes Business y Economic libres en un vuelo (Incluyendo sobreventa)

@@ -76,12 +76,23 @@ document.addEventListener('DOMContentLoaded', function() {
 // Autocomplete
 axios.get('/getCustomers')
   .then(response => {
-    const elems = document.querySelectorAll('.autocomplete');
+    const elems = document.querySelectorAll('.autocompleteBuyer');
     const array = response.data.reduce((acc, cur) => ({...acc, [cur.identityCard]: `https://randomuser.me/api/portraits/${cur.gender === 'Male' ? 'men' : 'women'}/${Math.floor((Math.random() * 100))}.jpg`}), {});
     const instances = M.Autocomplete.init(elems, {
       data: array,
-      onAutocomplete: disabledOtherInputs,
-      limit: 4
+      onAutocomplete: disabledOtherInputsBuyer,
+      limit: 3
+    });
+  }).catch(err => console.log(err));
+
+axios.get('/getCustomers')
+  .then(response => {
+    const elems = document.querySelectorAll('.autocompletePass');
+    const array = response.data.reduce((acc, cur) => ({...acc, [cur.identityCard]: `https://randomuser.me/api/portraits/${cur.gender === 'Male' ? 'men' : 'women'}/${Math.floor((Math.random() * 100))}.jpg`}), {});
+    const instances = M.Autocomplete.init(elems, {
+      data: array,
+      onAutocomplete: disabledOtherInputsPass,
+      limit: 3
     });
   }).catch(err => console.log(err));
 
@@ -93,31 +104,76 @@ const nationality = document.querySelector('#nationalityPur');
 const gender = document.querySelector('#genderPur');
 const email = document.querySelector('#emailPur');
 
-function disabledOtherInputs() {
+const identityCPass = document.querySelector('#identityCardPurPass');
+const firstNamePass = document.querySelector('#firstNamePurPass');
+const lastNamePass = document.querySelector('#lastNamePurPass');
+const agePass = document.querySelector('#agePurPass');
+const nationalityPass = document.querySelector('#nationalityPurPass');
+const genderPass = document.querySelector('#genderPurPass');
+const emailPass = document.querySelector('#emailPurPass');
+
+function disabledOtherInputsBuyer() {
   axios.get(`/getCustomer/${identityC.value}`)
   .then(response => {
     const customerData = response.data[0];
-    console.log(customerData);
     // Llenamos los campos
-    identityC.disabled = true;
+    identityC.readOnly = true;
+    identityC.classList.add('disabledPirata');
     firstName.value = customerData.firstName;
-    firstName.disabled = true;
+    firstName.readOnly = true;
+    firstName.classList.add('disabledPirata');
     lastName.value = customerData.lastName;
-    lastName.disabled = true;
+    lastName.readOnly = true;
+    lastName.classList.add('disabledPirata');
     age.value = customerData.age;
-    age.disabled = true;
+    age.readOnly = true;
+    age.classList.add('disabledPirata');
     email.value = customerData.email;
-    email.disabled = true;
+    email.readOnly = true;
+    email.classList.add('disabledPirata');
     setSelectBoxByText('nationalityPur', customerData.nationality);
-    nationality.disabled = true;
+    nationality.readOnly = true;
+    nationality.classList.add('disabledPirata');
     setSelectBoxByText('genderPur', customerData.gender);
-    gender.disabled = true;
+    gender.readOnly = true;
+    gender.classList.add('disabledPirata');
 
     document.querySelectorAll('#fre').forEach(entry => {
       entry.classList.add('active');
     });
   }).catch(err => console.log(err));
+}
 
+function disabledOtherInputsPass() {
+  axios.get(`/getCustomer/${identityCPass.value}`)
+  .then(response => {
+    const customerData = response.data[0];
+    // Llenamos los campos
+    identityCPass.readOnly = true;
+    identityCPass.classList.add('disabledPirata');
+    firstNamePass.value = customerData.firstName;
+    firstNamePass.readOnly = true;
+    firstNamePass.classList.add('disabledPirata');
+    lastNamePass.value = customerData.lastName;
+    lastNamePass.readOnly = true;
+    lastNamePass.classList.add('disabledPirata');
+    agePass.value = customerData.age;
+    agePass.readOnly = true;
+    agePass.classList.add('disabledPirata');
+    emailPass.value = customerData.email;
+    emailPass.readOnly = true;
+    emailPass.classList.add('disabledPirata');
+    setSelectBoxByText('nationalityPurPass', customerData.nationality);
+    nationalityPass.readOnly = true;
+    nationalityPass.classList.add('disabledPirata');
+    setSelectBoxByText('genderPurPass', customerData.gender);
+    genderPass.readOnly = true;
+    genderPass.classList.add('disabledPirata');
+
+    document.querySelectorAll('#frex').forEach(entry => {
+      entry.classList.add('active');
+    });
+  }).catch(err => console.log(err));
 }
 
 function setSelectBoxByText(eid, etxt) {
@@ -128,26 +184,88 @@ function setSelectBoxByText(eid, etxt) {
   }
 }
 
-document.querySelector('#cleanButton').addEventListener('click', (e) => {
-  identityC.value = '';
-  identityC.disabled = false;
-  firstName.value = '';
-  firstName.disabled = false;
-  lastName.value = '';
-  lastName.disabled = false;
-  age.value = '';
-  age.disabled = false;
-  email.value = '';
-  email.disabled = false;
-  nationality.selectedIndex = 0;
-  nationality.disabled = false;
-  gender.selectedIndex = 0;
-  gender.disabled = false;
+if (document.querySelector('#cleanButton')) {
+  document.querySelector('#cleanButton').addEventListener('click', (e) => {
+    identityC.value = '';
+    identityC.readOnly = false;
+    identityC.classList.remove('disabledPirata');
+    firstName.value = '';
+    firstName.readOnly = false;
+    firstName.classList.remove('disabledPirata');
+    lastName.value = '';
+    lastName.readOnly = false;
+    lastName.classList.remove('disabledPirata');
+    age.value = '';
+    age.readOnly = false;
+    age.classList.remove('disabledPirata');
+    email.value = '';
+    email.readOnly = false;
+    email.classList.remove('disabledPirata');
+    nationality.selectedIndex = 0;
+    nationality.readOnly = false;
+    nationality.classList.remove('disabledPirata');
+    gender.selectedIndex = 0;
+    gender.readOnly = false;
+    gender.classList.remove('disabledPirata');
+  
+    document.querySelectorAll('#fre').forEach(entry => {
+      entry.classList.remove('active');
+    });  
+  });
+}
 
-  document.querySelectorAll('#fre').forEach(entry => {
-    entry.classList.remove('active');
-  });  
-});
+if (document.querySelector('#nextForm')) {
+  document.querySelector('#nextForm').addEventListener('click', (e) => {
+    document.querySelector('.modalPurchase').classList.add('rotateActive');
+  });
+}
+
+if (document.querySelector('#backForm')) {
+  document.querySelector('#backForm').addEventListener('click', (e) => {
+    document.querySelector('.modalPurchase').classList.remove('rotateActive');
+  });
+}
+
+const checkBuyerPassenger = document.querySelector('#buyerIsPassenger');
+const passengerInformation = document.querySelector('.passengerInformation');
+const frontSide = document.querySelector('.frontSide');
+const backSide = document.querySelector('.backSide');
+const modalFooter = document.querySelector('.modal-footer');
+checkBuyerPassenger.addEventListener('click', () => {
+  if (checkBuyerPassenger.checked == true) {
+    passengerInformation.style.display = 'none';
+    frontSide.style.height = '37rem';
+    backSide.style.height = '37rem';
+    modalFooter.style.marginTop = '5rem';
+
+    identityCPass.disabled = true;
+    firstNamePass.disabled = true;
+    lastNamePass.disabled = true;
+    agePass.disabled = true;
+    nationalityPass.disabled = true;
+    genderPass.disabled = true;
+    emailPass.disabled = true;
+  } else {
+    passengerInformation.style.display = 'block';
+    frontSide.style.height = '45rem';
+    backSide.style.height = '45rem';
+    modalFooter.style.marginTop = '0';
+
+    identityCPass.disabled = false;
+    firstNamePass.disabled = false;
+    lastNamePass.disabled = false;
+    agePass.disabled = false;
+    nationalityPass.disabled = false;
+    genderPass.disabled = false;
+    emailPass.disabled = false;
+  }
+})
+
+
+
+
+
+
 
 
 
