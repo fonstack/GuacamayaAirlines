@@ -53,23 +53,28 @@ block content
                               i(class="fas fa-credit-card")
                            .row.firstRow
                               .input-field.col.s3
-                                 input(type="number" id="identityCardPur" class="autocompleteBuyer" name="identityCardBuyer" required)
+                                 input.validate(type="number" id="identityCardPur" class="autocompleteBuyer" name="identityCardBuyer" required min="1000000" max="35000000")
                                  label#fre(for="identityCard") Identity Card
+                                 span.helper-text(data-error='Between 1M and 35M' data-success='Good')
                               .input-field.col.s3
                                  input#firstNamePur.validate(type='text' name="firstNameBuyer" required)
                                  label#fre(for='firstName') First Name
+                                 span.helper-text(data-error='Required' data-success='Good')
                               .input-field.col.s3
                                  input#lastNamePur.validate(type='text' name="lastNameBuyer" required)
                                  label#fre(for='lastName') Last Name
+                                 span.helper-text(data-error='Required' data-success='Good')
                               .input-field.col.s3
-                                 input#agePur.validate(type='number' name="ageBuyer" required)
+                                 input#agePur.validate(type='number' name="ageBuyer" required min="18" max="99")
                                  label#fre(for='age') Age
+                                 span.helper-text(data-error='Required' data-success='Good')
                            .row.lastRow
                               .input-field.col.s4
                                  input#emailPur.validate(type='email' name="emailBuyer" required)
                                  label#fre(for='email') Email
+                                 span.helper-text(data-error='Bad email format' data-success='Good')
                               .input-field.col.s4
-                                 select(required name="nationalityBuyer" id="nationalityPur").select-home.browser-default
+                                 select.validate(required name="nationalityBuyer" id="nationalityPur").select-home.browser-default
                                     option(value='' disabled hidden selected) Nationality
                                     option(value='United States') United States
                                     option(value='Portugal') Portugal
@@ -93,21 +98,26 @@ block content
                            .passengerInformation
                               .row.firstRow
                                  .input-field.col.s3
-                                    input(type="number" id="identityCardPurPass" class="autocompletePass" name="identityCardPass" required)
+                                    input.validate(type="number" id="identityCardPurPass" class="autocompletePass" name="identityCardPass" required min="1000000" max="35000000")
                                     label#frex(for="identityCard") Identity Card
+                                    span.helper-text(data-error='Between 1M and 35M' data-success='Good')
                                  .input-field.col.s3
                                     input#firstNamePurPass.validate(type='text' name="firstNamePass" required )
                                     label#frex(for='firstName') First Name
+                                    span.helper-text(data-error='Required' data-success='Good')
                                  .input-field.col.s3
                                     input#lastNamePurPass.validate(type='text' name="lastNamePass" required)
                                     label#frex(for='lastName') Last Name
+                                    span.helper-text(data-error='Required' data-success='Good')
                                  .input-field.col.s3
-                                    input#agePurPass.validate(type='number' name="agePass" required)
+                                    input#agePurPass.validate(type='number' name="agePass" required min="18" max="99")
                                     label#frex(for='age') Age
+                                    span.helper-text(data-error='Required' data-success='Good')
                               .row.lastRow
                                  .input-field.col.s4
                                     input#emailPurPass.validate(type='email' name="emailPass" required)
                                     label#frex(for='email') Email
+                                    span.helper-text(data-error='Bad email format' data-success='Good')
                                  .input-field.col.s4
                                     select(required name="nationalityPass" id="nationalityPurPass").select-home.browser-default
                                        option(value='' disabled hidden selected) Nationality
@@ -134,7 +144,7 @@ block content
 
 
                         .backSide
-                           p.title Pene Information &nbsp;&nbsp;
+                           p.title Ticket Information &nbsp;&nbsp;
                               i(class="fas fa-user-edit")
                            .row.firstRow
                               .input-field.col.s4

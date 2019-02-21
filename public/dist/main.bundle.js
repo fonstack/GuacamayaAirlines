@@ -2186,8 +2186,8 @@ var modalFooter = document.querySelector('.modal-footer');
 checkBuyerPassenger.addEventListener('click', function () {
   if (checkBuyerPassenger.checked == true) {
     passengerInformation.style.display = 'none';
-    frontSide.style.height = '37rem';
-    backSide.style.height = '37rem';
+    frontSide.style.height = '40rem';
+    backSide.style.height = '40rem';
     modalFooter.style.marginTop = '5rem';
     identityCPass.disabled = true;
     firstNamePass.disabled = true;
@@ -2198,8 +2198,8 @@ checkBuyerPassenger.addEventListener('click', function () {
     emailPass.disabled = true;
   } else {
     passengerInformation.style.display = 'block';
-    frontSide.style.height = '45rem';
-    backSide.style.height = '45rem';
+    frontSide.style.height = '52rem';
+    backSide.style.height = '52rem';
     modalFooter.style.marginTop = '0';
     identityCPass.disabled = false;
     firstNamePass.disabled = false;

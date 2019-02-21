@@ -1009,7 +1009,9 @@ header {
   color: rgba(0, 0, 0, 0.42);
   border-bottom: 1px dotted rgba(0, 0, 0, 0.42) !important;
   -webkit-box-shadow: none !important;
-          box-shadow: none !important; }
+          box-shadow: none !important;
+  pointer-events: none;
+  cursor: not-allowed; }
   .disabledPirata.invalid {
     border-bottom: 1px dotted rgba(0, 0, 0, 0.42) !important;
     -webkit-box-shadow: none !important;
@@ -1044,7 +1046,7 @@ select.disabledPirata {
 
 .frontSide, .backSide {
   position: absolute;
-  height: 46rem;
+  height: 52rem;
   width: 100%;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
