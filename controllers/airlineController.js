@@ -49,6 +49,13 @@ exports.viewAirport = (req, res) => {
     })
     .then(result => {
       airport.flights = result;
+      let flightsCrack = [];
+        airport.flights.forEach(elem => {
+          const xd = [];
+          xd.push(elem);
+          flightsCrack.push(xd);
+        });
+        airport.flights = flightsCrack;
       res.render("airport", { title: 'airport', airport });
     })
       .catch(err => console.log(err));
@@ -92,7 +99,7 @@ exports.searchFlights = (req, res) => {
       };
 
       return sequelize.query(`
-        SELECT Routes.origin, Routes.destiny, Flights.date, Routes.basePrice
+        SELECT Flights.code, Routes.origin, Routes.destiny, Flights.date, Routes.basePrice
         FROM Flights
         INNER JOIN Routes ON Flights.routeId = Routes.id
         WHERE Routes.origin = '${from}' AND Routes.destiny = '${to}'
@@ -106,6 +113,13 @@ exports.searchFlights = (req, res) => {
           res.redirect('/');
         });
       } else {
+        let flightsCrack = [];
+        airport.flights.forEach(elem => {
+          const xd = [];
+          xd.push(elem);
+          flightsCrack.push(xd);
+        });
+        airport.flights = flightsCrack;
         res.render("airport", { title: 'airport', airport });
       }
     })
@@ -127,7 +141,7 @@ exports.searchFlights = (req, res) => {
       };
 
       return sequelize.query(`
-        SELECT Routes.origin, Routes.destiny, Flights.date, Routes.basePrice
+        SELECT Flights.code, Routes.origin, Routes.destiny, Flights.date, Routes.basePrice
         FROM Flights
         INNER JOIN Routes ON Flights.routeId = Routes.id
         WHERE Routes.origin = '${from}' AND Routes.destiny = '${to}' AND Flights.date = '${newdate}'
@@ -141,6 +155,13 @@ exports.searchFlights = (req, res) => {
           res.redirect('/');
         });
       } else {
+        let flightsCrack = [];
+        airport.flights.forEach(elem => {
+          const xd = [];
+          xd.push(elem);
+          flightsCrack.push(xd);
+        });
+        airport.flights = flightsCrack;
         res.render("airport", { title: 'airport', airport });
       }
     })
@@ -276,7 +297,70 @@ exports.searchFlights = (req, res) => {
 // `).then(result => res.json(result[0]))
 //     .catch(err => console.log(err));
 
-// // Tabla con ID de vuelo, Origen, Destino, Fecha de salida, Precio (Elige origen, destino, fecha y con escala)
+// Cantidad de aviones por estado
+sequelize.query(`
+  SELECT count(id), state
+  FROM Airplanes
+  GROUP BY state
+`).then(result => res.json(result[0]))
+    .catch(err => console.log(err));
+
+// Asientos ocupados por número de vuelo
+sequelize.query(`
+  SELECT Flights.code, FlightTicket_Flights.seatNumber
+  FROM Flights
+  INNER JOIN FlightTicket_Flights ON FlightTicket_Flights.flightCode = Flights.code
+  INNER JOIN Airplanes ON Airplanes.id = Flights.airplaneId
+  INNER JOIN AirplaneModels ON AirplaneModels.model = Airplanes.model
+  HAVING Flights.code = 2
+  ORDER BY FlightTicket_Flights.seatNumber ASC;
+`).then(result => res.json(result[0]))
+    .catch(err => console.log(err));
+
+// VUELOS CON ESCALA (UTILIZAR NUMEROS DE RUTA GENERADOS POR EL QUERY GENERADOR DE RUTAS)
+sequelize.query(`
+  SELECT a.code as pene1, a.date, trabuco.origin, trabuco.destiny, b.code as pene2, b.date, b.routeId, penezote.origin, penezote.destiny
+  FROM Flights AS a
+  JOIN Flights AS b 
+  INNER JOIN Routes AS trabuco ON trabuco.id = a.routeId 
+  INNER JOIN Routes AS penezote ON penezote.id = b.routeId 
+  WHERE (b.date > a.date + (SELECT travelTime FROM Routes WHERE id = 6)) 
+  AND (a.routeId = 6) AND (b.routeId = 5);
+`).then(result => res.json(result[0]))
+    .catch(err => console.log(err));
+
+// PRIMER GENERADOR DE NUMEROS DE RUTAS PARA UTILIZAR EN QUERY SUPERIOR
+sequelize.query(`
+  SELECT a.id, b.id
+  FROM Routes as a
+  JOIN Routes as b
+  WHERE (a.destiny = b.origin) AND (a.origin = 'ATL') AND (b.destiny = 'CCS')
+  SELECT a.id as ruta1, b.id as ruta2
+  FROM Routes as a
+  JOIN Routes as b
+  WHERE (a.destiny = b.origin) AND (a.origin = 'ATL') AND (b.destiny = 'CCS')
+`).then(result => res.json(result[0]))
+    .catch(err => console.log(err));
+
+// VUELOS QUE REQUIEREN MANTENIMIENTO
+sequelize.query(`
+  SELECT airplaneId
+  FROM MaintenanceReports
+  WHERE (endDate + INTERVAL 3 MONTH <= NOW())
+`).then(result => res.json(result[0]))
+    .catch(err => console.log(err));
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

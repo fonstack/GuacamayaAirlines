@@ -2167,14 +2167,22 @@ if (document.querySelector('#cleanButton')) {
 }
 
 if (document.querySelector('#nextForm')) {
-  document.querySelector('#nextForm').addEventListener('click', function (e) {
-    document.querySelector('.modalPurchase').classList.add('rotateActive');
+  document.querySelectorAll('#nextForm').forEach(function (elem) {
+    elem.addEventListener('click', function (e) {
+      document.querySelectorAll('.modalPurchase').forEach(function (ele) {
+        ele.classList.add('rotateActive');
+      });
+    });
   });
 }
 
 if (document.querySelector('#backForm')) {
-  document.querySelector('#backForm').addEventListener('click', function (e) {
-    document.querySelector('.modalPurchase').classList.remove('rotateActive');
+  document.querySelectorAll('#backForm').forEach(function (elem) {
+    elem.addEventListener('click', function (e) {
+      document.querySelectorAll('.modalPurchase').forEach(function (ele) {
+        ele.classList.remove('rotateActive');
+      });
+    });
   });
 }
 
@@ -2209,6 +2217,29 @@ checkBuyerPassenger.addEventListener('click', function () {
     genderPass.disabled = false;
     emailPass.disabled = false;
   }
+}); // Selects Seats
+
+var selectsSeats = document.querySelectorAll('.selectSeats');
+selectsSeats.forEach(function (element) {
+  var id = element.getAttribute('id');
+  var flightCode = id.split('selectSeat')[1];
+  axios.get("/getEmptySeats/".concat(flightCode)).then(function (response) {
+    var asientosOcupados = [];
+    response.data.forEach(function (ele) {
+      asientosOcupados.push(ele.seatNumber);
+    });
+
+    for (var i = 0; i < 38; i++) {
+      if (!asientosOcupados.includes('' + (i + 1))) {
+        var opt = document.createElement('option');
+        opt.value = i + 1;
+        opt.innerHTML = i + 1;
+        element.appendChild(opt);
+      }
+    }
+  }).catch(function (err) {
+    return console.log(err);
+  });
 }); // Validation of the confirm password on Register
 
 var confirmPassRegister = document.getElementById('confirmpasswordRegister');

@@ -215,15 +215,23 @@ if (document.querySelector('#cleanButton')) {
 }
 
 if (document.querySelector('#nextForm')) {
-  document.querySelector('#nextForm').addEventListener('click', (e) => {
-    document.querySelector('.modalPurchase').classList.add('rotateActive');
+  document.querySelectorAll('#nextForm').forEach(elem => {
+    elem.addEventListener('click', (e) => {
+      document.querySelectorAll('.modalPurchase').forEach(ele => {
+        ele.classList.add('rotateActive');
+      });
+    });
   });
 }
 
 if (document.querySelector('#backForm')) {
-  document.querySelector('#backForm').addEventListener('click', (e) => {
-    document.querySelector('.modalPurchase').classList.remove('rotateActive');
-  });
+  document.querySelectorAll('#backForm').forEach(elem => {
+    elem.addEventListener('click', (e) => {
+      document.querySelectorAll('.modalPurchase').forEach(ele => {
+        ele.classList.remove('rotateActive');
+      });
+    });
+  });  
 }
 
 const checkBuyerPassenger = document.querySelector('#buyerIsPassenger');
@@ -260,6 +268,36 @@ checkBuyerPassenger.addEventListener('click', () => {
     emailPass.disabled = false;
   }
 })
+
+// Selects Seats
+const selectsSeats = document.querySelectorAll('.selectSeats');
+
+selectsSeats.forEach(element => {
+  const id = element.getAttribute('id');
+  const flightCode = id.split('selectSeat')[1];
+
+  axios.get(`/getEmptySeats/${flightCode}`)
+  .then(response => {
+
+    const asientosOcupados = [];
+    response.data.forEach(ele => {
+      asientosOcupados.push(ele.seatNumber);
+    });
+
+    for (let i = 0; i < 38; i++) {
+      if (!asientosOcupados.includes('' + (i + 1))) {
+        const opt = document.createElement('option');
+        opt.value = i + 1;
+        opt.innerHTML = i + 1;
+        element.appendChild(opt);
+      }
+    }
+  }).catch(err => console.log(err));
+
+
+
+
+});
 
 
 

@@ -43,5 +43,6 @@ router.post("/sendCustomer", (req, res) => {
 // API
 router.get('/getCustomers', apiController.getCustomers);
 router.get('/getCustomer/:identityC', apiController.getCustomer);
+router.get('/getEmptySeats/:flightCode', apiController.getEmptySeats);
 
 module.exports = router;

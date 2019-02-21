@@ -16,110 +16,77 @@ block content
 
          .airport__flights
             each flight, index in airport.flights
-               .airport__flights-card
-                  table
-                     thead 
-                        tr
-                           th From
-                           th To
-                           th Depart Date
-                           th Price
-                           th 
-                     tbody
-                        tr
-                           - const conditionFrom = flight.origin.startsWith(airport.iata);
-                           - const conditionTo = flight.destiny.startsWith(`${airport.iata}`);
-                           if conditionFrom
-                              td <span class="flightImportant">#{flight.origin}</span>
-                           else
-                              td #{flight.origin}
-                           if conditionTo
-                              td <span class="flightImportant">#{flight.destiny}</span>
-                           else
-                              td #{flight.destiny}
-                           td= h.moment(flight.date).add(4, 'hours').format('MMMM Do YYYY')
-                           td #{flight.basePrice} $
-                           td.buttonCell 
-                              a(class="waves-effect waves-light btn-small modal-trigger" href=`#purchaseModal${index}`) Purchase&nbsp;&nbsp; <i class="fas fa-cart-plus"></i>
-               //- PurchaseModal
-               div(class="modal modalPurchase" id=`purchaseModal${index}`)
-                  .modal-content
-                     
-                     form(action="/sendCustomer" method="POST")
-
-                        .frontSide
-                           //- INFORMACIÓN DEL COMPRADOR
-                           p.title Buyer Information &nbsp;&nbsp;
-                              i(class="fas fa-credit-card")
-                           .row.firstRow
-                              .input-field.col.s3
-                                 input.validate(type="number" id="identityCardPur" class="autocompleteBuyer" name="identityCardBuyer" required min="1000000" max="35000000")
-                                 label#fre(for="identityCard") Identity Card
-                                 span.helper-text(data-error='Between 1M and 35M' data-success='Good')
-                              .input-field.col.s3
-                                 input#firstNamePur.validate(type='text' name="firstNameBuyer" required)
-                                 label#fre(for='firstName') First Name
-                                 span.helper-text(data-error='Required' data-success='Good')
-                              .input-field.col.s3
-                                 input#lastNamePur.validate(type='text' name="lastNameBuyer" required)
-                                 label#fre(for='lastName') Last Name
-                                 span.helper-text(data-error='Required' data-success='Good')
-                              .input-field.col.s3
-                                 input#agePur.validate(type='number' name="ageBuyer" required min="18" max="99")
-                                 label#fre(for='age') Age
-                                 span.helper-text(data-error='Required' data-success='Good')
-                           .row.lastRow
-                              .input-field.col.s4
-                                 input#emailPur.validate(type='email' name="emailBuyer" required)
-                                 label#fre(for='email') Email
-                                 span.helper-text(data-error='Bad email format' data-success='Good')
-                              .input-field.col.s4
-                                 select.validate(required name="nationalityBuyer" id="nationalityPur").select-home.browser-default
-                                    option(value='' disabled hidden selected) Nationality
-                                    option(value='United States') United States
-                                    option(value='Portugal') Portugal
-                                    option(value='Spain') Spain
-                                    option(value='England') England
-                                    option(value='France') France
-                                    option(value='Venezuela') Venezuela
-                                    option(value='Singapur') Singapur
-                              .input-field.col.s4
-                                 select(required name="genderBuyer" id="genderPur").select-home.browser-default
-                                    option(value='' disabled hidden selected) Gender
-                                    option(value='male') Male
-                                    option(value='female') Female
-
-                           //- INFORMACIÓN DEL PASAJERO
-                           p.title.title2 Passenger Information &nbsp;&nbsp;
-                              i(class="fas fa-user-tie")
-                           label
-                              input#buyerIsPassenger.filled-in(type='checkbox')
-                              span The Buyer is the Passenger?
-                           .passengerInformation
+               //- SI NO TIENE ESCALA
+               if flight.length == 1 
+                  .airport__flights-card
+                     table
+                        thead 
+                           tr
+                              th From
+                              th To
+                              th Depart Date
+                              th Price
+                              th 
+                        tbody
+                           tr
+                              - const conditionFrom = flight[0].origin.startsWith(airport.iata);
+                              - const conditionTo = flight[0].destiny.startsWith(`${airport.iata}`);
+                              if conditionFrom
+                                 td <span class="flightImportant">#{flight[0].origin}</span>
+                              else
+                                 td #{flight[0].origin}
+                              if conditionTo
+                                 td <span class="flightImportant">#{flight[0].destiny}</span>
+                              else
+                                 td #{flight[0].destiny}
+                              td= h.moment(flight[0].date).add(4, 'hours').format('MMMM Do YYYY')
+                              td #{flight[0].basePrice} $
+                              td.buttonCell 
+                                 a(class="waves-effect waves-light btn-small modal-trigger" href=`#purchaseModal${index}`) Purchase&nbsp;&nbsp; <i class="fas fa-cart-plus"></i>
+               //- SI TIENE ESCALA
+               else 
+                  
+               
+               
+               
+               
+               
+               //- SI NO TIENE ESCALA
+               if flight.length == 1 
+                  //- PurchaseModal
+                  div(class="modal modalPurchase" id=`purchaseModal${index}`)
+                     .modal-content
+                        form(action="/sendCustomer" method="POST")
+                           input(type="hidden" name="flightCode" value=`${flight[0].code}`)
+                           input(type="hidden" name="cantScales" value='1')
+                           .frontSide
+                              //- INFORMACIÓN DEL COMPRADOR
+                              p.title Buyer Information #{flight[0].code} &nbsp;&nbsp;
+                                 i(class="fas fa-credit-card")
                               .row.firstRow
                                  .input-field.col.s3
-                                    input.validate(type="number" id="identityCardPurPass" class="autocompletePass" name="identityCardPass" required min="1000000" max="35000000")
-                                    label#frex(for="identityCard") Identity Card
+                                    input.validate(type="number" id="identityCardPur" class="autocompleteBuyer" name="identityCardBuyer" required min="1000000" max="35000000")
+                                    label#fre(for="identityCard") Identity Card
                                     span.helper-text(data-error='Between 1M and 35M' data-success='Good')
                                  .input-field.col.s3
-                                    input#firstNamePurPass.validate(type='text' name="firstNamePass" required )
-                                    label#frex(for='firstName') First Name
+                                    input#firstNamePur.validate(type='text' name="firstNameBuyer" required)
+                                    label#fre(for='firstName') First Name
                                     span.helper-text(data-error='Required' data-success='Good')
                                  .input-field.col.s3
-                                    input#lastNamePurPass.validate(type='text' name="lastNamePass" required)
-                                    label#frex(for='lastName') Last Name
+                                    input#lastNamePur.validate(type='text' name="lastNameBuyer" required)
+                                    label#fre(for='lastName') Last Name
                                     span.helper-text(data-error='Required' data-success='Good')
                                  .input-field.col.s3
-                                    input#agePurPass.validate(type='number' name="agePass" required min="18" max="99")
-                                    label#frex(for='age') Age
+                                    input#agePur.validate(type='number' name="ageBuyer" required min="18" max="99")
+                                    label#fre(for='age') Age
                                     span.helper-text(data-error='Required' data-success='Good')
                               .row.lastRow
                                  .input-field.col.s4
-                                    input#emailPurPass.validate(type='email' name="emailPass" required)
-                                    label#frex(for='email') Email
+                                    input#emailPur.validate(type='email' name="emailBuyer" required)
+                                    label#fre(for='email') Email
                                     span.helper-text(data-error='Bad email format' data-success='Good')
                                  .input-field.col.s4
-                                    select(required name="nationalityPass" id="nationalityPurPass").select-home.browser-default
+                                    select.validate(required name="nationalityBuyer" id="nationalityPur").select-home.browser-default
                                        option(value='' disabled hidden selected) Nationality
                                        option(value='United States') United States
                                        option(value='Portugal') Portugal
@@ -129,59 +96,82 @@ block content
                                        option(value='Venezuela') Venezuela
                                        option(value='Singapur') Singapur
                                  .input-field.col.s4
-                                    select(required name="genderPass" id="genderPurPass").select-home.browser-default
+                                    select(required name="genderBuyer" id="genderPur").select-home.browser-default
                                        option(value='' disabled hidden selected) Gender
                                        option(value='male') Male
                                        option(value='female') Female
-                              
-                           .modal-footer
-                              a.waves-effect.waves-green.btn-flat#cleanButton Clean ↺
-                              a.waves-effect.waves-green.btn-flat#nextForm Next Step 🠞
+                              //- INFORMACIÓN DEL PASAJERO
+                              p.title.title2 Passenger Information &nbsp;&nbsp;
+                                 i(class="fas fa-user-tie")
+                              label
+                                 input#buyerIsPassenger.filled-in(type='checkbox')
+                                 span The Buyer is the Passenger?
+                              .passengerInformation
+                                 .row.firstRow
+                                    .input-field.col.s3
+                                       input.validate(type="number" id="identityCardPurPass" class="autocompletePass" name="identityCardPass" required min="1000000" max="35000000")
+                                       label#frex(for="identityCard") Identity Card
+                                       span.helper-text(data-error='Between 1M and 35M' data-success='Good')
+                                    .input-field.col.s3
+                                       input#firstNamePurPass.validate(type='text' name="firstNamePass" required )
+                                       label#frex(for='firstName') First Name
+                                       span.helper-text(data-error='Required' data-success='Good')
+                                    .input-field.col.s3
+                                       input#lastNamePurPass.validate(type='text' name="lastNamePass" required)
+                                       label#frex(for='lastName') Last Name
+                                       span.helper-text(data-error='Required' data-success='Good')
+                                    .input-field.col.s3
+                                       input#agePurPass.validate(type='number' name="agePass" required min="18" max="99")
+                                       label#frex(for='age') Age
+                                       span.helper-text(data-error='Required' data-success='Good')
+                                 .row.lastRow
+                                    .input-field.col.s4
+                                       input#emailPurPass.validate(type='email' name="emailPass" required)
+                                       label#frex(for='email') Email
+                                       span.helper-text(data-error='Bad email format' data-success='Good')
+                                    .input-field.col.s4
+                                       select(required name="nationalityPass" id="nationalityPurPass").select-home.browser-default
+                                          option(value='' disabled hidden selected) Nationality
+                                          option(value='United States') United States
+                                          option(value='Portugal') Portugal
+                                          option(value='Spain') Spain
+                                          option(value='England') England
+                                          option(value='France') France
+                                          option(value='Venezuela') Venezuela
+                                          option(value='Singapur') Singapur
+                                    .input-field.col.s4
+                                       select(required name="genderPass" id="genderPurPass").select-home.browser-default
+                                          option(value='' disabled hidden selected) Gender
+                                          option(value='male') Male
+                                          option(value='female') Female
+                              .modal-footer
+                                 a.waves-effect.waves-green.btn-flat#cleanButton Clean ↺
+                                 a.waves-effect.waves-green.btn-flat#nextForm Next Step 🠞
+
+
+                           .backSide
+                              each scale in flight
+                                 p.title Ticket Information #{scale.code} &nbsp;&nbsp;
+                                    i(class="fas fa-user-edit")
+                                 .row.firstRow
+                                    .input-field.col.s6
+                                       p.range-field Quantity of Packing
+                                          input(type='range' min='0' max='3' name=`packingScale${scale.code}`)
+                                    .input-field.col.s6
+                                       select(required name=`seatScale${scale.code}` id=`selectSeat${scale.code}`).select-home.browser-default.selectSeats
+                                          option(value='' disabled hidden selected) Seat
+                                       
+                              .modal-footer
+                                 a.waves-effect.waves-green.btn-flat#backForm Back Step 🠜
+                                 a.waves-effect.waves-green.btn-flat Purchase Ticket ✓
+               //- SI TIENE ESCALA
+               else 
 
 
 
 
 
 
-                        .backSide
-                           p.title Ticket Information &nbsp;&nbsp;
-                              i(class="fas fa-user-edit")
-                           .row.firstRow
-                              .input-field.col.s4
-                                 input(type="number" id="identityCardPur" class="autocomplete" name="identityCard")
-                                 label#fre(for="identityCard") Identity Card
-                              .input-field.col.s4
-                                 input#firstNamePur.validate(type='text' name="firstName")
-                                 label#fre(for='firstName') First Name
-                              .input-field.col.s4
-                                 input#lastNamePur.validate(type='text' name="lastName")
-                                 label#fre(for='lastName') Last Name
-                           .row  
-                              .input-field.col.s4
-                                 input#agePur.validate(type='number' name="age")
-                                 label#fre(for='age') Age
-                              .input-field.col.s4
-                                 select(name="nationality" id="nationalityPur").select-home.browser-default
-                                    option(value='' disabled hidden selected) Nationality
-                                    option(value='United States') United States
-                                    option(value='Portugal') Portugal
-                                    option(value='Spain') Spain
-                                    option(value='England') England
-                                    option(value='France') France
-                                    option(value='Venezuela') Venezuela
-                                    option(value='Singapur') Singapur
-                              .input-field.col.s4
-                                 select(name="gender" id="genderPur").select-home.browser-default
-                                    option(value='' disabled hidden selected) Gender
-                                    option(value='male') Male
-                                    option(value='female') Female
-                           .row.lastRow
-                              .input-field.col.s6
-                                 input#emailPur.validate(type='email' name="email")
-                                 label#fre(for='email') Email
-                           .modal-footer
-                              a.waves-effect.waves-green.btn-flat#backForm Back Step 🠜
-                              a.waves-effect.waves-green.btn-flat Purchase Ticket ✓
 
             if airport.flights.length == 0
                p.notFoundText Not found flights like this
