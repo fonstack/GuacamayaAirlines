@@ -2218,27 +2218,112 @@ checkBuyerPassenger.addEventListener('click', function () {
     emailPass.disabled = false;
   }
 }); // Selects Seats
+// const selectsSeats = document.querySelectorAll('.selectSeats');
+// selectsSeats.forEach(element => {
+//   const id = element.getAttribute('id');
+//   const flightCode = id.split('selectSeat')[1];
+//   axios.get(`/getEmptySeats/${flightCode}`)
+//   .then(response => {
+//     const asientosOcupados = [];
+//     response.data.forEach(ele => {
+//       asientosOcupados.push(ele.seatNumber);
+//     });
+//     for (let i = 0; i < 38; i++) {
+//       if (!asientosOcupados.includes('' + (i + 1))) {
+//         const opt = document.createElement('option');
+//         opt.value = i + 1;
+//         opt.innerHTML = i + 1;
+//         element.appendChild(opt);
+//       }
+//     }
+//   }).catch(err => console.log(err));
+// });
 
-var selectsSeats = document.querySelectorAll('.selectSeats');
-selectsSeats.forEach(function (element) {
-  var id = element.getAttribute('id');
-  var flightCode = id.split('selectSeat')[1];
-  axios.get("/getEmptySeats/".concat(flightCode)).then(function (response) {
-    var asientosOcupados = [];
-    response.data.forEach(function (ele) {
-      asientosOcupados.push(ele.seatNumber);
-    });
+$(document).ready(function () {
+  document.querySelectorAll('.seatMaps').forEach(function (el) {
+    var firstSeatLabel = 1;
+    var firstSeatLabel2 = 1;
+    var sc = $("#".concat(el.getAttribute('id'))).seatCharts({
+      map: ['aa_aa', 'aa_aa', 'bb_bb', 'bb_bb', 'bb___', 'bb_bb', 'bb_bb', 'bb_bb', 'bbbbb'],
+      seats: {
+        a: {
+          classes: 'business' //your custom CSS class
 
-    for (var i = 0; i < 38; i++) {
-      if (!asientosOcupados.includes('' + (i + 1))) {
-        var opt = document.createElement('option');
-        opt.value = i + 1;
-        opt.innerHTML = i + 1;
-        element.appendChild(opt);
+        },
+        b: {
+          classes: 'economic' //your custom CSS class
+
+        }
+      },
+      naming: {
+        top: false,
+        left: false,
+        getLabel: function getLabel(character, row, column) {
+          return firstSeatLabel++;
+        },
+        getId: function getId(character, row, column) {
+          return firstSeatLabel2++;
+        }
+      },
+      click: function click() {
+        var _this = this;
+
+        if (this.status() == 'available') {
+          var _id = this.settings.id;
+
+          for (var i = 1; i <= 35; i++) {
+            if (i != _id) {
+              sc.get('' + i).status('unavailable');
+            }
+          }
+
+          document.querySelector("#seatNum".concat(flightCode)).value = _id;
+          return 'selected';
+        } else if (this.status() == 'selected') {
+          console.log('YAAAAAAAAAA', flightCode);
+          axios.get("/getEmptySeats/".concat(flightCode)).then(function (response) {
+            var asientosOcupados = [];
+            response.data.forEach(function (ele) {
+              asientosOcupados.push(ele.seatNumber);
+            });
+            var id = _this.settings.id;
+
+            for (var _i = 1; _i <= 35; _i++) {
+              if (!asientosOcupados.includes('' + _i)) {
+                sc.get('' + _i).status('available');
+              }
+            }
+
+            document.querySelector("#seatNum".concat(flightCode)).value = '';
+          }).catch(function (err) {
+            return console.log(err);
+          });
+          return 'available';
+        } else if (this.status() == 'unavailable') {
+          //seat has been already booked
+          return 'unavailable';
+        } else {
+          return this.style();
+        }
       }
-    }
-  }).catch(function (err) {
-    return console.log(err);
+    }); // Inhabilitar los que ya están comprados
+
+    var id = el.getAttribute('id');
+    var flightCode = id.split('seat-map')[1];
+    axios.get("/getEmptySeats/".concat(flightCode)).then(function (response) {
+      var asientosOcupados = [];
+      response.data.forEach(function (ele) {
+        asientosOcupados.push(ele.seatNumber);
+      });
+
+      for (var i = 1; i <= 35; i++) {
+        if (asientosOcupados.includes('' + i)) {
+          sc.get('' + i).status('unavailable');
+        }
+      }
+    }).catch(function (err) {
+      return console.log(err);
+    });
   });
 }); // Validation of the confirm password on Register
 

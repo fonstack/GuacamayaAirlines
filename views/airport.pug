@@ -154,12 +154,15 @@ block content
                                  p.title Ticket Information #{scale.code} &nbsp;&nbsp;
                                     i(class="fas fa-user-edit")
                                  .row.firstRow
-                                    .input-field.col.s6
+                                    .input-field.col.s8.rangeField
                                        p.range-field Quantity of Packing
                                           input(type='range' min='0' max='3' name=`packingScale${scale.code}`)
-                                    .input-field.col.s6
-                                       select(required name=`seatScale${scale.code}` id=`selectSeat${scale.code}`).select-home.browser-default.selectSeats
-                                          option(value='' disabled hidden selected) Seat
+                                    .input-field.col.s4
+                                       //- select(required name=`seatScale${scale.code}` id=`selectSeat${scale.code}`).select-home.browser-default.selectSeats
+                                       //-    option(value='' disabled hidden selected) Seat
+                                       .seatMaps(id=`seat-map${scale.code}`)
+                                       p.textMap Seat Number
+                                       input(type="text" name=`seatScale${scale.code}` id=`seatNum${scale.code}`)
                                        
                               .modal-footer
                                  a.waves-effect.waves-green.btn-flat#backForm Back Step 🠜

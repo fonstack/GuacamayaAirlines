@@ -1062,6 +1062,18 @@ select.disabledPirata {
   -webkit-transform: rotateY(-180deg);
           transform: rotateY(-180deg); }
 
+.seatMaps {
+  margin-top: -38px;
+  margin-left: 20%;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 10px; }
+
+.rangeField {
+  margin-top: 57px; }
+
+.textMap {
+  text-align: center; }
+
 .admin-section {
   height: 110vh;
   width: 100%;

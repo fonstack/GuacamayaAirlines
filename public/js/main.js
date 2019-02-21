@@ -270,37 +270,122 @@ checkBuyerPassenger.addEventListener('click', () => {
 })
 
 // Selects Seats
-const selectsSeats = document.querySelectorAll('.selectSeats');
+// const selectsSeats = document.querySelectorAll('.selectSeats');
 
-selectsSeats.forEach(element => {
-  const id = element.getAttribute('id');
-  const flightCode = id.split('selectSeat')[1];
+// selectsSeats.forEach(element => {
+//   const id = element.getAttribute('id');
+//   const flightCode = id.split('selectSeat')[1];
 
-  axios.get(`/getEmptySeats/${flightCode}`)
-  .then(response => {
+//   axios.get(`/getEmptySeats/${flightCode}`)
+//   .then(response => {
 
-    const asientosOcupados = [];
-    response.data.forEach(ele => {
-      asientosOcupados.push(ele.seatNumber);
-    });
+//     const asientosOcupados = [];
+//     response.data.forEach(ele => {
+//       asientosOcupados.push(ele.seatNumber);
+//     });
 
-    for (let i = 0; i < 38; i++) {
-      if (!asientosOcupados.includes('' + (i + 1))) {
-        const opt = document.createElement('option');
-        opt.value = i + 1;
-        opt.innerHTML = i + 1;
-        element.appendChild(opt);
+//     for (let i = 0; i < 38; i++) {
+//       if (!asientosOcupados.includes('' + (i + 1))) {
+//         const opt = document.createElement('option');
+//         opt.value = i + 1;
+//         opt.innerHTML = i + 1;
+//         element.appendChild(opt);
+//       }
+//     }
+//   }).catch(err => console.log(err));
+// });
+
+
+$(document).ready(function() {
+
+	document.querySelectorAll('.seatMaps').forEach(el => {
+    let firstSeatLabel = 1;
+    let firstSeatLabel2 = 1;  
+    var sc = $(`#${el.getAttribute('id')}`).seatCharts({
+      map: [
+        'aa_aa',
+        'aa_aa',
+        'bb_bb',
+        'bb_bb',
+        'bb___',
+        'bb_bb',
+        'bb_bb',
+        'bb_bb',
+        'bbbbb'
+      ],
+      seats: {
+        a: {
+          classes : 'business' //your custom CSS class
+        },
+        b: {
+          classes : 'economic' //your custom CSS class
+        }
+      },
+      naming: {
+        top: false,
+        left: false,
+        getLabel: function (character, row, column) {
+          return firstSeatLabel++;
+        },
+        getId: function(character, row, column) {
+          return firstSeatLabel2++;
+        }
+  
+      },
+      click: function () {
+        if (this.status() == 'available') {
+          const id = this.settings.id;
+          for (let i = 1; i <=35; i++) {
+            if (i != id) {
+              sc.get('' + i).status('unavailable');
+            }
+          }
+          document.querySelector(`#seatNum${flightCode}`).value = id;
+          return 'selected';
+        } else if (this.status() == 'selected') {
+
+          console.log('YAAAAAAAAAA', flightCode);
+          axios.get(`/getEmptySeats/${flightCode}`)
+            .then(response => {
+              const asientosOcupados = [];
+              response.data.forEach(ele => {
+                asientosOcupados.push(ele.seatNumber);
+              });
+              const id = this.settings.id;
+              for (let i = 1; i <=35; i++) {
+                if (!asientosOcupados.includes('' + i)) {
+                  sc.get('' + i).status('available');
+                }
+              }
+              document.querySelector(`#seatNum${flightCode}`).value = '';
+            }).catch(err => console.log(err));
+          return 'available';
+        } else if (this.status() == 'unavailable') {
+          //seat has been already booked
+          return 'unavailable';
+        } else {
+          return this.style();
+        }
       }
-    }
-  }).catch(err => console.log(err));
-
-
-
-
+    });
+  
+    // Inhabilitar los que ya están comprados
+    const id = el.getAttribute('id');
+    const flightCode = id.split('seat-map')[1];
+    axios.get(`/getEmptySeats/${flightCode}`)
+    .then(response => {
+      const asientosOcupados = [];
+      response.data.forEach(ele => {
+        asientosOcupados.push(ele.seatNumber);
+      });
+      for (let i = 1; i <= 35; i++) {
+        if (asientosOcupados.includes('' + i)) {
+          sc.get('' + i).status('unavailable');
+        }
+      }
+    }).catch(err => console.log(err));
+  });
 });
-
-
-
 
 
 
