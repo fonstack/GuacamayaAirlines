@@ -227,10 +227,12 @@ select.disabledPirata {
 
    &.rotateActive .frontSide {
       transform: rotateY(-180deg);
+      display: none;
    }
 
    &.rotateActive .backSide {
       transform: rotateY(0);
+      display: block;
    }
 }
 
@@ -241,7 +243,6 @@ select.disabledPirata {
 
 .frontSide, .backSide {
    position: absolute;
-   height: 52rem;
    width: 100%;
    -webkit-backface-visibility: hidden; // Eliminar la parte de atrás de los sides
    backface-visibility: hidden; // Eliminar la parte de atrás de los sides
@@ -251,15 +252,24 @@ select.disabledPirata {
    transition: all 1.5s ease;
 }
 
+.frontSide {
+   height: 52rem;
+}
+
 .backSide {
    transform: rotateY(-180deg);  // Comienza rotado
+   display: none;
 }
 
 .seatMaps {
    margin-top: -38px;
-   margin-left: 20%;
    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
    font-size: 10px;
+}
+
+div.seatCharts-row {
+   justify-content: center;
+   display: flex;
 }
 
 .rangeField {
@@ -268,4 +278,17 @@ select.disabledPirata {
 
 .textMap {
    text-align: center;
+}
+
+.preloader-wrapper {
+   position: absolute;
+   left: 50%;
+   top: 24%;
+   transform: translateX(-50%);
+   display: none;
+}
+
+.preloader-wrapper.active {
+   -webkit-animation: none !important;
+   animation: none !important;
 }

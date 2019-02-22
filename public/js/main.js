@@ -2,9 +2,8 @@ import "../sass/styles.scss";
 const http = new XMLHttpRequest();
 const axios = require('axios');
 
-// Initialization Materialize Components
 
-// Datepicker Home
+// -+-+-+-+-+ INITIALIZATION DATEPICKER HOME -- Materialize -+-+-+-+-+
 document.addEventListener('DOMContentLoaded', function() {
   const minDate = new Date;
   const maxDate = new Date;
@@ -21,7 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// Selects Home
+
+// -+-+-+-+-+ INITIALIZATION SELECTS OF HOME -- Materialize -+-+-+-+-+
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.select-home');
   var instances = M.FormSelect.init(elems, {
@@ -29,7 +29,8 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// Tooltips
+
+// -+-+-+-+-+ INITIALIZATION TOOLTIPS OF HOME MAP -+-+-+-+-+
 $(document).ready(function() {
   $('.tooltip').tooltipster({
     theme: 'tooltipster-punk',
@@ -40,16 +41,15 @@ $(document).ready(function() {
   });
 });
 
-// Sidenav
+
+// -+-+-+-+-+ INITIALIZATION SIDENAV ADMIN -- Materialize -+-+-+-+-+
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.sidenav');
   var instances = M.Sidenav.init(elems, {
-
   });
 });
-
+// Se configura el botón para mostrar el sideNav
 const botonSidenav = document.querySelector('.openButton');
-
 if (botonSidenav) {
   botonSidenav.addEventListener('click', function() {
     const instance = M.Sidenav.getInstance(document.querySelector('.sidenav'));
@@ -57,15 +57,16 @@ if (botonSidenav) {
   });
 }
 
-// Collapsible
+
+// -+-+-+-+-+ INITIALIZATION COOLAPSIBLE ADMIN -- Materialize -+-+-+-+-+
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.collapsible');
   var instances = M.Collapsible.init(elems, {
-    
   });
 });
 
-// Modals
+
+// -+-+-+-+-+ INITIALIZATION MODALS -- Materialize -+-+-+-+-+
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.modal');
   var instances = M.Modal.init(elems, {
@@ -73,7 +74,9 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// Autocomplete
+
+// -+-+-+-+-+ INITIALIZATION AUTOCOMPLETE -- Materialize -+-+-+-+-+
+// Se obtienen todos los Customers para el autocompletado del input de Buyer
 axios.get('/getCustomers')
   .then(response => {
     const elems = document.querySelectorAll('.autocompleteBuyer');
@@ -85,6 +88,7 @@ axios.get('/getCustomers')
     });
   }).catch(err => console.log(err));
 
+// Se obtienen todos los Customers del servidor para el autocompletado del input de Passenger
 axios.get('/getCustomers')
   .then(response => {
     const elems = document.querySelectorAll('.autocompletePass');
@@ -112,78 +116,59 @@ const nationalityPass = document.querySelector('#nationalityPurPass');
 const genderPass = document.querySelector('#genderPurPass');
 const emailPass = document.querySelector('#emailPurPass');
 
+// Función que se ejecuta cuando se autocompleta el campo de Buyer
 function disabledOtherInputsBuyer() {
+  // Pedimos la data del Customer que se autocompletó al servidor
   axios.get(`/getCustomer/${identityC.value}`)
   .then(response => {
     const customerData = response.data[0];
-    // Llenamos los campos
-    identityC.readOnly = true;
-    identityC.classList.add('disabledPirata');
-    firstName.value = customerData.firstName;
-    firstName.readOnly = true;
-    firstName.classList.add('disabledPirata');
-    lastName.value = customerData.lastName;
-    lastName.readOnly = true;
-    lastName.classList.add('disabledPirata');
-    age.value = customerData.age;
-    age.readOnly = true;
-    age.classList.add('disabledPirata');
-    email.value = customerData.email;
-    email.readOnly = true;
-    email.classList.add('disabledPirata');
-    setSelectBoxByText('nationalityPur', customerData.nationality);
-    nationality.readOnly = true;
-    nationality.classList.add('disabledPirata');
-    setSelectBoxByText('genderPur', customerData.gender);
-    gender.readOnly = true;
-    gender.classList.add('disabledPirata');
-
+    // Llenamos los campos con la data del Customer y deshabilitamos los campos
+    identityC.readOnly = true; identityC.classList.add('disabledPirata');
+    firstName.value = customerData.firstName; firstName.readOnly = true; firstName.classList.add('disabledPirata');
+    lastName.value = customerData.lastName; lastName.readOnly = true; lastName.classList.add('disabledPirata');
+    age.value = customerData.age; age.readOnly = true; age.classList.add('disabledPirata');
+    email.value = customerData.email; email.readOnly = true; email.classList.add('disabledPirata');
+    setSelectBoxByText('nationalityPur', customerData.nationality); nationality.readOnly = true; nationality.classList.add('disabledPirata');
+    setSelectBoxByText('genderPur', customerData.gender); gender.readOnly = true; gender.classList.add('disabledPirata');
+    // Se le agrega la clase active a los labels de los inputs para quitar bug visual
     document.querySelectorAll('#fre').forEach(entry => {
       entry.classList.add('active');
     });
   }).catch(err => console.log(err));
 }
 
+// Función que se ejecuta cuando se autocompleta el campo de Passenger
 function disabledOtherInputsPass() {
+  // Pedimos la data del Customer que se autocompletó al servidor
   axios.get(`/getCustomer/${identityCPass.value}`)
   .then(response => {
     const customerData = response.data[0];
-    // Llenamos los campos
-    identityCPass.readOnly = true;
-    identityCPass.classList.add('disabledPirata');
-    firstNamePass.value = customerData.firstName;
-    firstNamePass.readOnly = true;
-    firstNamePass.classList.add('disabledPirata');
-    lastNamePass.value = customerData.lastName;
-    lastNamePass.readOnly = true;
-    lastNamePass.classList.add('disabledPirata');
-    agePass.value = customerData.age;
-    agePass.readOnly = true;
-    agePass.classList.add('disabledPirata');
-    emailPass.value = customerData.email;
-    emailPass.readOnly = true;
-    emailPass.classList.add('disabledPirata');
-    setSelectBoxByText('nationalityPurPass', customerData.nationality);
-    nationalityPass.readOnly = true;
-    nationalityPass.classList.add('disabledPirata');
-    setSelectBoxByText('genderPurPass', customerData.gender);
-    genderPass.readOnly = true;
-    genderPass.classList.add('disabledPirata');
-
+    // Llenamos los campos con la data del Customer y deshabilitamos los campos
+    identityCPass.readOnly = true; identityCPass.classList.add('disabledPirata');
+    firstNamePass.value = customerData.firstName; firstNamePass.readOnly = true; firstNamePass.classList.add('disabledPirata');
+    lastNamePass.value = customerData.lastName; lastNamePass.readOnly = true; lastNamePass.classList.add('disabledPirata');
+    agePass.value = customerData.age; agePass.readOnly = true; agePass.classList.add('disabledPirata');
+    emailPass.value = customerData.email; emailPass.readOnly = true; emailPass.classList.add('disabledPirata');
+    setSelectBoxByText('nationalityPurPass', customerData.nationality); nationalityPass.readOnly = true; nationalityPass.classList.add('disabledPirata');
+    setSelectBoxByText('genderPurPass', customerData.gender); genderPass.readOnly = true; genderPass.classList.add('disabledPirata');
+    // Se le agrega la clase active a los labels de los inputs para quitar bug visual
     document.querySelectorAll('#frex').forEach(entry => {
       entry.classList.add('active');
     });
   }).catch(err => console.log(err));
 }
 
-function setSelectBoxByText(eid, etxt) {
-  let eidd = document.getElementById(eid);
-  for (let i = 0; i < eidd.options.length; ++i) {
-      if (eidd.options[i].text === etxt)
-        eidd.options[i].selected = true;
+// Función para seleccionar una opción en un select
+function setSelectBoxByText(eid, optionText) {
+  let select = document.getElementById(eid);
+  for (let i = 0; i < select.options.length; ++i) {
+    if (select.options[i].text === optionText) {
+      select.options[i].selected = true;
+    }
   }
 }
 
+// Limpiar los campos con el botón de Clean
 if (document.querySelector('#cleanButton')) {
   document.querySelector('#cleanButton').addEventListener('click', (e) => {
     identityC.value = '';
@@ -234,40 +219,67 @@ if (document.querySelector('#backForm')) {
   });  
 }
 
-const checkBuyerPassenger = document.querySelector('#buyerIsPassenger');
-const passengerInformation = document.querySelector('.passengerInformation');
-const frontSide = document.querySelector('.frontSide');
-const backSide = document.querySelector('.backSide');
-const modalFooter = document.querySelector('.modal-footer');
-checkBuyerPassenger.addEventListener('click', () => {
-  if (checkBuyerPassenger.checked == true) {
-    passengerInformation.style.display = 'none';
-    frontSide.style.height = '40rem';
-    backSide.style.height = '40rem';
-    modalFooter.style.marginTop = '5rem';
-
-    identityCPass.disabled = true;
-    firstNamePass.disabled = true;
-    lastNamePass.disabled = true;
-    agePass.disabled = true;
-    nationalityPass.disabled = true;
-    genderPass.disabled = true;
-    emailPass.disabled = true;
-  } else {
-    passengerInformation.style.display = 'block';
-    frontSide.style.height = '52rem';
-    backSide.style.height = '52rem';
-    modalFooter.style.marginTop = '0';
-
-    identityCPass.disabled = false;
-    firstNamePass.disabled = false;
-    lastNamePass.disabled = false;
-    agePass.disabled = false;
-    nationalityPass.disabled = false;
-    genderPass.disabled = false;
-    emailPass.disabled = false;
-  }
-})
+const checkBuyerPassenger = document.querySelectorAll('.buyerIsPassenger');
+const passengerInformation = document.querySelectorAll('.passengerInformation');
+const frontSide = document.querySelectorAll('.frontSide');
+const modalFooter = document.querySelectorAll('.modal-footer');
+checkBuyerPassenger.forEach(element => {
+  element.addEventListener('click', () => {
+    if (element.checked == true) {
+      // Si uno esta checked, ponemos todos checked
+      checkBuyerPassenger.forEach(ele => {
+        ele.checked = true;
+      });
+      // Se oculta la información del pasajero
+      passengerInformation.forEach(ele => {
+        ele.style.display = 'none';
+      });
+      // Se modifica el tamaño de todos los FrontSide
+      frontSide.forEach(ele => {
+        ele.style.height = '40rem';
+      });
+      // Se modifica el tamaño de todos los footers de los modals
+      modalFooter.forEach(ele => {
+        ele.style.marginTop = '5rem';
+      });
+      
+      // Deshabilitamos los campos del passenger para que no se envíen al servidor
+      identityCPass.disabled = true;
+      firstNamePass.disabled = true;
+      lastNamePass.disabled = true;
+      agePass.disabled = true;
+      nationalityPass.disabled = true;
+      genderPass.disabled = true;
+      emailPass.disabled = true;
+    } else {
+      // Si uno esta no checked, ponemos todos no checked
+      checkBuyerPassenger.forEach(ele => {
+        ele.checked = false;
+      });
+      // Se muestra la información del pasajero
+      passengerInformation.forEach(ele => {
+        ele.style.display = 'block';
+      });
+      // Se modifica el tamaño de todos los FrontSide
+      frontSide.forEach(ele => {
+        ele.style.height = '52rem';
+      });
+      // Se modifica el tamaño de todos los footers de los modals
+      modalFooter.forEach(ele => {
+        ele.style.marginTop = '0';
+      });
+  
+      // Habilitamos los campos del passenger para que no se envíen al servidor
+      identityCPass.disabled = false;
+      firstNamePass.disabled = false;
+      lastNamePass.disabled = false;
+      agePass.disabled = false;
+      nationalityPass.disabled = false;
+      genderPass.disabled = false;
+      emailPass.disabled = false;
+    }
+  });
+});
 
 // Selects Seats
 // const selectsSeats = document.querySelectorAll('.selectSeats');
@@ -343,8 +355,7 @@ $(document).ready(function() {
           document.querySelector(`#seatNum${flightCode}`).value = id;
           return 'selected';
         } else if (this.status() == 'selected') {
-
-          console.log('YAAAAAAAAAA', flightCode);
+          document.querySelector('.loaderSeatMap').style.display = 'block';
           axios.get(`/getEmptySeats/${flightCode}`)
             .then(response => {
               const asientosOcupados = [];
@@ -358,6 +369,7 @@ $(document).ready(function() {
                 }
               }
               document.querySelector(`#seatNum${flightCode}`).value = '';
+              document.querySelector('.loaderSeatMap').style.display = 'none';
             }).catch(err => console.log(err));
           return 'available';
         } else if (this.status() == 'unavailable') {

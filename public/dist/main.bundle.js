@@ -1965,8 +1965,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var http = new XMLHttpRequest();
 
-var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js"); // Initialization Materialize Components
-// Datepicker Home
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js"); // -+-+-+-+-+ INITIALIZATION DATEPICKER HOME -- Materialize -+-+-+-+-+
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -1983,12 +1982,12 @@ document.addEventListener('DOMContentLoaded', function () {
     minDate: minDate,
     maxDate: maxDate
   });
-}); // Selects Home
+}); // -+-+-+-+-+ INITIALIZATION SELECTS OF HOME -- Materialize -+-+-+-+-+
 
 document.addEventListener('DOMContentLoaded', function () {
   var elems = document.querySelectorAll('.select-home');
   var instances = M.FormSelect.init(elems, {});
-}); // Tooltips
+}); // -+-+-+-+-+ INITIALIZATION TOOLTIPS OF HOME MAP -+-+-+-+-+
 
 $(document).ready(function () {
   $('.tooltip').tooltipster({
@@ -1998,12 +1997,13 @@ $(document).ready(function () {
     delay: 100,
     interactive: true
   });
-}); // Sidenav
+}); // -+-+-+-+-+ INITIALIZATION SIDENAV ADMIN -- Materialize -+-+-+-+-+
 
 document.addEventListener('DOMContentLoaded', function () {
   var elems = document.querySelectorAll('.sidenav');
   var instances = M.Sidenav.init(elems, {});
-});
+}); // Se configura el botón para mostrar el sideNav
+
 var botonSidenav = document.querySelector('.openButton');
 
 if (botonSidenav) {
@@ -2011,18 +2011,19 @@ if (botonSidenav) {
     var instance = M.Sidenav.getInstance(document.querySelector('.sidenav'));
     instance.open();
   });
-} // Collapsible
+} // -+-+-+-+-+ INITIALIZATION COOLAPSIBLE ADMIN -- Materialize -+-+-+-+-+
 
 
 document.addEventListener('DOMContentLoaded', function () {
   var elems = document.querySelectorAll('.collapsible');
   var instances = M.Collapsible.init(elems, {});
-}); // Modals
+}); // -+-+-+-+-+ INITIALIZATION MODALS -- Materialize -+-+-+-+-+
 
 document.addEventListener('DOMContentLoaded', function () {
   var elems = document.querySelectorAll('.modal');
   var instances = M.Modal.init(elems, {});
-}); // Autocomplete
+}); // -+-+-+-+-+ INITIALIZATION AUTOCOMPLETE -- Materialize -+-+-+-+-+
+// Se obtienen todos los Customers para el autocompletado del input de Buyer
 
 axios.get('/getCustomers').then(function (response) {
   var elems = document.querySelectorAll('.autocompleteBuyer');
@@ -2036,7 +2037,8 @@ axios.get('/getCustomers').then(function (response) {
   });
 }).catch(function (err) {
   return console.log(err);
-});
+}); // Se obtienen todos los Customers del servidor para el autocompletado del input de Passenger
+
 axios.get('/getCustomers').then(function (response) {
   var elems = document.querySelectorAll('.autocompletePass');
   var array = response.data.reduce(function (acc, cur) {
@@ -2063,11 +2065,12 @@ var lastNamePass = document.querySelector('#lastNamePurPass');
 var agePass = document.querySelector('#agePurPass');
 var nationalityPass = document.querySelector('#nationalityPurPass');
 var genderPass = document.querySelector('#genderPurPass');
-var emailPass = document.querySelector('#emailPurPass');
+var emailPass = document.querySelector('#emailPurPass'); // Función que se ejecuta cuando se autocompleta el campo de Buyer
 
 function disabledOtherInputsBuyer() {
+  // Pedimos la data del Customer que se autocompletó al servidor
   axios.get("/getCustomer/".concat(identityC.value)).then(function (response) {
-    var customerData = response.data[0]; // Llenamos los campos
+    var customerData = response.data[0]; // Llenamos los campos con la data del Customer y deshabilitamos los campos
 
     identityC.readOnly = true;
     identityC.classList.add('disabledPirata');
@@ -2088,18 +2091,21 @@ function disabledOtherInputsBuyer() {
     nationality.classList.add('disabledPirata');
     setSelectBoxByText('genderPur', customerData.gender);
     gender.readOnly = true;
-    gender.classList.add('disabledPirata');
+    gender.classList.add('disabledPirata'); // Se le agrega la clase active a los labels de los inputs para quitar bug visual
+
     document.querySelectorAll('#fre').forEach(function (entry) {
       entry.classList.add('active');
     });
   }).catch(function (err) {
     return console.log(err);
   });
-}
+} // Función que se ejecuta cuando se autocompleta el campo de Passenger
+
 
 function disabledOtherInputsPass() {
+  // Pedimos la data del Customer que se autocompletó al servidor
   axios.get("/getCustomer/".concat(identityCPass.value)).then(function (response) {
-    var customerData = response.data[0]; // Llenamos los campos
+    var customerData = response.data[0]; // Llenamos los campos con la data del Customer y deshabilitamos los campos
 
     identityCPass.readOnly = true;
     identityCPass.classList.add('disabledPirata');
@@ -2120,22 +2126,27 @@ function disabledOtherInputsPass() {
     nationalityPass.classList.add('disabledPirata');
     setSelectBoxByText('genderPurPass', customerData.gender);
     genderPass.readOnly = true;
-    genderPass.classList.add('disabledPirata');
+    genderPass.classList.add('disabledPirata'); // Se le agrega la clase active a los labels de los inputs para quitar bug visual
+
     document.querySelectorAll('#frex').forEach(function (entry) {
       entry.classList.add('active');
     });
   }).catch(function (err) {
     return console.log(err);
   });
-}
+} // Función para seleccionar una opción en un select
 
-function setSelectBoxByText(eid, etxt) {
-  var eidd = document.getElementById(eid);
 
-  for (var i = 0; i < eidd.options.length; ++i) {
-    if (eidd.options[i].text === etxt) eidd.options[i].selected = true;
+function setSelectBoxByText(eid, optionText) {
+  var select = document.getElementById(eid);
+
+  for (var i = 0; i < select.options.length; ++i) {
+    if (select.options[i].text === optionText) {
+      select.options[i].selected = true;
+    }
   }
-}
+} // Limpiar los campos con el botón de Clean
+
 
 if (document.querySelector('#cleanButton')) {
   document.querySelector('#cleanButton').addEventListener('click', function (e) {
@@ -2186,37 +2197,64 @@ if (document.querySelector('#backForm')) {
   });
 }
 
-var checkBuyerPassenger = document.querySelector('#buyerIsPassenger');
-var passengerInformation = document.querySelector('.passengerInformation');
-var frontSide = document.querySelector('.frontSide');
-var backSide = document.querySelector('.backSide');
-var modalFooter = document.querySelector('.modal-footer');
-checkBuyerPassenger.addEventListener('click', function () {
-  if (checkBuyerPassenger.checked == true) {
-    passengerInformation.style.display = 'none';
-    frontSide.style.height = '40rem';
-    backSide.style.height = '40rem';
-    modalFooter.style.marginTop = '5rem';
-    identityCPass.disabled = true;
-    firstNamePass.disabled = true;
-    lastNamePass.disabled = true;
-    agePass.disabled = true;
-    nationalityPass.disabled = true;
-    genderPass.disabled = true;
-    emailPass.disabled = true;
-  } else {
-    passengerInformation.style.display = 'block';
-    frontSide.style.height = '52rem';
-    backSide.style.height = '52rem';
-    modalFooter.style.marginTop = '0';
-    identityCPass.disabled = false;
-    firstNamePass.disabled = false;
-    lastNamePass.disabled = false;
-    agePass.disabled = false;
-    nationalityPass.disabled = false;
-    genderPass.disabled = false;
-    emailPass.disabled = false;
-  }
+var checkBuyerPassenger = document.querySelectorAll('.buyerIsPassenger');
+var passengerInformation = document.querySelectorAll('.passengerInformation');
+var frontSide = document.querySelectorAll('.frontSide');
+var modalFooter = document.querySelectorAll('.modal-footer');
+checkBuyerPassenger.forEach(function (element) {
+  element.addEventListener('click', function () {
+    if (element.checked == true) {
+      // Si uno esta checked, ponemos todos checked
+      checkBuyerPassenger.forEach(function (ele) {
+        ele.checked = true;
+      }); // Se oculta la información del pasajero
+
+      passengerInformation.forEach(function (ele) {
+        ele.style.display = 'none';
+      }); // Se modifica el tamaño de todos los FrontSide
+
+      frontSide.forEach(function (ele) {
+        ele.style.height = '40rem';
+      }); // Se modifica el tamaño de todos los footers de los modals
+
+      modalFooter.forEach(function (ele) {
+        ele.style.marginTop = '5rem';
+      }); // Deshabilitamos los campos del passenger para que no se envíen al servidor
+
+      identityCPass.disabled = true;
+      firstNamePass.disabled = true;
+      lastNamePass.disabled = true;
+      agePass.disabled = true;
+      nationalityPass.disabled = true;
+      genderPass.disabled = true;
+      emailPass.disabled = true;
+    } else {
+      // Si uno esta no checked, ponemos todos no checked
+      checkBuyerPassenger.forEach(function (ele) {
+        ele.checked = false;
+      }); // Se muestra la información del pasajero
+
+      passengerInformation.forEach(function (ele) {
+        ele.style.display = 'block';
+      }); // Se modifica el tamaño de todos los FrontSide
+
+      frontSide.forEach(function (ele) {
+        ele.style.height = '52rem';
+      }); // Se modifica el tamaño de todos los footers de los modals
+
+      modalFooter.forEach(function (ele) {
+        ele.style.marginTop = '0';
+      }); // Habilitamos los campos del passenger para que no se envíen al servidor
+
+      identityCPass.disabled = false;
+      firstNamePass.disabled = false;
+      lastNamePass.disabled = false;
+      agePass.disabled = false;
+      nationalityPass.disabled = false;
+      genderPass.disabled = false;
+      emailPass.disabled = false;
+    }
+  });
 }); // Selects Seats
 // const selectsSeats = document.querySelectorAll('.selectSeats');
 // selectsSeats.forEach(element => {
@@ -2280,7 +2318,7 @@ $(document).ready(function () {
           document.querySelector("#seatNum".concat(flightCode)).value = _id;
           return 'selected';
         } else if (this.status() == 'selected') {
-          console.log('YAAAAAAAAAA', flightCode);
+          document.querySelector('.loaderSeatMap').style.display = 'block';
           axios.get("/getEmptySeats/".concat(flightCode)).then(function (response) {
             var asientosOcupados = [];
             response.data.forEach(function (ele) {
@@ -2295,6 +2333,7 @@ $(document).ready(function () {
             }
 
             document.querySelector("#seatNum".concat(flightCode)).value = '';
+            document.querySelector('.loaderSeatMap').style.display = 'none';
           }).catch(function (err) {
             return console.log(err);
           });

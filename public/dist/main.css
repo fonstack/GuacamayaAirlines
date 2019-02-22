@@ -1035,10 +1035,12 @@ select.disabledPirata {
   transition: all .5s; }
   .modal.rotateActive .frontSide {
     -webkit-transform: rotateY(-180deg);
-            transform: rotateY(-180deg); }
+            transform: rotateY(-180deg);
+    display: none; }
   .modal.rotateActive .backSide {
     -webkit-transform: rotateY(0);
-            transform: rotateY(0); }
+            transform: rotateY(0);
+    display: block; }
 
 .modal-content {
   height: 37rem;
@@ -1046,7 +1048,6 @@ select.disabledPirata {
 
 .frontSide, .backSide {
   position: absolute;
-  height: 52rem;
   width: 100%;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -1058,21 +1059,45 @@ select.disabledPirata {
   -o-transition: all 1.5s ease;
   transition: all 1.5s ease; }
 
+.frontSide {
+  height: 52rem; }
+
 .backSide {
   -webkit-transform: rotateY(-180deg);
-          transform: rotateY(-180deg); }
+          transform: rotateY(-180deg);
+  display: none; }
 
 .seatMaps {
   margin-top: -38px;
-  margin-left: 20%;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   font-size: 10px; }
+
+div.seatCharts-row {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
 
 .rangeField {
   margin-top: 57px; }
 
 .textMap {
   text-align: center; }
+
+.preloader-wrapper {
+  position: absolute;
+  left: 50%;
+  top: 24%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+  display: none; }
+
+.preloader-wrapper.active {
+  -webkit-animation: none !important;
+  animation: none !important; }
 
 .admin-section {
   height: 110vh;
