@@ -2052,130 +2052,227 @@ axios.get('/getCustomers').then(function (response) {
 }).catch(function (err) {
   return console.log(err);
 });
-var identityC = document.querySelector('#identityCardPur');
-var firstName = document.querySelector('#firstNamePur');
-var lastName = document.querySelector('#lastNamePur');
-var age = document.querySelector('#agePur');
-var nationality = document.querySelector('#nationalityPur');
-var gender = document.querySelector('#genderPur');
-var email = document.querySelector('#emailPur');
-var identityCPass = document.querySelector('#identityCardPurPass');
-var firstNamePass = document.querySelector('#firstNamePurPass');
-var lastNamePass = document.querySelector('#lastNamePurPass');
-var agePass = document.querySelector('#agePurPass');
-var nationalityPass = document.querySelector('#nationalityPurPass');
-var genderPass = document.querySelector('#genderPurPass');
-var emailPass = document.querySelector('#emailPurPass'); // Función que se ejecuta cuando se autocompleta el campo de Buyer
+var identityC = document.querySelectorAll('#identityCardPur');
+var firstName = document.querySelectorAll('#firstNamePur');
+var lastName = document.querySelectorAll('#lastNamePur');
+var age = document.querySelectorAll('#agePur');
+var nationality = document.querySelectorAll('#nationalityPur');
+var gender = document.querySelectorAll('#genderPur');
+var email = document.querySelectorAll('#emailPur');
+var identityCPass = document.querySelectorAll('#identityCardPurPass');
+var firstNamePass = document.querySelectorAll('#firstNamePurPass');
+var lastNamePass = document.querySelectorAll('#lastNamePurPass');
+var agePass = document.querySelectorAll('#agePurPass');
+var nationalityPass = document.querySelectorAll('#nationalityPurPass');
+var genderPass = document.querySelectorAll('#genderPurPass');
+var emailPass = document.querySelectorAll('#emailPurPass'); // Función que se ejecuta cuando se autocompleta el campo de Buyer
 
 function disabledOtherInputsBuyer() {
   // Pedimos la data del Customer que se autocompletó al servidor
-  axios.get("/getCustomer/".concat(identityC.value)).then(function (response) {
-    var customerData = response.data[0]; // Llenamos los campos con la data del Customer y deshabilitamos los campos
+  identityC.forEach(function (element) {
+    if (element.value != '') {
+      axios.get("/getCustomer/".concat(element.value)).then(function (response) {
+        var customerData = response.data[0]; // Llenamos los campos con la data del Customer y deshabilitamos los campos
 
-    identityC.readOnly = true;
-    identityC.classList.add('disabledPirata');
-    firstName.value = customerData.firstName;
-    firstName.readOnly = true;
-    firstName.classList.add('disabledPirata');
-    lastName.value = customerData.lastName;
-    lastName.readOnly = true;
-    lastName.classList.add('disabledPirata');
-    age.value = customerData.age;
-    age.readOnly = true;
-    age.classList.add('disabledPirata');
-    email.value = customerData.email;
-    email.readOnly = true;
-    email.classList.add('disabledPirata');
-    setSelectBoxByText('nationalityPur', customerData.nationality);
-    nationality.readOnly = true;
-    nationality.classList.add('disabledPirata');
-    setSelectBoxByText('genderPur', customerData.gender);
-    gender.readOnly = true;
-    gender.classList.add('disabledPirata'); // Se le agrega la clase active a los labels de los inputs para quitar bug visual
+        identityC.forEach(function (element) {
+          element.value = customerData.identityCard;
+          element.readOnly = true;
+          element.classList.add('disabledPirata');
+        });
+        firstName.forEach(function (element) {
+          element.value = customerData.firstName;
+          element.readOnly = true;
+          element.classList.add('disabledPirata');
+        });
+        lastName.forEach(function (element) {
+          element.value = customerData.lastName;
+          element.readOnly = true;
+          element.classList.add('disabledPirata');
+        });
+        age.forEach(function (element) {
+          element.value = customerData.age;
+          element.readOnly = true;
+          element.classList.add('disabledPirata');
+        });
+        email.forEach(function (element) {
+          element.value = customerData.email;
+          element.readOnly = true;
+          element.classList.add('disabledPirata');
+        });
+        nationality.forEach(function (element) {
+          setSelectBoxByText('nationalityPur', customerData.nationality);
+          element.readOnly = true;
+          element.classList.add('disabledPirata');
+        });
+        gender.forEach(function (element) {
+          setSelectBoxByText('genderPur', customerData.gender);
+          element.readOnly = true;
+          element.classList.add('disabledPirata');
+        }); // Se le agrega la clase active a los labels de los inputs para quitar bug visual
 
-    document.querySelectorAll('#fre').forEach(function (entry) {
-      entry.classList.add('active');
-    });
-  }).catch(function (err) {
-    return console.log(err);
+        document.querySelectorAll('#fre').forEach(function (entry) {
+          entry.classList.add('active');
+        });
+      }).catch(function (err) {
+        return console.log(err);
+      });
+    }
   });
 } // Función que se ejecuta cuando se autocompleta el campo de Passenger
 
 
 function disabledOtherInputsPass() {
   // Pedimos la data del Customer que se autocompletó al servidor
-  axios.get("/getCustomer/".concat(identityCPass.value)).then(function (response) {
-    var customerData = response.data[0]; // Llenamos los campos con la data del Customer y deshabilitamos los campos
+  identityCPass.forEach(function (element) {
+    if (element.value != '') {
+      axios.get("/getCustomer/".concat(element.value)).then(function (response) {
+        var customerData = response.data[0]; // Llenamos los campos con la data del Customer y deshabilitamos los campos
 
-    identityCPass.readOnly = true;
-    identityCPass.classList.add('disabledPirata');
-    firstNamePass.value = customerData.firstName;
-    firstNamePass.readOnly = true;
-    firstNamePass.classList.add('disabledPirata');
-    lastNamePass.value = customerData.lastName;
-    lastNamePass.readOnly = true;
-    lastNamePass.classList.add('disabledPirata');
-    agePass.value = customerData.age;
-    agePass.readOnly = true;
-    agePass.classList.add('disabledPirata');
-    emailPass.value = customerData.email;
-    emailPass.readOnly = true;
-    emailPass.classList.add('disabledPirata');
-    setSelectBoxByText('nationalityPurPass', customerData.nationality);
-    nationalityPass.readOnly = true;
-    nationalityPass.classList.add('disabledPirata');
-    setSelectBoxByText('genderPurPass', customerData.gender);
-    genderPass.readOnly = true;
-    genderPass.classList.add('disabledPirata'); // Se le agrega la clase active a los labels de los inputs para quitar bug visual
+        identityCPass.forEach(function (element) {
+          element.value = customerData.identityCard;
+          element.readOnly = true;
+          element.classList.add('disabledPirata');
+        });
+        firstNamePass.forEach(function (element) {
+          element.value = customerData.firstName;
+          element.readOnly = true;
+          element.classList.add('disabledPirata');
+        });
+        lastNamePass.forEach(function (element) {
+          element.value = customerData.lastName;
+          element.readOnly = true;
+          element.classList.add('disabledPirata');
+        });
+        agePass.forEach(function (element) {
+          element.value = customerData.age;
+          element.readOnly = true;
+          element.classList.add('disabledPirata');
+        });
+        emailPass.forEach(function (element) {
+          element.value = customerData.email;
+          element.readOnly = true;
+          element.classList.add('disabledPirata');
+        });
+        nationalityPass.forEach(function (element) {
+          setSelectBoxByText('nationalityPurPass', customerData.nationality);
+          element.readOnly = true;
+          element.classList.add('disabledPirata');
+        });
+        genderPass.forEach(function (element) {
+          setSelectBoxByText('genderPurPass', customerData.gender);
+          element.readOnly = true;
+          element.classList.add('disabledPirata');
+        }); // Se le agrega la clase active a los labels de los inputs para quitar bug visual
 
-    document.querySelectorAll('#frex').forEach(function (entry) {
-      entry.classList.add('active');
-    });
-  }).catch(function (err) {
-    return console.log(err);
+        document.querySelectorAll('#frex').forEach(function (entry) {
+          entry.classList.add('active');
+        });
+      }).catch(function (err) {
+        return console.log(err);
+      });
+    }
   });
 } // Función para seleccionar una opción en un select
 
 
 function setSelectBoxByText(eid, optionText) {
-  var select = document.getElementById(eid);
-
-  for (var i = 0; i < select.options.length; ++i) {
-    if (select.options[i].text === optionText) {
-      select.options[i].selected = true;
+  var select = document.querySelectorAll("#".concat(eid));
+  select.forEach(function (ele) {
+    for (var i = 0; i < ele.options.length; ++i) {
+      if (ele.options[i].text === optionText) {
+        ele.options[i].selected = true;
+      }
     }
-  }
+  });
 } // Limpiar los campos con el botón de Clean
 
 
 if (document.querySelector('#cleanButton')) {
-  document.querySelector('#cleanButton').addEventListener('click', function (e) {
-    identityC.value = '';
-    identityC.readOnly = false;
-    identityC.classList.remove('disabledPirata');
-    firstName.value = '';
-    firstName.readOnly = false;
-    firstName.classList.remove('disabledPirata');
-    lastName.value = '';
-    lastName.readOnly = false;
-    lastName.classList.remove('disabledPirata');
-    age.value = '';
-    age.readOnly = false;
-    age.classList.remove('disabledPirata');
-    email.value = '';
-    email.readOnly = false;
-    email.classList.remove('disabledPirata');
-    nationality.selectedIndex = 0;
-    nationality.readOnly = false;
-    nationality.classList.remove('disabledPirata');
-    gender.selectedIndex = 0;
-    gender.readOnly = false;
-    gender.classList.remove('disabledPirata');
-    document.querySelectorAll('#fre').forEach(function (entry) {
-      entry.classList.remove('active');
+  document.querySelectorAll('#cleanButton').forEach(function (element) {
+    element.addEventListener('click', function () {
+      // Limpiamos campos de Buyer
+      identityC.forEach(function (ele) {
+        ele.value = '';
+        ele.readOnly = false;
+        ele.classList.remove('disabledPirata');
+      });
+      firstName.forEach(function (ele) {
+        ele.value = '';
+        ele.readOnly = false;
+        ele.classList.remove('disabledPirata');
+      });
+      lastName.forEach(function (ele) {
+        ele.value = '';
+        ele.readOnly = false;
+        ele.classList.remove('disabledPirata');
+      });
+      age.forEach(function (ele) {
+        ele.value = '';
+        ele.readOnly = false;
+        ele.classList.remove('disabledPirata');
+      });
+      email.forEach(function (ele) {
+        ele.value = '';
+        ele.readOnly = false;
+        ele.classList.remove('disabledPirata');
+      });
+      nationality.forEach(function (ele) {
+        ele.selectedIndex = 0;
+        ele.readOnly = false;
+        ele.classList.remove('disabledPirata');
+      });
+      gender.forEach(function (ele) {
+        ele.selectedIndex = 0;
+        ele.readOnly = false;
+        ele.classList.remove('disabledPirata');
+      }); // Limpiamos campos de Passenger
+
+      identityCPass.forEach(function (ele) {
+        ele.value = '';
+        ele.readOnly = false;
+        ele.classList.remove('disabledPirata');
+      });
+      firstNamePass.forEach(function (ele) {
+        ele.value = '';
+        ele.readOnly = false;
+        ele.classList.remove('disabledPirata');
+      });
+      lastNamePass.forEach(function (ele) {
+        ele.value = '';
+        ele.readOnly = false;
+        ele.classList.remove('disabledPirata');
+      });
+      agePass.forEach(function (ele) {
+        ele.value = '';
+        ele.readOnly = false;
+        ele.classList.remove('disabledPirata');
+      });
+      emailPass.forEach(function (ele) {
+        ele.value = '';
+        ele.readOnly = false;
+        ele.classList.remove('disabledPirata');
+      });
+      nationalityPass.forEach(function (ele) {
+        ele.selectedIndex = 0;
+        ele.readOnly = false;
+        ele.classList.remove('disabledPirata');
+      });
+      genderPass.forEach(function (ele) {
+        ele.selectedIndex = 0;
+        ele.readOnly = false;
+        ele.classList.remove('disabledPirata');
+      }); // Se le remueve la clase active a los labels de los inputs para quitar bug visual
+
+      document.querySelectorAll('#fre').forEach(function (entry) {
+        entry.classList.remove('active');
+      });
+      document.querySelectorAll('#frex').forEach(function (entry) {
+        entry.classList.remove('active');
+      });
     });
   });
-}
+} // -+-+-+-+-+ INITIALIZATION CONTROL BUTTONS OF AIRPORTS MODALS -+-+-+-+-+
+
 
 if (document.querySelector('#nextForm')) {
   document.querySelectorAll('#nextForm').forEach(function (elem) {
@@ -2195,7 +2292,8 @@ if (document.querySelector('#backForm')) {
       });
     });
   });
-}
+} // -+-+-+-+-+ INITIALIZATION CHECKBOX BUYERISPASSENGER -+-+-+-+-+
+
 
 var checkBuyerPassenger = document.querySelectorAll('.buyerIsPassenger');
 var passengerInformation = document.querySelectorAll('.passengerInformation');
@@ -2221,13 +2319,27 @@ checkBuyerPassenger.forEach(function (element) {
         ele.style.marginTop = '5rem';
       }); // Deshabilitamos los campos del passenger para que no se envíen al servidor
 
-      identityCPass.disabled = true;
-      firstNamePass.disabled = true;
-      lastNamePass.disabled = true;
-      agePass.disabled = true;
-      nationalityPass.disabled = true;
-      genderPass.disabled = true;
-      emailPass.disabled = true;
+      identityCPass.forEach(function (ele) {
+        ele.disabled = true;
+      });
+      firstNamePass.forEach(function (ele) {
+        ele.disabled = true;
+      });
+      lastNamePass.forEach(function (ele) {
+        ele.disabled = true;
+      });
+      agePass.forEach(function (ele) {
+        ele.disabled = true;
+      });
+      nationalityPass.forEach(function (ele) {
+        ele.disabled = true;
+      });
+      genderPass.forEach(function (ele) {
+        ele.disabled = true;
+      });
+      emailPass.forEach(function (ele) {
+        ele.disabled = true;
+      });
     } else {
       // Si uno esta no checked, ponemos todos no checked
       checkBuyerPassenger.forEach(function (ele) {
@@ -2244,15 +2356,29 @@ checkBuyerPassenger.forEach(function (element) {
 
       modalFooter.forEach(function (ele) {
         ele.style.marginTop = '0';
-      }); // Habilitamos los campos del passenger para que no se envíen al servidor
+      }); // Habilitamos los campos del passenger para que se envíen al servidor
 
-      identityCPass.disabled = false;
-      firstNamePass.disabled = false;
-      lastNamePass.disabled = false;
-      agePass.disabled = false;
-      nationalityPass.disabled = false;
-      genderPass.disabled = false;
-      emailPass.disabled = false;
+      identityCPass.forEach(function (ele) {
+        ele.disabled = false;
+      });
+      firstNamePass.forEach(function (ele) {
+        ele.disabled = false;
+      });
+      lastNamePass.forEach(function (ele) {
+        ele.disabled = false;
+      });
+      agePass.forEach(function (ele) {
+        ele.disabled = false;
+      });
+      nationalityPass.forEach(function (ele) {
+        ele.disabled = false;
+      });
+      genderPass.forEach(function (ele) {
+        ele.disabled = false;
+      });
+      emailPass.forEach(function (ele) {
+        ele.disabled = false;
+      });
     }
   });
 }); // Selects Seats
@@ -2276,6 +2402,7 @@ checkBuyerPassenger.forEach(function (element) {
 //     }
 //   }).catch(err => console.log(err));
 // });
+// -+-+-+-+-+ INITIALIZATION SEATSMAP OF AIRPORTS -+-+-+-+-+
 
 $(document).ready(function () {
   document.querySelectorAll('.seatMaps').forEach(function (el) {
@@ -2307,18 +2434,27 @@ $(document).ready(function () {
         var _this = this;
 
         if (this.status() == 'available') {
+          // Ponemos unavailable todos los asientos excepto el escogido
           var _id = this.settings.id;
 
           for (var i = 1; i <= 35; i++) {
             if (i != _id) {
               sc.get('' + i).status('unavailable');
             }
-          }
+          } // Llenamos el input hidden del asiento seleccionado
 
-          document.querySelector("#seatNum".concat(flightCode)).value = _id;
+
+          document.querySelector("#seatNum".concat(flightCode)).value = _id; // Habilitamos el botón de Purchase
+
+          document.querySelectorAll('#buttonPurchaseTicket').forEach(function (ele) {
+            ele.disabled = false;
+          });
           return 'selected';
         } else if (this.status() == 'selected') {
-          document.querySelector('.loaderSeatMap').style.display = 'block';
+          // Ponemos todos los asientos available excepto los que ya están vendidos
+          document.querySelectorAll('.loaderSeatMap').forEach(function (ele) {
+            ele.style.display = 'block';
+          });
           axios.get("/getEmptySeats/".concat(flightCode)).then(function (response) {
             var asientosOcupados = [];
             response.data.forEach(function (ele) {
@@ -2330,10 +2466,17 @@ $(document).ready(function () {
               if (!asientosOcupados.includes('' + _i)) {
                 sc.get('' + _i).status('available');
               }
-            }
+            } // Vaciamos el input hidden del asiento seleccionado
+
 
             document.querySelector("#seatNum".concat(flightCode)).value = '';
-            document.querySelector('.loaderSeatMap').style.display = 'none';
+            document.querySelectorAll('.loaderSeatMap').forEach(function (ele) {
+              ele.style.display = 'none';
+            }); // Habilitamos el botón de Purchase
+
+            document.querySelectorAll('#buttonPurchaseTicket').forEach(function (ele) {
+              ele.disabled = true;
+            });
           }).catch(function (err) {
             return console.log(err);
           });
@@ -2364,7 +2507,7 @@ $(document).ready(function () {
       return console.log(err);
     });
   });
-}); // Validation of the confirm password on Register
+}); // -+-+-+-+-+ VALIDACIÓN DEL CONFIRM PASSWORD DE REGISTER -+-+-+-+-+
 
 var confirmPassRegister = document.getElementById('confirmpasswordRegister');
 var passRegister = document.getElementById('passwordRegister');

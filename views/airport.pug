@@ -168,10 +168,10 @@ block content
                                              .circle
                                     .seatMaps(id=`seat-map${flight[0].code}`)
                                     p.textMap Seat Number
-                                    input(type="hidden" name=`seatScale${flight[0].code}` id=`seatNum${flight[0].code}`)
+                                    input(required type="hidden" name=`seatScale${flight[0].code}` id=`seatNum${flight[0].code}`)
                               .modal-footer
                                  a.waves-effect.waves-green.btn-flat#backForm Back Step 🠜
-                                 button.waves-effect.waves-green.btn-flat(type="submit") Purchase Ticket ✓
+                                 button#buttonPurchaseTicket.waves-effect.waves-green.btn-flat(type="submit" disabled) Purchase Ticket ✓
 
 
 
