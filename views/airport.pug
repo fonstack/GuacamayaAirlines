@@ -194,10 +194,10 @@ block content
                                              .circle
                                           .circle-clipper.right
                                              .circle
-                                    - const num =  Math.round(Math.random() * 1000000)
+                                    - const num =  Math.round(Math.random() * 1000000);
                                     .seatMaps(id=`seat-map_${num}_${flight[0].code}`)
                                     p.textMap Seat Number
-                                    input(required type="text" name=`seatScale${flight[0].code}` id=`seatNum_${num}_${flight[0].code}`)
+                                    input(required type="text" name=`seatScale${flight[0].code}` id=`seatNum_${num}_${flight[0].code}`).disabledPirata.inputSeat
                               .modal-footer
                                  a.waves-effect.waves-green.btn-flat#backForm Back Step 🠜
                                  button#buttonPurchaseTicket.waves-effect.waves-green.btn-flat(type="submit" disabled) Purchase Ticket ✓
@@ -324,10 +324,10 @@ block content
                                                 .circle
                                              .circle-clipper.right
                                                 .circle
-                                       - const num =  Math.round(Math.random() * 1000000)
+                                       - const num =  Math.round(Math.random() * 1000000);
                                        .seatMaps(id=`seat-map_${num}_${scale.code}`)
                                        p.textMap Seat Number
-                                       input(type="text" name=`seatScale${scale.code}` id=`seatNum_${num}_${scale.code}`)
+                                       input(type="text" name=`seatScale${scale.code}` id=`seatNum_${num}_${scale.code}`).disabledPirata.inputSeat
                                        
                               .modal-footer
                                  a.waves-effect.waves-green.btn-flat#backForm Back Step 🠜

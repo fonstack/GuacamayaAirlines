@@ -1123,6 +1123,8 @@ header {
       color: rgba(0, 0, 0, 0.42) !important; }
   .disabledPirata ~ label {
     color: rgba(0, 0, 0, 0.42) !important; }
+  .disabledPirata.inputSeat {
+    text-align: center; }
 
 select.disabledPirata {
   border-bottom: 1px solid #f2f2f2 !important;
