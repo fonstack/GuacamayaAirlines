@@ -86,7 +86,7 @@ Airport.hasMany(Route, { foreignKey: 'IATADestiny', sourceKey: 'IATACode' });
 
 
 // Le decimos a sequelize que cree las tablas
-sequelize.sync({ });
+// sequelize.sync();
 
 // Empezamos la aplicación
 const app = require("./app");

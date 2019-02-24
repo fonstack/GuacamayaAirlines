@@ -24,7 +24,19 @@ const Customer = sequelize.define("Customer", {
   email: {
     type: Sequelize.STRING,
     allowNull: false
-  }
+  },
+  age: {
+    type: Sequelize.INTEGER,
+    allowNull: false
+  },
+  gender: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  nationality: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
 });
 
 module.exports = Customer;

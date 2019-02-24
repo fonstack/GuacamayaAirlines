@@ -11,17 +11,48 @@ block content
             a
                span.white-text.name Administrator Options
       li
-         a(href='#')
-            i.material-icons cloud
-            | First Link With Icon
-      li
-         a(href='#') Second Link
-      li
-         .divider
-      li
-         a.subheader Subheader
-      li
-         a.waves-effect(href='#') Third Link With Waves
+         ul.collapsible
+            li
+               .collapsible-header
+                  i(class="fas fa-tools")
+                  | Planning
+               .collapsible-body
+                  a(href="http://") Flights
+                     i(class="fas fa-angle-right ml-4")
+                  a(href="http://") Charter Flights
+                     i(class="fas fa-angle-right ml-4")
+                  a(href="http://") Routes
+                     i(class="fas fa-angle-right ml-4")
+                  a(href="http://") Airplanes
+                     i(class="fas fa-angle-right ml-4")
+            li
+               .collapsible-header
+                  i(class="fas fa-flag")
+                  | Reports and Manifests
+               .collapsible-body
+                  a(href="http://") Failures
+                     i(class="fas fa-angle-right ml-4")
+                  a(href="http://") Maintenances
+                     i(class="fas fa-angle-right ml-4")
+                  a(href="http://") Detours
+                     i(class="fas fa-angle-right ml-4")
+                  a(href="http://") Cancelations
+                     i(class="fas fa-angle-right ml-4")
+            li
+               .collapsible-header
+                  i(class="fas fa-money-check")
+                  | Sales
+               .collapsible-body
+                  a(href="http://") Flight Tickets
+                     i(class="fas fa-angle-right ml-4")
+            li
+               .collapsible-header
+                  i(class="fas fa-chart-pie")
+                  | Statistics
+               .collapsible-body
+                  a(href="http://") Flight Tickets
+                     i(class="fas fa-angle-right ml-4")
+
       
 
    .admin-section 
