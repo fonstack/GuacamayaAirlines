@@ -1203,10 +1203,19 @@ div.seatCharts-row {
   animation: none !important; }
 
 .fromCol, .toCol {
-  width: 120px !important; }
+  width: 80px !important; }
 
 .dateCol {
   width: 200px !important; }
+
+.priceCol {
+  width: 120px !important; }
+
+.totalPriceCol {
+  width: 120px !important; }
+
+.totalPriceColl {
+  font-weight: 900 !important; }
 
 .admin-section {
   height: 110vh;

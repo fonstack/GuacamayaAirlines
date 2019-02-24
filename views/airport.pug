@@ -52,7 +52,8 @@ block content
                               th.fromCol From
                               th.toCol To
                               th.dateCol Depart Date
-                              th Price
+                              th.priceCol Price
+                              th.totalPriceCol Total Price
                               th 
                         tbody
                            each scale, indexx in flight
@@ -70,6 +71,9 @@ block content
                                  td= h.moment(scale.date).add(4, 'hours').format('lll')
                                  td #{scale.basePrice} $
                                  if indexx == 0
+                                    - let precioTotal = 0;
+                                    - flight.forEach(ele => precioTotal += ele.basePrice);
+                                    td(rowspan="2").totalPriceColl  <span class="flightImportant">#{precioTotal} $</span>
                                     td(rowspan="2").buttonCell 
                                        a(class="waves-effect waves-light btn-small modal-trigger" href=`#purchaseModal${index}`) Purchase&nbsp;&nbsp; <i class="fas fa-cart-plus"></i>
                   
