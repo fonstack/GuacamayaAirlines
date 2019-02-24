@@ -55,7 +55,7 @@ block content
                               th Price
                               th 
                         tbody
-                           each scale, index in flight
+                           each scale, indexx in flight
                               tr
                                  - const conditionFrom = scale.origin.startsWith(airport.iata);
                                  - const conditionTo = scale.destiny.startsWith(`${airport.iata}`);
@@ -69,7 +69,7 @@ block content
                                     td #{scale.destiny}
                                  td= h.moment(scale.date).add(4, 'hours').format('lll')
                                  td #{scale.basePrice} $
-                                 if index == 0
+                                 if indexx == 0
                                     td(rowspan="2").buttonCell 
                                        a(class="waves-effect waves-light btn-small modal-trigger" href=`#purchaseModal${index}`) Purchase&nbsp;&nbsp; <i class="fas fa-cart-plus"></i>
                   
