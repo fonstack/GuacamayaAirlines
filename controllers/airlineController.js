@@ -322,7 +322,15 @@ exports.searchFlights = (req, res) => {
               airport.flights.push(flightsCrack);
             });
 
-            res.render('airport', { title: 'airport', airport });
+            if (airport.flights.length === 0) {
+              req.flash('info', 'Not found flights like that.');
+              req.session.save(function () {
+                res.redirect('/');
+              });
+            } else {
+              res.render('airport', { title: 'airport', airport });
+            }
+
           })
             .catch(err => console.log(err));
       })
@@ -482,7 +490,15 @@ exports.searchFlights = (req, res) => {
               airport.flights.push(flightsCrack);
             });
             
-            res.render('airport', { title: 'airport', airport });
+            if (airport.flights.length === 0) {
+              req.flash('info', 'Not found flights like that.');
+              req.session.save(function () {
+                res.redirect('/');
+              });
+            } else {
+              res.render('airport', { title: 'airport', airport });
+            }
+            
           })
             .catch(err => console.log(err));
       })

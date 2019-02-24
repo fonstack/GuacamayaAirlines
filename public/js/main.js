@@ -75,6 +75,15 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+// -+-+-+-+-+ INITIALIZATION BUTTON FOR LOADER IN HOME -+-+-+-+-+
+if (document.querySelector('.btnHome')) {
+  document.querySelector('.btnHome').addEventListener('click', () => {
+    if (document.querySelector('#selectHomeTo').value != '' && document.querySelector('#selectHomeFrom').value != '')
+    document.querySelector('.loadingView').style.display = 'block';
+  });
+}
+
+
 // -+-+-+-+-+ INITIALIZATION AUTOCOMPLETE -- Materialize -+-+-+-+-+
 // Se obtienen todos los Customers para el autocompletado del input de Buyer
 axios.get('/getCustomers')

@@ -2022,8 +2022,15 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
   var elems = document.querySelectorAll('.modal');
   var instances = M.Modal.init(elems, {});
-}); // -+-+-+-+-+ INITIALIZATION AUTOCOMPLETE -- Materialize -+-+-+-+-+
+}); // -+-+-+-+-+ INITIALIZATION BUTTON FOR LOADER IN HOME -+-+-+-+-+
+
+if (document.querySelector('.btnHome')) {
+  document.querySelector('.btnHome').addEventListener('click', function () {
+    if (document.querySelector('#selectHomeTo').value != '' && document.querySelector('#selectHomeFrom').value != '') document.querySelector('.loadingView').style.display = 'block';
+  });
+} // -+-+-+-+-+ INITIALIZATION AUTOCOMPLETE -- Materialize -+-+-+-+-+
 // Se obtienen todos los Customers para el autocompletado del input de Buyer
+
 
 axios.get('/getCustomers').then(function (response) {
   var elems = document.querySelectorAll('.autocompleteBuyer');
