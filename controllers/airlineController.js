@@ -83,7 +83,7 @@ exports.searchFlights = (req, res) => {
   const scales = req.body.scales;
 
   
-  if (req.body.from && req.body.to && req.body.from && !req.body.dateDepart && !req.body.scales) { // From, To, NoScales
+  if (req.body.from && req.body.to && !req.body.dateDepart && !req.body.scales) { // From, To, NoScales
     sequelize.query(`
       SELECT city, lon, lat, name 
       FROM Airports
@@ -120,12 +120,13 @@ exports.searchFlights = (req, res) => {
           flightsCrack.push(xd);
         });
         airport.flights = flightsCrack;
+        
         res.render("airport", { title: 'airport', airport });
       }
     })
       .catch(err => console.log(err));
 
-  } else if (req.body.from && req.body.to && req.body.from && req.body.dateDepart && !req.body.scales) { // From, To, Date, NoScales
+  } else if (req.body.from && req.body.to && req.body.dateDepart && !req.body.scales) { // From, To, Date, NoScales
     sequelize.query(`
       SELECT city, lon, lat, name 
       FROM Airports
@@ -167,9 +168,346 @@ exports.searchFlights = (req, res) => {
     })
       .catch(err => console.log(err));
 
-  } else if (req.body.from && req.body.to && req.body.from && !req.body.dateDepart && req.body.scales) { // From, To, Scales
+  } else if (req.body.from && req.body.to && !req.body.dateDepart && req.body.scales) { // From, To, Scales
+    sequelize.query(`
+      SELECT city, lon, lat, name 
+      FROM Airports
+      WHERE IATACode = '${to}'
+    `, { type: sequelize.QueryTypes.SELECT})
+      .then(result => {
+        airport = {
+          iata: to,
+          city: result[0].city,
+          lon: result[0].lon,
+          lat: result[0].lat,
+          name: result[0].name
+        };
+
+        // PRIMER GENERADOR DE NUMEROS DE RUTAS PARA UTILIZAR EN QUERY SUPERIOR
+        return sequelize.query(`
+          SELECT a.id as ruta1, b.id as ruta2
+          FROM Routes as a
+          JOIN Routes as b
+          WHERE (a.destiny = b.origin) AND (a.origin = '${from}') AND (b.destiny = '${to}')
+        `, { type: sequelize.QueryTypes.SELECT});
+      })
+      .then(result => {
+        const ruta11 = result[0].ruta1;
+        const ruta12 = result[0].ruta2;
+          const ruta21 = result[1].ruta1;
+          const ruta22 = result[1].ruta2;
+            const ruta31 = result[2].ruta1;
+            const ruta32 = result[2].ruta2;
+              const ruta41 = result[3].ruta1;
+              const ruta42 = result[3].ruta2;
+        // VUELOS CON ESCALA (UTILIZAR NUMEROS DE RUTA GENERADOS POR EL QUERY GENERADOR DE RUTAS)
+        sequelize.query(`
+          SELECT a.code as code_1, tableroutes.origin as origin_1, tableroutes.destiny as destiny_1, a.date as date_1, tableroutes.basePrice as price_1, b.code as code_2, tableroutes2.origin as origin_2, tableroutes2.destiny as destiny_2, b.date as date_2, tableroutes2.basePrice as price_2
+          FROM Flights AS a
+          JOIN Flights AS b 
+          INNER JOIN Routes AS tableroutes ON tableroutes.id = a.routeId 
+          INNER JOIN Routes AS tableroutes2 ON tableroutes2.id = b.routeId 
+          WHERE (b.date > a.date + INTERVAL (SELECT travelTime FROM Routes WHERE id = ${ruta11}) + 2 HOUR) 
+          AND (a.routeId = ${ruta11}) AND (b.routeId = ${ruta12})
+        `, { type: sequelize.QueryTypes.SELECT})
+          .then(result => {
+            airport.flights = [];
+            result.forEach(element => {
+              let flightsCrack = [];
+              flightsCrack.push({
+                code: element.code_1,
+                origin: element.origin_1,
+                destiny: element.destiny_1,
+                date: element.date_1,
+                basePrice: element.price_1
+              });
+              flightsCrack.push({
+                code: element.code_2,
+                origin: element.origin_2,
+                destiny: element.destiny_2,
+                date: element.date_2,
+                basePrice: element.price_2
+              });
+              airport.flights.push(flightsCrack);
+            });
+            
+            return sequelize.query(`
+              SELECT a.code as code_1, tableroutes.origin as origin_1, tableroutes.destiny as destiny_1, a.date as date_1, tableroutes.basePrice as price_1, b.code as code_2, tableroutes2.origin as origin_2, tableroutes2.destiny as destiny_2, b.date as date_2, tableroutes2.basePrice as price_2
+              FROM Flights AS a
+              JOIN Flights AS b 
+              INNER JOIN Routes AS tableroutes ON tableroutes.id = a.routeId 
+              INNER JOIN Routes AS tableroutes2 ON tableroutes2.id = b.routeId 
+              WHERE (b.date > a.date + INTERVAL (SELECT travelTime FROM Routes WHERE id = ${ruta21}) + 2 HOUR) 
+              AND (a.routeId = ${ruta21}) AND (b.routeId = ${ruta22})
+            `, { type: sequelize.QueryTypes.SELECT})
+
+          })
+          .then(result => {
+            result.forEach(element => {
+              let flightsCrack = [];
+              flightsCrack.push({
+                code: element.code_1,
+                origin: element.origin_1,
+                destiny: element.destiny_1,
+                date: element.date_1,
+                basePrice: element.price_1
+              });
+              flightsCrack.push({
+                code: element.code_2,
+                origin: element.origin_2,
+                destiny: element.destiny_2,
+                date: element.date_2,
+                basePrice: element.price_2
+              });
+              airport.flights.push(flightsCrack);
+            });
+
+            return sequelize.query(`
+              SELECT a.code as code_1, tableroutes.origin as origin_1, tableroutes.destiny as destiny_1, a.date as date_1, tableroutes.basePrice as price_1, b.code as code_2, tableroutes2.origin as origin_2, tableroutes2.destiny as destiny_2, b.date as date_2, tableroutes2.basePrice as price_2
+              FROM Flights AS a
+              JOIN Flights AS b 
+              INNER JOIN Routes AS tableroutes ON tableroutes.id = a.routeId 
+              INNER JOIN Routes AS tableroutes2 ON tableroutes2.id = b.routeId 
+              WHERE (b.date > a.date + INTERVAL (SELECT travelTime FROM Routes WHERE id = ${ruta31}) + 2 HOUR) 
+              AND (a.routeId = ${ruta31}) AND (b.routeId = ${ruta32})
+            `, { type: sequelize.QueryTypes.SELECT})
+          })
+          .then(result => {
+            result.forEach(element => {
+              let flightsCrack = [];
+              flightsCrack.push({
+                code: element.code_1,
+                origin: element.origin_1,
+                destiny: element.destiny_1,
+                date: element.date_1,
+                basePrice: element.price_1
+              });
+              flightsCrack.push({
+                code: element.code_2,
+                origin: element.origin_2,
+                destiny: element.destiny_2,
+                date: element.date_2,
+                basePrice: element.price_2
+              });
+              airport.flights.push(flightsCrack);
+            });
+
+            return sequelize.query(`
+              SELECT a.code as code_1, tableroutes.origin as origin_1, tableroutes.destiny as destiny_1, a.date as date_1, tableroutes.basePrice as price_1, b.code as code_2, tableroutes2.origin as origin_2, tableroutes2.destiny as destiny_2, b.date as date_2, tableroutes2.basePrice as price_2
+              FROM Flights AS a
+              JOIN Flights AS b 
+              INNER JOIN Routes AS tableroutes ON tableroutes.id = a.routeId 
+              INNER JOIN Routes AS tableroutes2 ON tableroutes2.id = b.routeId 
+              WHERE (b.date > a.date + INTERVAL (SELECT travelTime FROM Routes WHERE id = ${ruta41}) + 2 HOUR) 
+              AND (a.routeId = ${ruta41}) AND (b.routeId = ${ruta42})
+            `, { type: sequelize.QueryTypes.SELECT})
+          })
+          .then(result => {
+            result.forEach(element => {
+              let flightsCrack = [];
+              flightsCrack.push({
+                code: element.code_1,
+                origin: element.origin_1,
+                destiny: element.destiny_1,
+                date: element.date_1,
+                basePrice: element.price_1
+              });
+              flightsCrack.push({
+                code: element.code_2,
+                origin: element.origin_2,
+                destiny: element.destiny_2,
+                date: element.date_2,
+                basePrice: element.price_2
+              });
+              airport.flights.push(flightsCrack);
+            });
+
+            res.render('airport', { title: 'airport', airport });
+          })
+            .catch(err => console.log(err));
+      })
+        .catch(err => console.log(err));
 
   } else if (req.body.from && req.body.to && req.body.from && req.body.dateDepart && req.body.scales) { // From, To, Date, Scales
+    sequelize.query(`
+      SELECT city, lon, lat, name 
+      FROM Airports
+      WHERE IATACode = '${to}'
+    `, { type: sequelize.QueryTypes.SELECT})
+      .then(result => {
+        airport = {
+          iata: to,
+          city: result[0].city,
+          lon: result[0].lon,
+          lat: result[0].lat,
+          name: result[0].name
+        };
+
+        // PRIMER GENERADOR DE NUMEROS DE RUTAS PARA UTILIZAR EN QUERY SUPERIOR
+        return sequelize.query(`
+          SELECT a.id as ruta1, b.id as ruta2
+          FROM Routes as a
+          JOIN Routes as b
+          WHERE (a.destiny = b.origin) AND (a.origin = '${from}') AND (b.destiny = '${to}')
+        `, { type: sequelize.QueryTypes.SELECT});
+      })
+      .then(result => {
+        const ruta11 = result[0].ruta1;
+        const ruta12 = result[0].ruta2;
+          const ruta21 = result[1].ruta1;
+          const ruta22 = result[1].ruta2;
+            const ruta31 = result[2].ruta1;
+            const ruta32 = result[2].ruta2;
+              const ruta41 = result[3].ruta1;
+              const ruta42 = result[3].ruta2;
+        // VUELOS CON ESCALA (UTILIZAR NUMEROS DE RUTA GENERADOS POR EL QUERY GENERADOR DE RUTAS)
+        sequelize.query(`
+          SELECT a.code as code_1, tableroutes.origin as origin_1, tableroutes.destiny as destiny_1, a.date as date_1, tableroutes.basePrice as price_1, b.code as code_2, tableroutes2.origin as origin_2, tableroutes2.destiny as destiny_2, b.date as date_2, tableroutes2.basePrice as price_2
+          FROM Flights AS a
+          JOIN Flights AS b 
+          INNER JOIN Routes AS tableroutes ON tableroutes.id = a.routeId 
+          INNER JOIN Routes AS tableroutes2 ON tableroutes2.id = b.routeId 
+          WHERE (b.date > a.date + INTERVAL (SELECT travelTime FROM Routes WHERE id = ${ruta11}) + 2 HOUR) 
+          AND (a.routeId = ${ruta11}) AND (b.routeId = ${ruta12}) AND a.date = '${newdate}'
+        `, { type: sequelize.QueryTypes.SELECT})
+          .then(result => {
+            airport.flights = [];
+            result.forEach(element => {
+              let flightsCrack = [];
+              flightsCrack.push({
+                code: element.code_1,
+                origin: element.origin_1,
+                destiny: element.destiny_1,
+                date: element.date_1,
+                basePrice: element.price_1
+              });
+              flightsCrack.push({
+                code: element.code_2,
+                origin: element.origin_2,
+                destiny: element.destiny_2,
+                date: element.date_2,
+                basePrice: element.price_2
+              });
+              airport.flights.push(flightsCrack);
+            });
+            
+            return sequelize.query(`
+              SELECT a.code as code_1, tableroutes.origin as origin_1, tableroutes.destiny as destiny_1, a.date as date_1, tableroutes.basePrice as price_1, b.code as code_2, tableroutes2.origin as origin_2, tableroutes2.destiny as destiny_2, b.date as date_2, tableroutes2.basePrice as price_2
+              FROM Flights AS a
+              JOIN Flights AS b 
+              INNER JOIN Routes AS tableroutes ON tableroutes.id = a.routeId 
+              INNER JOIN Routes AS tableroutes2 ON tableroutes2.id = b.routeId 
+              WHERE (b.date > a.date + INTERVAL (SELECT travelTime FROM Routes WHERE id = ${ruta21}) + 2 HOUR) 
+              AND (a.routeId = ${ruta21}) AND (b.routeId = ${ruta22}) AND a.date = '${newdate}'
+            `, { type: sequelize.QueryTypes.SELECT})
+
+          })
+          .then(result => {
+            result.forEach(element => {
+              let flightsCrack = [];
+              flightsCrack.push({
+                code: element.code_1,
+                origin: element.origin_1,
+                destiny: element.destiny_1,
+                date: element.date_1,
+                basePrice: element.price_1
+              });
+              flightsCrack.push({
+                code: element.code_2,
+                origin: element.origin_2,
+                destiny: element.destiny_2,
+                date: element.date_2,
+                basePrice: element.price_2
+              });
+              airport.flights.push(flightsCrack);
+            });
+
+            return sequelize.query(`
+              SELECT a.code as code_1, tableroutes.origin as origin_1, tableroutes.destiny as destiny_1, a.date as date_1, tableroutes.basePrice as price_1, b.code as code_2, tableroutes2.origin as origin_2, tableroutes2.destiny as destiny_2, b.date as date_2, tableroutes2.basePrice as price_2
+              FROM Flights AS a
+              JOIN Flights AS b 
+              INNER JOIN Routes AS tableroutes ON tableroutes.id = a.routeId 
+              INNER JOIN Routes AS tableroutes2 ON tableroutes2.id = b.routeId 
+              WHERE (b.date > a.date + INTERVAL (SELECT travelTime FROM Routes WHERE id = ${ruta31}) + 2 HOUR) 
+              AND (a.routeId = ${ruta31}) AND (b.routeId = ${ruta32}) AND a.date = '${newdate}'
+            `, { type: sequelize.QueryTypes.SELECT})
+          })
+          .then(result => {
+            result.forEach(element => {
+              let flightsCrack = [];
+              flightsCrack.push({
+                code: element.code_1,
+                origin: element.origin_1,
+                destiny: element.destiny_1,
+                date: element.date_1,
+                basePrice: element.price_1
+              });
+              flightsCrack.push({
+                code: element.code_2,
+                origin: element.origin_2,
+                destiny: element.destiny_2,
+                date: element.date_2,
+                basePrice: element.price_2
+              });
+              airport.flights.push(flightsCrack);
+            });
+
+            return sequelize.query(`
+              SELECT a.code as code_1, tableroutes.origin as origin_1, tableroutes.destiny as destiny_1, a.date as date_1, tableroutes.basePrice as price_1, b.code as code_2, tableroutes2.origin as origin_2, tableroutes2.destiny as destiny_2, b.date as date_2, tableroutes2.basePrice as price_2
+              FROM Flights AS a
+              JOIN Flights AS b 
+              INNER JOIN Routes AS tableroutes ON tableroutes.id = a.routeId 
+              INNER JOIN Routes AS tableroutes2 ON tableroutes2.id = b.routeId 
+              WHERE (b.date > a.date + INTERVAL (SELECT travelTime FROM Routes WHERE id = ${ruta41}) + 2 HOUR) 
+              AND (a.routeId = ${ruta41}) AND (b.routeId = ${ruta42}) AND a.date = '${newdate}'
+            `, { type: sequelize.QueryTypes.SELECT})
+          })
+          .then(result => {
+            result.forEach(element => {
+              let flightsCrack = [];
+              flightsCrack.push({
+                code: element.code_1,
+                origin: element.origin_1,
+                destiny: element.destiny_1,
+                date: element.date_1,
+                basePrice: element.price_1
+              });
+              flightsCrack.push({
+                code: element.code_2,
+                origin: element.origin_2,
+                destiny: element.destiny_2,
+                date: element.date_2,
+                basePrice: element.price_2
+              });
+              airport.flights.push(flightsCrack);
+            });
+            
+            res.render('airport', { title: 'airport', airport });
+          })
+            .catch(err => console.log(err));
+      })
+        .catch(err => console.log(err));
+
+    // // VUELOS CON ESCALA (UTILIZAR NUMEROS DE RUTA GENERADOS POR EL QUERY GENERADOR DE RUTAS)
+// sequelize.query(`
+  // SELECT a.code as code_1, tableroutes.origin as origin_1, tableroutes.destiny as destiny_1, a.date as date_1, tableroutes.basePrice as price1, b.code as code_2, tableroutes2.origin as origin_2, tableroutes2.destiny as destiny_2, b.date as date_2, tableroutes2.basePrice as price2
+  // FROM Flights AS a
+  // JOIN Flights AS b 
+  // INNER JOIN Routes AS tableroutes ON tableroutes.id = a.routeId 
+  // INNER JOIN Routes AS tableroutes2 ON tableroutes2.id = b.routeId 
+  // WHERE (b.date > a.date + INTERVAL (SELECT travelTime FROM Routes WHERE id = 12)+2 HOUR) 
+  // AND (a.routeId = 12) AND (b.routeId = 26) AND a.date = '2019-05-22'
+// `).then(result => res.json(result[0]))
+//     .catch(err => console.log(err));
+
+// // PRIMER GENERADOR DE NUMEROS DE RUTAS PARA UTILIZAR EN QUERY SUPERIOR
+// sequelize.query(`
+//   SELECT a.id as ruta1, b.id as ruta2
+//   FROM Routes as a
+//   JOIN Routes as b
+//   WHERE (a.destiny = b.origin) AND (a.origin = 'ATL') AND (b.destiny = 'CCS')
+// `).then(result => res.json(result[0]))
+//     .catch(err => console.log(err));
 
   }
 
@@ -319,22 +657,18 @@ exports.searchFlights = (req, res) => {
 
 // // VUELOS CON ESCALA (UTILIZAR NUMEROS DE RUTA GENERADOS POR EL QUERY GENERADOR DE RUTAS)
 // sequelize.query(`
-//   SELECT a.code as pene1, a.date, trabuco.origin, trabuco.destiny, b.code as pene2, b.date, b.routeId, penezote.origin, penezote.destiny
-//   FROM Flights AS a
-//   JOIN Flights AS b 
-//   INNER JOIN Routes AS trabuco ON trabuco.id = a.routeId 
-//   INNER JOIN Routes AS penezote ON penezote.id = b.routeId 
-//   WHERE (b.date > a.date + (SELECT travelTime FROM Routes WHERE id = 6)) 
-//   AND (a.routeId = 6) AND (b.routeId = 5);
+  // SELECT a.code as code_1, a.date as date_1, tableroutes.origin as origin_1, tableroutes.destiny as destiny_1, b.code as code_2, b.date as date_2, tableroutes2.origin as origin_2, tableroutes2.destiny as destiny_2
+  // FROM Flights AS a
+  // JOIN Flights AS b 
+  // INNER JOIN Routes AS tableroutes ON tableroutes.id = a.routeId 
+  // INNER JOIN Routes AS tableroutes2 ON tableroutes2.id = b.routeId 
+  // WHERE (b.date > a.date + INTERVAL (SELECT travelTime FROM Routes WHERE id = 12)+2 HOUR) 
+  // AND (a.routeId = 12) AND (b.routeId = 26)
 // `).then(result => res.json(result[0]))
 //     .catch(err => console.log(err));
 
 // // PRIMER GENERADOR DE NUMEROS DE RUTAS PARA UTILIZAR EN QUERY SUPERIOR
 // sequelize.query(`
-//   SELECT a.id, b.id
-//   FROM Routes as a
-//   JOIN Routes as b
-//   WHERE (a.destiny = b.origin) AND (a.origin = 'ATL') AND (b.destiny = 'CCS')
 //   SELECT a.id as ruta1, b.id as ruta2
 //   FROM Routes as a
 //   JOIN Routes as b
