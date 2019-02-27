@@ -39,7 +39,7 @@ block content
                                  td <span class="flightImportant">#{flight[0].destiny}</span>
                               else
                                  td #{flight[0].destiny}
-                              td= h.moment(flight[0].date).add(4, 'hours').format('MMMM Do YYYY')
+                              td= h.moment(flight[0].date).add(4, 'hours').format('lll')
                               td #{flight[0].basePrice} $
                               td.buttonCell 
                                  a(class="waves-effect waves-light btn-small modal-trigger" href=`#purchaseModal${index}`) Purchase&nbsp;&nbsp; <i class="fas fa-cart-plus"></i>

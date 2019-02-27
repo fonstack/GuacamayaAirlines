@@ -170,6 +170,15 @@ a, a:link, a:visited {
 .datePicker {
   padding-left: 2rem; }
 
+.datepicker-controls {
+  padding: 10px 0 !important; }
+
+.datepicker-calendar-container {
+  background-color: #FFF; }
+
+.datepicker-day-button {
+  line-height: 36px !important; }
+
 .buttoncito {
   top: 1rem; }
 
