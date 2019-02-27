@@ -31,7 +31,8 @@ router.get("/airport/:iata", airlineController.viewAirport);
 router.get("/logout", authController.logout);
 
 // Admin View
-router.get("/admin", authController.needLogged, airlineController.viewAdmin);
+router.get("/admin/:section", authController.needLogged, airlineController.viewAdmin);
+router.get("/admin", authController.needLogged, airlineController.viewAdminOnly);
 
 
 router.post("/sendCustomer", (req, res) => {

@@ -63,6 +63,43 @@ exports.viewAirport = (req, res) => {
 };
 
 exports.viewAdmin = (req, res) => {
+  const section = req.params.section;
+
+  if (section === 'planningFlights') {
+    res.render("admin/planningFlights", { title: 'admin' });
+  } else if (section === 'planningCharters') {
+    res.render("admin/planningCharters", { title: 'admin' });
+  } else if (section === 'planningRoutes') {
+    res.render("admin/planningRoutes", { title: 'admin' });
+  } else if (section === 'planningAirplanes') {
+    res.render("admin/planningAirplanes", { title: 'admin' });
+  } 
+  
+  else if (section === 'reportsFailures') {
+    res.render("admin/reportsFailures", { title: 'admin' });
+  } else if (section === 'reportsMaintenances') {
+    res.render("admin/reportsMaintenances", { title: 'admin' });
+  } else if (section === 'reportsDetours') {
+    res.render("admin/reportsDetours", { title: 'admin' });
+  } else if (section === 'reportsCancelations') {
+    res.render("admin/reportsCancelations", { title: 'admin' });
+  } 
+  
+  else if (section === 'salesFlightTickets') {
+    res.render("admin/salesFlightTickets", { title: 'admin' });
+  } else if (section === 'statisticsFlightTickets') {
+    res.render("admin/statisticsFlightTickets", { title: 'admin' });
+  } 
+  
+  else {
+    req.flash('error', 'Not Found this route.');
+    req.session.save(function () {
+      res.redirect('/');
+    });
+  }
+};
+
+exports.viewAdminOnly = (req, res) => {
   res.render("admin", { title: 'admin' });
 };
 

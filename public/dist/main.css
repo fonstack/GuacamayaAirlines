@@ -1229,8 +1229,9 @@ div.seatCharts-row {
   font-weight: 900 !important; }
 
 .admin-section {
-  height: 110vh;
+  min-height: 110vh;
   width: 100%;
+  padding-top: 10rem;
   background-color: #585555; }
 
 .sidenav {
