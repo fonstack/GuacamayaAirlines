@@ -44,7 +44,7 @@ block content
                               td.buttonCell 
                                  a(class="waves-effect waves-light btn-small modal-trigger" href=`#purchaseModal${index}`) Purchase&nbsp;&nbsp; <i class="fas fa-cart-plus"></i>
                //- SI TIENE ESCALA
-               else 
+               else if flight.length == 2
                   .airport__flights-card
                      table
                         thead 
@@ -76,7 +76,38 @@ block content
                                     td(rowspan="2").totalPriceColl  <span class="flightImportant">#{precioTotal} $</span>
                                     td(rowspan="2").buttonCell 
                                        a(class="waves-effect waves-light btn-small modal-trigger" href=`#purchaseModal${index}`) Purchase&nbsp;&nbsp; <i class="fas fa-cart-plus"></i>
-                  
+               else 
+                  .airport__flights-card
+                     table
+                        thead 
+                           tr
+                              th.fromCol From
+                              th.toCol To
+                              th.dateCol Depart Date
+                              th.priceCol Price
+                              th.totalPriceCol Total Price
+                              th 
+                        tbody
+                           each scale, indexx in flight
+                              tr
+                                 - const conditionFrom = scale.origin.startsWith(airport.iata);
+                                 - const conditionTo = scale.destiny.startsWith(`${airport.iata}`);
+                                 if conditionFrom
+                                    td <span class="flightImportant">#{scale.origin}</span>
+                                 else
+                                    td #{scale.origin}
+                                 if conditionTo
+                                    td <span class="flightImportant">#{scale.destiny}</span>
+                                 else
+                                    td #{scale.destiny}
+                                 td= h.moment(scale.date).add(4, 'hours').format('lll')
+                                 td #{scale.basePrice} $
+                                 if indexx == 0
+                                    - let precioTotal = 0;
+                                    - flight.forEach(ele => precioTotal += ele.basePrice);
+                                    td(rowspan="3").totalPriceColl  <span class="flightImportant">#{precioTotal} $</span>
+                                    td(rowspan="3").buttonCell 
+                                       a(class="waves-effect waves-light btn-small modal-trigger" href=`#purchaseModal${index}`) Purchase&nbsp;&nbsp; <i class="fas fa-cart-plus"></i>
                
                
                //- SI NO TIENE ESCALA
