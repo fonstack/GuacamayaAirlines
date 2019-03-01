@@ -39,16 +39,44 @@ block content
                                  td <span class="flightImportant">#{flight[0].destiny}</span>
                               else
                                  td #{flight[0].destiny}
-                              td= h.moment(flight[0].date).add(4, 'hours').format('MMMM Do YYYY')
+                              td= h.moment(flight[0].date).add(4, 'hours').format('lll')
                               td #{flight[0].basePrice} $
                               td.buttonCell 
                                  a(class="waves-effect waves-light btn-small modal-trigger" href=`#purchaseModal${index}`) Purchase&nbsp;&nbsp; <i class="fas fa-cart-plus"></i>
                //- SI TIENE ESCALA
                else 
+                  .airport__flights-card
+                     table
+                        thead 
+                           tr
+                              th.fromCol From
+                              th.toCol To
+                              th.dateCol Depart Date
+                              th.priceCol Price
+                              th.totalPriceCol Total Price
+                              th 
+                        tbody
+                           each scale, indexx in flight
+                              tr
+                                 - const conditionFrom = scale.origin.startsWith(airport.iata);
+                                 - const conditionTo = scale.destiny.startsWith(`${airport.iata}`);
+                                 if conditionFrom
+                                    td <span class="flightImportant">#{scale.origin}</span>
+                                 else
+                                    td #{scale.origin}
+                                 if conditionTo
+                                    td <span class="flightImportant">#{scale.destiny}</span>
+                                 else
+                                    td #{scale.destiny}
+                                 td= h.moment(scale.date).add(4, 'hours').format('lll')
+                                 td #{scale.basePrice} $
+                                 if indexx == 0
+                                    - let precioTotal = 0;
+                                    - flight.forEach(ele => precioTotal += ele.basePrice);
+                                    td(rowspan="2").totalPriceColl  <span class="flightImportant">#{precioTotal} $</span>
+                                    td(rowspan="2").buttonCell 
+                                       a(class="waves-effect waves-light btn-small modal-trigger" href=`#purchaseModal${index}`) Purchase&nbsp;&nbsp; <i class="fas fa-cart-plus"></i>
                   
-               
-               
-               
                
                
                //- SI NO TIENE ESCALA
@@ -149,7 +177,7 @@ block content
                                  a.waves-effect.waves-green.btn-flat#nextForm Next Step 🠞
 
                            .backSide
-                              p.title Ticket Information #{flight[0].code} &nbsp;&nbsp;
+                              p.title Ticket Information [#{flight[0].origin} - #{flight[0].destiny}] #{flight[0].code} &nbsp;&nbsp;
                                  i(class="fas fa-ticket-alt")
                               .row.firstRow
                                  .input-field.col.s8.rangeField
@@ -166,13 +194,13 @@ block content
                                              .circle
                                           .circle-clipper.right
                                              .circle
-                                    .seatMaps(id=`seat-map${flight[0].code}`)
+                                    - const num =  Math.round(Math.random() * 1000000);
+                                    .seatMaps(id=`seat-map_${num}_${flight[0].code}`)
                                     p.textMap Seat Number
-                                    input(required type="hidden" name=`seatScale${flight[0].code}` id=`seatNum${flight[0].code}`)
+                                    input(required type="text" name=`seatScale${flight[0].code}` id=`seatNum_${num}_${flight[0].code}`).disabledPirata.inputSeat
                               .modal-footer
                                  a.waves-effect.waves-green.btn-flat#backForm Back Step 🠜
                                  button#buttonPurchaseTicket.waves-effect.waves-green.btn-flat(type="submit" disabled) Purchase Ticket ✓
-
 
 
 
@@ -279,7 +307,7 @@ block content
 
                            .backSide
                               each scale in flight
-                                 p.title Ticket Information #{scale.code} &nbsp;&nbsp;
+                                 p.title Ticket Information [#{scale.origin} - #{scale.destiny}] #{scale.code} &nbsp;&nbsp;
                                     i(class="fas fa-ticket-alt")
                                  .row.firstRow
                                     .input-field.col.s8.rangeField
@@ -296,9 +324,10 @@ block content
                                                 .circle
                                              .circle-clipper.right
                                                 .circle
-                                       .seatMaps(id=`seat-map${scale.code}`)
+                                       - const num =  Math.round(Math.random() * 1000000);
+                                       .seatMaps(id=`seat-map_${num}_${scale.code}`)
                                        p.textMap Seat Number
-                                       input(type="hidden" name=`seatScale${scale.code}` id=`seatNum${scale.code}`)
+                                       input(type="text" name=`seatScale${scale.code}` id=`seatNum_${num}_${scale.code}`).disabledPirata.inputSeat
                                        
                               .modal-footer
                                  a.waves-effect.waves-green.btn-flat#backForm Back Step 🠜

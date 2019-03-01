@@ -75,6 +75,15 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+// -+-+-+-+-+ INITIALIZATION BUTTON FOR LOADER IN HOME -+-+-+-+-+
+if (document.querySelector('.btnHome')) {
+  document.querySelector('.btnHome').addEventListener('click', () => {
+    if (document.querySelector('#selectHomeTo').value != '' && document.querySelector('#selectHomeFrom').value != '')
+    document.querySelector('.loadingView').style.display = 'block';
+  });
+}
+
+
 // -+-+-+-+-+ INITIALIZATION AUTOCOMPLETE -- Materialize -+-+-+-+-+
 // Se obtienen todos los Customers para el autocompletado del input de Buyer
 axios.get('/getCustomers')
@@ -411,6 +420,7 @@ $(document).ready(function() {
 	document.querySelectorAll('.seatMaps').forEach(el => {
     let firstSeatLabel = 1;
     let firstSeatLabel2 = 1;  
+    console.log(el.getAttribute('id'));
     var sc = $(`#${el.getAttribute('id')}`).seatCharts({
       map: [
         'aa_aa',
@@ -451,7 +461,7 @@ $(document).ready(function() {
             }
           }
           // Llenamos el input hidden del asiento seleccionado
-          document.querySelector(`#seatNum${flightCode}`).value = id;
+          document.querySelector(`#seatNum_${numRandom}_${flightCode}`).value = id;
           // Habilitamos el botón de Purchase
           document.querySelectorAll('#buttonPurchaseTicket').forEach(ele => {
             ele.disabled = false;
@@ -476,7 +486,7 @@ $(document).ready(function() {
                 }
               }
               // Vaciamos el input hidden del asiento seleccionado
-              document.querySelector(`#seatNum${flightCode}`).value = '';
+              document.querySelector(`#seatNum_${numRandom}_${flightCode}`).value = '';
               document.querySelectorAll('.loaderSeatMap').forEach(ele => {
                 ele.style.display = 'none';
               });
@@ -497,7 +507,8 @@ $(document).ready(function() {
   
     // Inhabilitar los que ya están comprados
     const id = el.getAttribute('id');
-    const flightCode = id.split('seat-map')[1];
+    const flightCode = id.split('_')[2];
+    const numRandom = id.split('_')[1];
     axios.get(`/getEmptySeats/${flightCode}`)
     .then(response => {
       const asientosOcupados = [];

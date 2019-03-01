@@ -10,7 +10,7 @@ block content
          form(action="/searchFlight" method="POST")
             .row
                .input-field.col.s2
-                  select(required name="from").select-home
+                  select(required name="from")#selectHomeFrom.select-home
                      option(value='' disabled hidden selected) Choose option
                      option(value='MIA') MIA - Miami
                      option(value='CCS') CCS - Caracas
@@ -20,7 +20,7 @@ block content
                      option(value='CDG') CDG - Paris
                   label From *
                .input-field.col.s2
-                  select(required name="to").select-home
+                  select(required name="to")#selectHomeTo.select-home
                      option(value='' disabled hidden selected) Choose option
                      option(value='MIA') MIA - Miami
                      option(value='CCS') CCS - Caracas
@@ -154,5 +154,14 @@ block content
             </a>
          </svg>
    
-               
-               
+   .loadingView
+      .lds-roller 
+         div
+         div
+         div
+         div
+         div
+         div
+         div
+         div
+         

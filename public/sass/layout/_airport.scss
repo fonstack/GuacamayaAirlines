@@ -213,6 +213,10 @@
    & ~ label {
       color: rgba(0,0,0,0.42) !important;
    }
+
+   &.inputSeat {
+      text-align: center;
+   }
 }
 
 select.disabledPirata {
@@ -291,4 +295,24 @@ div.seatCharts-row {
 .preloader-wrapper.active {
    -webkit-animation: none !important;
    animation: none !important;
+}
+
+.fromCol, .toCol {
+   width: 80px !important;
+}
+
+.dateCol {
+   width: 200px !important;
+}
+
+.priceCol {
+   width: 120px !important;
+}
+
+.totalPriceCol {
+   width: 120px !important;
+}
+
+.totalPriceColl {
+   font-weight: 900 !important;
 }

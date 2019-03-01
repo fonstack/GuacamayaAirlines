@@ -17,42 +17,43 @@ block content
                   i(class="fas fa-tools")
                   | Planning
                .collapsible-body
-                  a(href="http://") Flights
+                  a(href="/admin/planningFlights") Flights
                      i(class="fas fa-angle-right ml-4")
-                  a(href="http://") Charter Flights
+                  a(href="/admin/planningCharters") Charter Flights
                      i(class="fas fa-angle-right ml-4")
-                  a(href="http://") Routes
+                  a(href="/admin/planningRoutes") Routes
                      i(class="fas fa-angle-right ml-4")
-                  a(href="http://") Airplanes
+                  a(href="/admin/planningAirplanes") Airplanes
                      i(class="fas fa-angle-right ml-4")
             li
                .collapsible-header
                   i(class="fas fa-flag")
                   | Reports and Manifests
                .collapsible-body
-                  a(href="http://") Failures
+                  a(href="/admin/reportsFailures") Failures
                      i(class="fas fa-angle-right ml-4")
-                  a(href="http://") Maintenances
+                  a(href="/admin/reportsMaintenances") Maintenances
                      i(class="fas fa-angle-right ml-4")
-                  a(href="http://") Detours
+                  a(href="/admin/reportsDetours") Detours
                      i(class="fas fa-angle-right ml-4")
-                  a(href="http://") Cancelations
+                  a(href="/admin/reportsCancelations") Cancelations
                      i(class="fas fa-angle-right ml-4")
             li
                .collapsible-header
                   i(class="fas fa-money-check")
                   | Sales
                .collapsible-body
-                  a(href="http://") Flight Tickets
+                  a(href="/admin/salesFlightTickets") Flight Tickets
                      i(class="fas fa-angle-right ml-4")
             li
                .collapsible-header
                   i(class="fas fa-chart-pie")
                   | Statistics
                .collapsible-body
-                  a(href="http://") Flight Tickets
+                  a(href="/admin/statisticsFlightTickets") Flight Tickets
                      i(class="fas fa-angle-right ml-4")
 
       
 
-   .admin-section 
+   .admin-section
+      block adminContent

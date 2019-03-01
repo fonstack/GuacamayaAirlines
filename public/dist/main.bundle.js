@@ -2022,8 +2022,15 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
   var elems = document.querySelectorAll('.modal');
   var instances = M.Modal.init(elems, {});
-}); // -+-+-+-+-+ INITIALIZATION AUTOCOMPLETE -- Materialize -+-+-+-+-+
+}); // -+-+-+-+-+ INITIALIZATION BUTTON FOR LOADER IN HOME -+-+-+-+-+
+
+if (document.querySelector('.btnHome')) {
+  document.querySelector('.btnHome').addEventListener('click', function () {
+    if (document.querySelector('#selectHomeTo').value != '' && document.querySelector('#selectHomeFrom').value != '') document.querySelector('.loadingView').style.display = 'block';
+  });
+} // -+-+-+-+-+ INITIALIZATION AUTOCOMPLETE -- Materialize -+-+-+-+-+
 // Se obtienen todos los Customers para el autocompletado del input de Buyer
+
 
 axios.get('/getCustomers').then(function (response) {
   var elems = document.querySelectorAll('.autocompleteBuyer');
@@ -2408,6 +2415,7 @@ $(document).ready(function () {
   document.querySelectorAll('.seatMaps').forEach(function (el) {
     var firstSeatLabel = 1;
     var firstSeatLabel2 = 1;
+    console.log(el.getAttribute('id'));
     var sc = $("#".concat(el.getAttribute('id'))).seatCharts({
       map: ['aa_aa', 'aa_aa', 'bb_bb', 'bb_bb', 'bb___', 'bb_bb', 'bb_bb', 'bb_bb', 'bbbbb'],
       seats: {
@@ -2444,7 +2452,7 @@ $(document).ready(function () {
           } // Llenamos el input hidden del asiento seleccionado
 
 
-          document.querySelector("#seatNum".concat(flightCode)).value = _id; // Habilitamos el botón de Purchase
+          document.querySelector("#seatNum_".concat(numRandom, "_").concat(flightCode)).value = _id; // Habilitamos el botón de Purchase
 
           document.querySelectorAll('#buttonPurchaseTicket').forEach(function (ele) {
             ele.disabled = false;
@@ -2469,7 +2477,7 @@ $(document).ready(function () {
             } // Vaciamos el input hidden del asiento seleccionado
 
 
-            document.querySelector("#seatNum".concat(flightCode)).value = '';
+            document.querySelector("#seatNum_".concat(numRandom, "_").concat(flightCode)).value = '';
             document.querySelectorAll('.loaderSeatMap').forEach(function (ele) {
               ele.style.display = 'none';
             }); // Habilitamos el botón de Purchase
@@ -2491,7 +2499,8 @@ $(document).ready(function () {
     }); // Inhabilitar los que ya están comprados
 
     var id = el.getAttribute('id');
-    var flightCode = id.split('seat-map')[1];
+    var flightCode = id.split('_')[2];
+    var numRandom = id.split('_')[1];
     axios.get("/getEmptySeats/".concat(flightCode)).then(function (response) {
       var asientosOcupados = [];
       response.data.forEach(function (ele) {
