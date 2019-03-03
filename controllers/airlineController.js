@@ -470,7 +470,7 @@ exports.searchFlights = (req, res) => {
                 AND (b.date + INTERVAL (SELECT travelTime FROM Routes WHERE id = ${array2[i]}) + 24 HOUR > c.date)
               `, { type: sequelize.QueryTypes.SELECT})
                 .then(result => {
-                  result.forEach(element => {
+                  result.forEach(element => {m
                     let flightsCrack = [];
                     flightsCrack.push({
                       code: element.code_1,
