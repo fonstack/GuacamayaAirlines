@@ -1009,76 +1009,6 @@ exports.searchFlights = (req, res) => {
 
     } else if (req.body.from && req.body.to && req.body.from && req.body.dateDepart && req.body.scales) { // From, To, Date, Scales
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       sequelize.query(`
       SELECT city, lon, lat, name 
       FROM Airports
@@ -1804,17 +1734,7 @@ exports.searchFlights = (req, res) => {
           .catch(err => console.log(err));
       })
       .catch(err => console.log(err));
-
-
-
-
-
-
 }};
-
-
-
-
 
 
 

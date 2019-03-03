@@ -2516,6 +2516,14 @@ $(document).ready(function () {
       return console.log(err);
     });
   });
+}); // -+-+-+-+-+ INITIALIZATION TABLES ADMIN -+-+-+-+-+
+
+var data = [["1", "29-02-2010", "2", "12", "MIA", "CCS", "On Time"], ["1", "29-02-2010", "2", "12", "MIA", "CCS", "On Time"], ["1", "29-03-2010", "2", "12", "MIA", "CCS", "On Time"], ["1", "27-02-2010", "2", "12", "MIA", "CCS", "On Time"], ["1", "27-02-2010", "2", "12", "MIA", "CCS", "On Time"], ["1", "28-02-2010", "2", "12", "MIA", "CCS", "On Time"]];
+$(document).ready(function () {
+  $('#tablePlanningFlights').DataTable({
+    data: data,
+    "lengthMenu": [5, 10, 20, 50]
+  });
 }); // -+-+-+-+-+ VALIDACIÓN DEL CONFIRM PASSWORD DE REGISTER -+-+-+-+-+
 
 var confirmPassRegister = document.getElementById('confirmpasswordRegister');
