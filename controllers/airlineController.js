@@ -66,13 +66,71 @@ exports.viewAdmin = (req, res) => {
   const section = req.params.section;
 
   if (section === 'planningFlights') {
-    res.render("admin/planningFlights", { title: 'admin' });
+    let flights = [];
+    sequelize.query(`
+      SELECT code, date, state, airplaneId, routeId, Routes.origin, Routes.destiny
+      FROM Flights
+      INNER JOIN Routes ON Routes.id = Flights.routeId
+    `, { type: sequelize.QueryTypes.SELECT })
+    .then(result => {
+      result.forEach(element => {
+          flights.push({
+            code: element.code,
+            date: element.date,
+            state: element.state,
+            airplaneId: element.airplaneId,
+            routeId: element.routeId,
+            origin: element.origin,
+            destiny: element.destiny
+          });
+      });
+      res.render("admin/planningFlights", { title: 'admin' , flights});
+    })
+    .catch(err => console.log(err));
   } else if (section === 'planningCharters') {
-    res.render("admin/planningCharters", { title: 'admin' });
+    let charters = [];
+    sequelize.query(`
+    SELECT Charters.id, Charters.date, Charters.state, Charters.detourId, Charters.providerId, Providers.name, routeId, Routes.origin, Routes.destiny
+    FROM Charters
+    INNER JOIN Routes ON Routes.id = Charters.routeId
+    INNER JOIN Providers ON providerId = Providers.id
+    `, { type: sequelize.QueryTypes.SELECT })
+    .then(result => {
+      result.forEach(element => {
+          charters.push({
+            id: element.id,
+            date: element.date,
+            state: element.state,
+            detourId: element.detourId,
+            providerId: element.providerId,
+            providerName: element.name,
+            routeId: element.routeId,
+            origin: element.origin,
+            destiny: element.destiny
+          });
+      });
+      res.render("admin/planningCharters", { title: 'admin' , charters});
+    })
+    .catch(err => console.log(err));
   } else if (section === 'planningRoutes') {
     res.render("admin/planningRoutes", { title: 'admin' });
   } else if (section === 'planningAirplanes') {
-    res.render("admin/planningAirplanes", { title: 'admin' });
+    let airplanes = [];
+    sequelize.query(`
+      SELECT id, model, state
+      FROM Airplanes
+    ` ,{ type: sequelize.QueryTypes.SELECT })
+    .then(result => {
+      result.forEach(element => {
+        airplanes.push({
+          id: element.id,
+          model: element.model,
+          state: element.state
+        });
+      });
+      res.render("admin/planningAirplanes", { title: 'admin' , airplanes});
+    })
+    .catch(err => console.log(err));
   }
 
   else if (section === 'reportsFailures') {
