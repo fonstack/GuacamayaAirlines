@@ -147,11 +147,9 @@
    }
 }
 
-.sorting_1 {
-   background-color: #585858 !important;
-}
 
-table {
+
+table.tableFlinchi {
 
    &.dataTable {
       border-collapse: collapse !important;
@@ -162,6 +160,10 @@ table {
       color: rgb(200, 200, 200) !important;
       font-size: 1.3rem;
       border-radius: 0 !important;
+
+      &.sorting_1 {
+         background-color: #585858 !important;
+      }
    }
 
    thead {
@@ -184,13 +186,6 @@ table {
          background-image: url('/images/sort_desc.png') !important;
       }
    }
-
-   // tbody tr {
-
-   //    &:hover {
-   //       background-color: rgb(34, 34, 34) !important;
-   //    }
-   // }
 }
 
 

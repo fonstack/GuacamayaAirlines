@@ -1347,28 +1347,27 @@ div.seatCharts-row {
     background: #1d1d1d !important;
     border: none !important; }
 
-.sorting_1 {
-  background-color: #585858 !important; }
-
-table.dataTable {
+table.tableFlinchi.dataTable {
   border-collapse: collapse !important; }
 
-table td {
+table.tableFlinchi td {
   background: #5f5f5f !important;
   color: #c8c8c8 !important;
   font-size: 1.3rem;
   border-radius: 0 !important; }
+  table.tableFlinchi td.sorting_1 {
+    background-color: #585858 !important; }
 
-table thead {
+table.tableFlinchi thead {
   font-size: 1.4rem;
   color: #242424 !important; }
-  table thead th {
+  table.tableFlinchi thead th {
     border-bottom: none !important; }
-  table thead .sorting {
+  table.tableFlinchi thead .sorting {
     background-image: url("/images/sort_both.png") !important; }
-  table thead .sorting_asc {
+  table.tableFlinchi thead .sorting_asc {
     background-image: url("/images/sort_asc.png") !important; }
-  table thead .sorting_desc {
+  table.tableFlinchi thead .sorting_desc {
     background-image: url("/images/sort_desc.png") !important; }
 
 .project {
