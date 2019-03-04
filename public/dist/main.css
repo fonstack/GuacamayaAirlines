@@ -1266,7 +1266,7 @@ div.seatCharts-row {
 .ml-4 {
   margin-left: 2rem; }
 
-.title {
+.titlee {
   text-align: center;
   font-weight: 300;
   color: #202020;
@@ -1280,13 +1280,13 @@ div.seatCharts-row {
   -webkit-transition: all .3s;
   -o-transition: all .3s;
   transition: all .3s; }
-  .title:hover {
+  .titlee:hover {
     letter-spacing: 9px; }
 
 .tableContainer {
   width: 90%;
   margin: 0 auto;
-  padding: 7rem 2rem; }
+  padding: 2rem 2rem; }
 
 .dataTables_length {
   margin-bottom: 1rem; }
@@ -1360,7 +1360,8 @@ table.tableFlinchi td {
 
 table.tableFlinchi thead {
   font-size: 1.4rem;
-  color: #242424 !important; }
+  color: #242424 !important;
+  text-transform: uppercase; }
   table.tableFlinchi thead th {
     border-bottom: none !important; }
   table.tableFlinchi thead .sorting {
@@ -1369,6 +1370,46 @@ table.tableFlinchi thead {
     background-image: url("/images/sort_asc.png") !important; }
   table.tableFlinchi thead .sorting_desc {
     background-image: url("/images/sort_desc.png") !important; }
+
+.contButton {
+  width: 90%;
+  margin: 0 auto;
+  padding: 2rem 2rem; }
+  .contButton .createButton {
+    color: #ebebeb;
+    width: 100%;
+    font-size: 2.2rem;
+    font-weight: 300;
+    letter-spacing: 0.3rem; }
+
+.modalPlanningFlights {
+  height: 28rem; }
+
+.contentModal {
+  background-color: #fafafa; }
+  .contentModal .separatorTitleModalAdmin {
+    width: 95%;
+    margin: 0 auto; }
+  .contentModal h4 {
+    padding-top: 1.6rem; }
+  .contentModal .rowModalAdmin {
+    padding-top: 4.6rem;
+    width: 95%; }
+  .contentModal .rowModalAdmin2 {
+    padding-top: 1rem;
+    width: 95%; }
+
+.browser-default {
+  height: 4rem; }
+
+.timepicker-analog-display {
+  background-color: #fff; }
+
+.timepicker-modal {
+  overflow: hidden; }
+
+.timepicker-digital-display {
+  width: 12rem; }
 
 .project {
   width: 100%;

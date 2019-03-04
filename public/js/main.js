@@ -20,12 +20,46 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+  const minDate = new Date;
+  const maxDate = new Date;
+  maxDate.setDate(maxDate.getDate() + 365);
+  const elems = document.querySelector('.datepickerAdmin');
+  const cont = document.querySelector('.adminSect');
+  const instances = M.Datepicker.init(elems, {
+    autoClose: true,
+    container: cont,
+    format: 'dd/mm/yyyy',
+    firstDay: 1,
+    minDate: minDate,
+    maxDate: maxDate
+  });
+});
 
-// -+-+-+-+-+ INITIALIZATION SELECTS OF HOME -- Materialize -+-+-+-+-+
+
+// -+-+-+-+-+ INITIALIZATION TIMEPICKER HOME -- Materialize -+-+-+-+-+
+document.addEventListener('DOMContentLoaded', function() {
+  const elems = document.querySelectorAll('.timepickerAdmin');
+  const instances = M.Timepicker.init(elems, {
+    twelveHour: false,
+    container: '.adminSect',
+    defaultTime: 0
+  });
+});
+
+
+
+// -+-+-+-+-+ INITIALIZATION SELECTS -- Materialize -+-+-+-+-+
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.select-home');
   var instances = M.FormSelect.init(elems, {
     
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.selectAdmin');
+  var instances = M.FormSelect.init(elems, {
   });
 });
 

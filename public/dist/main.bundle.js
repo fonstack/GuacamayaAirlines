@@ -1982,10 +1982,38 @@ document.addEventListener('DOMContentLoaded', function () {
     minDate: minDate,
     maxDate: maxDate
   });
-}); // -+-+-+-+-+ INITIALIZATION SELECTS OF HOME -- Materialize -+-+-+-+-+
+});
+document.addEventListener('DOMContentLoaded', function () {
+  var minDate = new Date();
+  var maxDate = new Date();
+  maxDate.setDate(maxDate.getDate() + 365);
+  var elems = document.querySelector('.datepickerAdmin');
+  var cont = document.querySelector('.adminSect');
+  var instances = M.Datepicker.init(elems, {
+    autoClose: true,
+    container: cont,
+    format: 'dd/mm/yyyy',
+    firstDay: 1,
+    minDate: minDate,
+    maxDate: maxDate
+  });
+}); // -+-+-+-+-+ INITIALIZATION TIMEPICKER HOME -- Materialize -+-+-+-+-+
+
+document.addEventListener('DOMContentLoaded', function () {
+  var elems = document.querySelectorAll('.timepickerAdmin');
+  var instances = M.Timepicker.init(elems, {
+    twelveHour: false,
+    container: '.adminSect',
+    defaultTime: 0
+  });
+}); // -+-+-+-+-+ INITIALIZATION SELECTS -- Materialize -+-+-+-+-+
 
 document.addEventListener('DOMContentLoaded', function () {
   var elems = document.querySelectorAll('.select-home');
+  var instances = M.FormSelect.init(elems, {});
+});
+document.addEventListener('DOMContentLoaded', function () {
+  var elems = document.querySelectorAll('.selectAdmin');
   var instances = M.FormSelect.init(elems, {});
 }); // -+-+-+-+-+ INITIALIZATION TOOLTIPS OF HOME MAP -+-+-+-+-+
 
