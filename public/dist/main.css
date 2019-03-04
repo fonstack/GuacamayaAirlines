@@ -1232,7 +1232,7 @@ div.seatCharts-row {
   min-height: 110vh;
   width: 100%;
   padding-top: 10rem;
-  background-color: #585555; }
+  background-color: #747474; }
 
 .sidenav {
   z-index: 1000; }
@@ -1265,6 +1265,110 @@ div.seatCharts-row {
 
 .ml-4 {
   margin-left: 2rem; }
+
+.title {
+  text-align: center;
+  font-weight: 300;
+  color: #202020;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  font-size: 4rem;
+  border-bottom: 2px solid #313131;
+  width: 96%;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+  -webkit-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s; }
+  .title:hover {
+    letter-spacing: 9px; }
+
+.tableContainer {
+  width: 90%;
+  margin: 0 auto;
+  padding: 7rem 2rem; }
+
+.dataTables_length {
+  margin-bottom: 1rem; }
+  .dataTables_length label {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    font-size: 1.4rem;
+    color: #252525;
+    font-weight: 800; }
+    .dataTables_length label select {
+      display: inline-block;
+      margin: 0 .4rem;
+      font-size: 1rem;
+      background: #252525;
+      border: none;
+      color: beige; }
+
+.dataTables_filter {
+  margin-bottom: 1rem; }
+  .dataTables_filter label {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    font-size: 1.4rem;
+    color: #252525;
+    font-weight: 800; }
+    .dataTables_filter label input {
+      font-weight: 300;
+      font-size: 1rem;
+      border-bottom: 1px solid #252525 !important;
+      -webkit-box-shadow: none !important;
+              box-shadow: none !important; }
+
+.dataTables_info {
+  margin-top: 1rem;
+  font-size: 1.4rem;
+  color: #1d1d1d !important;
+  font-weight: 800; }
+
+.paginate_button {
+  margin-top: 1rem;
+  font-size: 1.4rem;
+  color: #1d1d1d !important;
+  font-weight: 800;
+  padding: .5rem .5rem !important; }
+  .paginate_button.current {
+    background: #575656 !important;
+    border: none !important;
+    color: #bebebe !important; }
+  .paginate_button:hover {
+    background: #1d1d1d !important;
+    border: none !important; }
+
+table.tableFlinchi.dataTable {
+  border-collapse: collapse !important; }
+
+table.tableFlinchi td {
+  background: #5f5f5f !important;
+  color: #c8c8c8 !important;
+  font-size: 1.3rem;
+  border-radius: 0 !important; }
+  table.tableFlinchi td.sorting_1 {
+    background-color: #585858 !important; }
+
+table.tableFlinchi thead {
+  font-size: 1.4rem;
+  color: #242424 !important; }
+  table.tableFlinchi thead th {
+    border-bottom: none !important; }
+  table.tableFlinchi thead .sorting {
+    background-image: url("/images/sort_both.png") !important; }
+  table.tableFlinchi thead .sorting_asc {
+    background-image: url("/images/sort_asc.png") !important; }
+  table.tableFlinchi thead .sorting_desc {
+    background-image: url("/images/sort_desc.png") !important; }
 
 .project {
   width: 100%;

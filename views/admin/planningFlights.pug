@@ -1,4 +1,16 @@
 extends ../admin
 
 block adminContent
-   p Planning Flights
+   p.title Planning Flights
+   .tableContainer
+      table#tablePlanningFlights.hover.order-column.tableFlinchi
+         thead
+            tr
+               th Flight Code
+               th Date
+               th Airplane Number
+               th Route Number
+               th Origin
+               th Destiny
+               th State
+         tbody

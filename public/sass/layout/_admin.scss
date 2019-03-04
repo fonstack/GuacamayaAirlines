@@ -2,7 +2,7 @@
    min-height: 110vh;
    width: 100%;
    padding-top: 10rem;
-   background-color: rgb(88, 85, 85);
+   background-color: rgb(116, 116, 116);
 }
 
 .sidenav {
@@ -52,3 +52,182 @@
 .ml-4 {
    margin-left: 2rem;
 }
+
+
+
+// ADMINS SECTIONS
+.title {
+   text-align: center;
+   font-weight: 300;
+   color: rgb(32, 32, 32);
+   text-transform: uppercase;
+   letter-spacing: 6px;
+   font-size: 4rem;
+   border-bottom: 2px solid rgb(49, 49, 49);
+   width: 96%;
+   margin: 0 auto;
+   margin-bottom: 1rem;
+   transition: all .3s;
+
+   &:hover {
+      letter-spacing: 9px;
+   }
+}
+
+.tableContainer {
+   // background: rgb(37, 37, 37);
+   width: 90%;
+   margin: 0 auto;
+   padding: 7rem 2rem;
+}
+
+.dataTables_length {
+   margin-bottom: 1rem;
+
+   & label {
+      display: flex;
+      align-items: center;
+      font-size: 1.4rem;
+      color: rgb(37, 37, 37);
+      font-weight: 800;
+
+      & select {
+         display: inline-block;
+         margin: 0 .4rem;
+         font-size: 1rem;
+         background: rgb(37, 37, 37);
+         border: none;
+         color: beige;
+      }
+   }
+}
+
+.dataTables_filter {
+   margin-bottom: 1rem;
+
+   & label {
+      display: flex;
+      align-items: center;
+      font-size: 1.4rem;
+      color: rgb(37, 37, 37);
+      font-weight: 800;
+
+      & input {
+         font-weight: 300;
+         font-size: 1rem;
+         border-bottom: 1px solid rgb(37, 37, 37) !important;
+         box-shadow: none !important;
+      }
+   }
+}
+
+.dataTables_info {
+   margin-top: 1rem;
+   font-size: 1.4rem;
+   color: rgb(29, 29, 29) !important;
+   font-weight: 800;
+}
+
+.paginate_button {
+   margin-top: 1rem;
+   font-size: 1.4rem;
+   color: rgb(29, 29, 29) !important;
+   font-weight: 800;
+   padding: .5rem .5rem !important;
+
+   &.current {
+      background: rgb(87, 86, 86) !important;
+      border: none !important;
+      color: rgb(190, 190, 190) !important;
+   }
+
+   &:hover {
+      background: rgb(29, 29, 29) !important;
+      border: none !important;
+   }
+}
+
+
+
+table.tableFlinchi {
+
+   &.dataTable {
+      border-collapse: collapse !important;
+   }
+
+   td {
+      background: #5f5f5f !important;
+      color: rgb(200, 200, 200) !important;
+      font-size: 1.3rem;
+      border-radius: 0 !important;
+
+      &.sorting_1 {
+         background-color: #585858 !important;
+      }
+   }
+
+   thead {
+      font-size: 1.4rem;
+      color: rgb(36, 36, 36) !important;
+
+      th {
+         border-bottom: none !important;
+      }
+
+      .sorting {
+         background-image: url('/images/sort_both.png') !important;
+      }
+
+      .sorting_asc {
+         background-image: url('/images/sort_asc.png') !important;
+      }
+
+      .sorting_desc {
+         background-image: url('/images/sort_desc.png') !important;
+      }
+   }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
