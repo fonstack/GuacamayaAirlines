@@ -1,21 +1,6 @@
 extends ../admin
 
 block adminContent
-<<<<<<< HEAD
-   p.title Planning Flights
-   .tableContainer
-      table#tablePlanningFlights.hover.order-column.tableFlinchi
-         thead
-            tr
-               th Flight Code
-               th Date
-               th Airplane Number
-               th Route Number
-               th Origin
-               th Destiny
-               th State
-         tbody
-=======
    .adminSect
       p.titlee Planning Flights
       .contButton
@@ -37,32 +22,31 @@ block adminContent
             .modal-content.contentModal.modalPlanningFlights
                h4 Plan Flight
                hr.separatorTitleModalAdmin
-               form(action="")
+               form(action="/admin/planningFlights" method="POST")
                   .row.rowModalAdmin
                      .input-field.col.s6 
                         i(class="far fa-calendar prefix material-icons")
-                        input.datepickerAdmin(type='text' placeholder="Choose the Depart Date")
+                        input.datepickerAdmin(type='text' placeholder="Choose the Depart Date" name="date")
                         label(for='depart') Depart Date
                      .input-field.col.s6 
                         i(class="far fa-clock prefix material-icons")
-                        input.timepickerAdmin(type='text' placeholder="Choose the Depart Time")
+                        input.timepickerAdmin(type='text' placeholder="Choose the Depart Time" name="time")
                         label(for='depart') Depart Time
                   .row.rowModalAdmin2
                      .input-field.col.s6 
-                        select.selectAdmin.browser-default
+                        select(name="airplaneId").selectAdmin.browser-default
                            option(value='', disabled='', selected='') Select Company Airplane
                            option(value='1') Option 1
                            option(value='2') Option 2
                            option(value='3') Option 3
                      .input-field.col.s6 
-                        select.selectAdmin.browser-default
+                        select(name="routeNumber").selectAdmin.browser-default
                            option(value='', disabled='', selected='') Select Route
                            option(value='1') Option 1
                            option(value='2') Option 2
                            option(value='3') Option 3
+                  .modal-footer
+                     a.modal-close.waves-effect.waves-green.btn-flat(href='#!') Cancel
+                     button.modal-close.waves-effect.waves-green.btn-flat(type="submit") Save &nbsp;&nbsp;<i class="fas fa-save"></i>
 
-            .modal-footer
-               a.modal-close.waves-effect.waves-green.btn-flat(href='#!') Cancel
-               a.modal-close.waves-effect.waves-green.btn-flat(href='#') Save &nbsp;&nbsp;<i class="fas fa-save"></i>
 
->>>>>>> Fontes

@@ -1,5 +1,6 @@
 const sequelize = require("../config/database");
 const Flight = require("../models/Flight");
+const moment = require('moment');
 
 exports.viewHome = (req, res) => {
   res.render("home", { title: 'home' });
@@ -205,19 +206,18 @@ exports.viewAirport = (req, res) => {
 };
 
 exports.adminFlights = (req, res) => {
-    // const date = req.body.date;
-    // const airplaneId = req.body.airplaneId;
-    // const routeId = req.body.routeNumber;
-    // const date = '2019-05-05 00:00:00';
-    // const airplaneId = 1;
-    // const routeId = 1;
+    const date = req.body.date;
+    const time = req.body.time;
+    let dateLacra = `${ date.split('/')[2] }-${ date.split('/')[1] }-${ date.split('/')[0] } ${ time.split(':')[0] }:${ time.split(':')[1] }:00`;
+    dateLacra = moment(dateLacra).add(-4, 'hours');
+
       Flight.create({
-            date: req.body.date,
-            airplaneId: req.body.airplaneId,
-            routeId: req.body.routeNumber
+        date: dateLacra,
+        airplaneId: req.body.airplaneId,
+        routeId: req.body.routeNumber
       })
       .then(result => {
-        // res.json({pene: 'pene'});
+        res.json({result});
         req.flash('success', 'You have successfully registered a flight');
         res.redirect('/admin/planningFlights');
       })
