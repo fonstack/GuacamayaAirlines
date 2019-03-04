@@ -1,4 +1,5 @@
 const sequelize = require("../config/database");
+const Flight = require("../models/Flight");
 
 exports.viewHome = (req, res) => {
   res.render("home", { title: 'home' });
@@ -155,6 +156,73 @@ exports.viewAdmin = (req, res) => {
       res.redirect('/');
     });
   }
+};
+
+exports.viewAirport = (req, res) => {
+  const iata = req.params.iata.toUpperCase();
+  if (iata !== 'MIA' && iata !== 'CCS' && iata !== 'JFK' && iata !== 'ATL' && iata !== 'CDG' && iata !== 'DXB') {
+    req.flash('error', 'This airport does not exists.');
+    req.session.save(function () {
+      res.redirect('/');
+    });
+  } else {
+    let airport = {};
+
+    sequelize.query(`
+      SELECT city, lon, lat, name 
+      FROM Airports
+      WHERE IATACode = '${iata}'
+    `, { type: sequelize.QueryTypes.SELECT })
+      .then(result => {
+        airport = {
+          iata,
+          city: result[0].city,
+          lon: result[0].lon,
+          lat: result[0].lat,
+          name: result[0].name
+        };
+
+        return sequelize.query(`
+          SELECT Flights.code, Routes.origin, Routes.destiny, Flights.date, Routes.basePrice
+          FROM Flights
+          INNER JOIN Routes ON Flights.routeId = Routes.id
+          WHERE Routes.origin = '${iata}' OR Routes.destiny = '${iata}'
+        `, { type: sequelize.QueryTypes.SELECT });
+      })
+      .then(result => {
+        airport.flights = result;
+        let flightsCrack = [];
+        airport.flights.forEach(elem => {
+          const xd = [];
+          xd.push(elem);
+          flightsCrack.push(xd);
+        });
+        airport.flights = flightsCrack;
+        res.render("airport", { title: 'airport', airport });
+      })
+      .catch(err => console.log(err));
+  }
+};
+
+exports.adminFlights = (req, res) => {
+    // const date = req.body.date;
+    // const airplaneId = req.body.airplaneId;
+    // const routeId = req.body.routeNumber;
+    // const date = '2019-05-05 00:00:00';
+    // const airplaneId = 1;
+    // const routeId = 1;
+      Flight.create({
+            date: req.body.date,
+            airplaneId: req.body.airplaneId,
+            routeId: req.body.routeNumber
+      })
+      .then(result => {
+        // res.json({pene: 'pene'});
+        req.flash('success', 'You have successfully registered a flight');
+        res.redirect('/admin/planningFlights');
+      })
+      .catch(err => console.log(err));
+
 };
 
 exports.viewAdminOnly = (req, res) => {

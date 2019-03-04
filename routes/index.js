@@ -32,6 +32,7 @@ router.get("/logout", authController.logout);
 
 // Admin View
 router.get("/admin/:section", authController.needLogged, airlineController.viewAdmin);
+router.post("/admin/planningFlights", airlineController.adminFlights);
 router.get("/admin", authController.needLogged, airlineController.viewAdminOnly);
 
 
