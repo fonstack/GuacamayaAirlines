@@ -2555,6 +2555,7 @@ $(document).ready(function () {
 document.querySelector('.selectFlightRoute').disabled = true;
 document.querySelector('.selectFlightAirplane').addEventListener('change', function () {
   var airplaneIdChanged = document.querySelector('.selectFlightAirplane').value;
+  document.querySelector('.selectFlightRoute').disabled = true;
   axios.get("/getAirplaneRoutes/".concat(airplaneIdChanged)).then(function (response) {
     document.querySelector('.selectFlightRoute').innerHTML = '';
     var opt = document.createElement('option');

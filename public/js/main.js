@@ -572,6 +572,7 @@ document.querySelector('.selectFlightRoute').disabled = true;
 
 document.querySelector('.selectFlightAirplane').addEventListener('change', () => {
   const airplaneIdChanged = document.querySelector('.selectFlightAirplane').value;
+  document.querySelector('.selectFlightRoute').disabled = true;
 
   axios.get(`/getAirplaneRoutes/${airplaneIdChanged}`)
     .then(response => {
