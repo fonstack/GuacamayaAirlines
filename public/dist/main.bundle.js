@@ -2546,11 +2546,35 @@ $(document).ready(function () {
   });
 }); // -+-+-+-+-+ INITIALIZATION TABLES ADMIN -+-+-+-+-+
 
-var data = [["1", "29-02-2010", "2", "12", "MIA", "CCS", "On Time"], ["1", "29-02-2010", "2", "12", "MIA", "CCS", "On Time"], ["1", "29-03-2010", "2", "12", "MIA", "CCS", "On Time"], ["1", "27-02-2010", "2", "12", "MIA", "CCS", "On Time"], ["1", "27-02-2010", "2", "12", "MIA", "CCS", "On Time"], ["1", "28-02-2010", "2", "12", "MIA", "CCS", "On Time"]];
 $(document).ready(function () {
   $('#tablePlanningFlights').DataTable({
-    data: data,
     "lengthMenu": [5, 10, 20, 50]
+  });
+}); // -+-+-+-+-+ INITIALIZATION AND FUNCTIONALITY  OF SELECT FROM FLIGHTS ADMIN -+-+-+-+-+
+
+document.querySelector('.selectFlightRoute').disabled = true;
+document.querySelector('.selectFlightAirplane').addEventListener('change', function () {
+  var airplaneIdChanged = document.querySelector('.selectFlightAirplane').value;
+  axios.get("/getAirplaneRoutes/".concat(airplaneIdChanged)).then(function (response) {
+    document.querySelector('.selectFlightRoute').innerHTML = '';
+    var opt = document.createElement('option');
+    opt.value = '';
+    opt.disabled = true;
+    opt.selected = true;
+    opt.innerHTML = 'Select Company Airplane';
+    document.querySelector('.selectFlightRoute').appendChild(opt);
+
+    for (var i = 0; i < response.data.airplaneRoutes.length; i++) {
+      var _opt = document.createElement('option');
+
+      _opt.value = response.data.airplaneRoutes[i].routeId;
+      _opt.innerHTML = "".concat(response.data.airplaneRoutes[i].routeId, " \u27A1 ").concat(response.data.airplaneRoutes[i].origin, "-").concat(response.data.airplaneRoutes[i].destiny);
+      document.querySelector('.selectFlightRoute').appendChild(_opt);
+    }
+
+    document.querySelector('.selectFlightRoute').disabled = false;
+  }).catch(function (err) {
+    return console.log(err);
   });
 }); // -+-+-+-+-+ VALIDACIÓN DEL CONFIRM PASSWORD DE REGISTER -+-+-+-+-+
 

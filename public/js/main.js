@@ -560,69 +560,43 @@ $(document).ready(function() {
 
 
 // -+-+-+-+-+ INITIALIZATION TABLES ADMIN -+-+-+-+-+
-var data = [
-  [
-      "1",
-      "29-02-2010",
-      "2",
-      "12",
-      "MIA",
-      "CCS",
-      "On Time"
-  ],
-  [
-      "1",
-      "29-02-2010",
-      "2",
-      "12",
-      "MIA",
-      "CCS",
-      "On Time"
-  ],
-  [
-      "1",
-      "29-03-2010",
-      "2",
-      "12",
-      "MIA",
-      "CCS",
-      "On Time"
-  ],
-  [
-      "1",
-      "27-02-2010",
-      "2",
-      "12",
-      "MIA",
-      "CCS",
-      "On Time"
-  ],
-  [
-      "1",
-      "27-02-2010",
-      "2",
-      "12",
-      "MIA",
-      "CCS",
-      "On Time"
-  ],
-  [
-      "1",
-      "28-02-2010",
-      "2",
-      "12",
-      "MIA",
-      "CCS",
-      "On Time"
-  ]
-];
-
 $(document).ready( function () {
   $('#tablePlanningFlights').DataTable({
-    data: data,
     "lengthMenu": [5, 10, 20, 50]
   });
 } );
+
+
+// -+-+-+-+-+ INITIALIZATION AND FUNCTIONALITY  OF SELECT FROM FLIGHTS ADMIN -+-+-+-+-+
+document.querySelector('.selectFlightRoute').disabled = true;
+
+document.querySelector('.selectFlightAirplane').addEventListener('change', () => {
+  const airplaneIdChanged = document.querySelector('.selectFlightAirplane').value;
+
+  axios.get(`/getAirplaneRoutes/${airplaneIdChanged}`)
+    .then(response => {
+      document.querySelector('.selectFlightRoute').innerHTML = '';
+
+      const opt = document.createElement('option');
+      opt.value = '';
+      opt.disabled = true;
+      opt.selected = true;
+      opt.innerHTML = 'Select Company Airplane';
+      document.querySelector('.selectFlightRoute').appendChild(opt);
+
+      for (let i = 0; i < response.data.airplaneRoutes.length; i++) {
+        const opt = document.createElement('option');
+        opt.value = response.data.airplaneRoutes[i].routeId;
+        opt.innerHTML = `${response.data.airplaneRoutes[i].routeId} ➡ ${response.data.airplaneRoutes[i].origin}-${response.data.airplaneRoutes[i].destiny}`;
+        document.querySelector('.selectFlightRoute').appendChild(opt);
+      }
+
+      document.querySelector('.selectFlightRoute').disabled = false;
+    }).catch(err => console.log(err));
+
+});
+
+
 
 
 

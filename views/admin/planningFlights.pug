@@ -10,13 +10,24 @@ block adminContent
             thead
                tr
                   th Flight Code
-                  th Date
+                  th Depart Date
+                  th Arrival Date
                   th Airplane Number
                   th Route Number
                   th Origin
                   th Destiny
                   th State
             tbody
+               each flight in flights
+                  tr
+                     td #{flight.code}
+                     td #{h.moment(flight.departDate).add(4, 'hours').format('lll')}
+                     td #{h.moment(flight.arrivalDate).add(4, 'hours').format('lll')}
+                     td #{flight.airplaneId}
+                     td #{flight.routeId}
+                     td #{flight.origin}
+                     td #{flight.destiny}
+                     td #{flight.state}
       .formContainer
          #modal1.modal
             .modal-content.contentModal.modalPlanningFlights
@@ -34,17 +45,13 @@ block adminContent
                         label(for='depart') Depart Time
                   .row.rowModalAdmin2
                      .input-field.col.s6 
-                        select(name="airplaneId").selectAdmin.browser-default
+                        select(name="airplaneId").selectAdmin.browser-default.selectFlightAirplane
                            option(value='', disabled='', selected='') Select Company Airplane
-                           option(value='1') Option 1
-                           option(value='2') Option 2
-                           option(value='3') Option 3
+                           each airplaneId in airplanesIds
+                              option(value=`${airplaneId.airplaneId}`) #{airplaneId.airplaneId}
                      .input-field.col.s6 
-                        select(name="routeNumber").selectAdmin.browser-default
+                        select(name="routeNumber").selectAdmin.browser-default.selectFlightRoute
                            option(value='', disabled='', selected='') Select Route
-                           option(value='1') Option 1
-                           option(value='2') Option 2
-                           option(value='3') Option 3
                   .modal-footer
                      a.modal-close.waves-effect.waves-green.btn-flat(href='#!') Cancel
                      button.modal-close.waves-effect.waves-green.btn-flat(type="submit") Save &nbsp;&nbsp;<i class="fas fa-save"></i>

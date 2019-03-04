@@ -43,3 +43,28 @@ exports.getEmptySeats = (req, res) => {
       .catch(err => console.log(err));
 
 };
+
+exports.getAirplanesRoutes = (req, res) => {
+  let routesVSairplanes = [];
+  const airplaneId = req.params.airplaneId;
+
+  sequelize.query(`
+    SELECT airplaneId, routeId, Routes.origin, Routes.destiny
+    FROM Airplane_Routes
+    INNER JOIN Routes ON Routes.id = Airplane_Routes.routeId
+    WHERE airplaneId = ${airplaneId}
+    ORDER BY airplaneId ASC, scaleNumber ASC
+  `, { type: sequelize.QueryTypes.SELECT })
+    .then(result => {
+      result.forEach(element => {
+        routesVSairplanes.push({
+          airplaneId: element.airplaneId,
+          routeId: element.routeId,
+          origin: element.origin,
+          destiny: element.destiny
+        });
+      });
+      
+      res.json({ airplaneRoutes: routesVSairplanes });
+    })
+}

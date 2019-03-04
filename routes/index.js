@@ -4,6 +4,7 @@ const airlineController = require('../controllers/airlineController');
 const authController = require('../controllers/authController');
 const userController = require('../controllers/userController');
 const apiController = require('../controllers/apiController');
+const adminController = require('../controllers/adminController');
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const { catchErrors } = require('../handlers/errorHandlers')
@@ -31,9 +32,9 @@ router.get("/airport/:iata", airlineController.viewAirport);
 router.get("/logout", authController.logout);
 
 // Admin View
-router.get("/admin/:section", authController.needLogged, airlineController.viewAdmin);
-router.post("/admin/planningFlights", airlineController.adminFlights);
-router.get("/admin", authController.needLogged, airlineController.viewAdminOnly);
+router.get("/admin/:section", authController.needLogged, adminController.viewAdmin);
+router.get("/admin", authController.needLogged, adminController.viewAdminOnly);
+router.post("/admin/planningFlights", authController.needLogged, adminController.adminFlights);
 
 
 router.post("/sendCustomer", (req, res) => {
@@ -46,5 +47,6 @@ router.post("/sendCustomer", (req, res) => {
 router.get('/getCustomers', apiController.getCustomers);
 router.get('/getCustomer/:identityC', apiController.getCustomer);
 router.get('/getEmptySeats/:flightCode', apiController.getEmptySeats);
+router.get('/getAirplaneRoutes/:airplaneId', apiController.getAirplanesRoutes);
 
 module.exports = router;
