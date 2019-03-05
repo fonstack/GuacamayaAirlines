@@ -36,10 +36,9 @@ router.get("/admin/:section", authController.needLogged, adminController.viewAdm
 router.get("/admin", authController.needLogged, adminController.viewAdminOnly);
 router.post("/admin/planningFlights", authController.needLogged, adminController.planningFlights);
 
+// Purchase Ticket
+router.post("/purchaseTicket", airlineController.saveCustomer, airlineController.purchaseFlightTicket);
 
-router.post("/sendCustomer", (req, res) => {
-  res.json(req.body)
-});
 
 
 

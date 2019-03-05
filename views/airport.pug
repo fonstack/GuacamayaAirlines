@@ -157,8 +157,8 @@ block content
                                  .input-field.col.s4
                                     select(required name="genderBuyer" id="genderPur").select-home.browser-default
                                        option(value='' disabled hidden selected) Gender
-                                       option(value='male') Male
-                                       option(value='female') Female
+                                       option(value='Male') Male
+                                       option(value='Female') Female
                               //- INFORMACIÓN DEL PASAJERO
                               p.title.title2 Passenger Information &nbsp;&nbsp;
                                  i(class="fas fa-user")
@@ -201,8 +201,8 @@ block content
                                     .input-field.col.s4
                                        select(required name="genderPassenger" id="genderPurPass").select-home.browser-default
                                           option(value='' disabled hidden selected) Gender
-                                          option(value='male') Male
-                                          option(value='female') Female
+                                          option(value='Male') Male
+                                          option(value='Female') Female
                               .modal-footer
                                  a.waves-effect.waves-green.btn-flat#cleanButton Clean ↺
                                  a.waves-effect.waves-green.btn-flat#nextForm Next Step 🠞
@@ -283,8 +283,8 @@ block content
                                  .input-field.col.s4
                                     select(required name="genderBuyer" id="genderPur").select-home.browser-default
                                        option(value='' disabled hidden selected) Gender
-                                       option(value='male') Male
-                                       option(value='female') Female
+                                       option(value='Male') Male
+                                       option(value='Female') Female
                               //- INFORMACIÓN DEL PASAJERO
                               p.title.title2 Passenger Information &nbsp;&nbsp;
                                  i(class="fas fa-user")
@@ -327,8 +327,8 @@ block content
                                     .input-field.col.s4
                                        select(required name="genderPassenger" id="genderPurPass").select-home.browser-default
                                           option(value='' disabled hidden selected) Gender
-                                          option(value='male') Male
-                                          option(value='female') Female
+                                          option(value='Male') Male
+                                          option(value='Female') Female
                               .modal-footer
                                  a.waves-effect.waves-green.btn-flat#cleanButton Clean ↺
                                  a.waves-effect.waves-green.btn-flat#nextForm Next Step 🠞
@@ -368,7 +368,7 @@ block content
                   //- PurchaseModal
                   div(class="modal modalPurchase" id=`purchaseModal${index}`)
                      .modal-content
-                        form(action="/sendCustomer" method="POST")
+                        form(action="/purchaseTicket" method="POST")
                            input(type="hidden" name="flightCodeOne" value=`${flight[0].code}`)
                            input(type="hidden" name="flightCodeTwo" value=`${flight[1].code}`)
                            input(type="hidden" name="flightCodeThree" value=`${flight[2].code}`)
@@ -412,8 +412,8 @@ block content
                                  .input-field.col.s4
                                     select(required name="genderBuyer" id="genderPur").select-home.browser-default
                                        option(value='' disabled hidden selected) Gender
-                                       option(value='male') Male
-                                       option(value='female') Female
+                                       option(value='Male') Male
+                                       option(value='Female') Female
                               //- INFORMACIÓN DEL PASAJERO
                               p.title.title2 Passenger Information &nbsp;&nbsp;
                                  i(class="fas fa-user")
@@ -456,8 +456,8 @@ block content
                                     .input-field.col.s4
                                        select(required name="genderPassenger" id="genderPurPass").select-home.browser-default
                                           option(value='' disabled hidden selected) Gender
-                                          option(value='male') Male
-                                          option(value='female') Female
+                                          option(value='Male') Male
+                                          option(value='Female') Female
                               .modal-footer
                                  a.waves-effect.waves-green.btn-flat#cleanButton Clean ↺
                                  a.waves-effect.waves-green.btn-flat#nextForm Next Step 🠞
