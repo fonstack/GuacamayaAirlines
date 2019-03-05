@@ -6,7 +6,8 @@ exports.getCustomers = (req, res) => {
     FROM Customers
   `, { type: sequelize.QueryTypes.SELECT})
     .then(result => {
-      res.json(result)
+      res.json(result);
+      return null;
     })
       .catch(err => console.log(err));
 };
@@ -20,7 +21,8 @@ exports.getCustomer = (req, res) => {
     WHERE identityCard = ${identityC}
   `, { type: sequelize.QueryTypes.SELECT})
     .then(result => {
-      res.json(result)
+      res.json(result);
+      return null;
     })
       .catch(err => console.log(err));
 };
@@ -38,7 +40,8 @@ exports.getEmptySeatsOfFlight = (req, res) => {
     ORDER BY FlightTicket_Flights.seatNumber ASC;
   `, { type: sequelize.QueryTypes.SELECT})
     .then(result => {
-      res.json(result)
+      res.json(result);
+      return null;
     })
       .catch(err => console.log(err));
 
@@ -66,5 +69,6 @@ exports.getAirplanesRoutes = (req, res) => {
       });
       
       res.json({ airplaneRoutes: routesVSairplanes });
+      return null;
     })
 }
