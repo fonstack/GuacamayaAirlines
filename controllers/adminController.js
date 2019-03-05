@@ -51,6 +51,7 @@ exports.viewAdmin = (req, res) => {
       INNER JOIN Providers ON providerId = Providers.id
     `, { type: sequelize.QueryTypes.SELECT })
     .then(result => {
+      // res.json({pene: 'pene'});
       result.forEach(element => {
           charters.push({
             id: element.id,
@@ -66,7 +67,48 @@ exports.viewAdmin = (req, res) => {
           });
       });
 
-      res.render("admin/planningCharters", { title: 'admin' , charters});
+      sequelize.query(`
+        SELECT DetourManifests.id, Routes.origin, Routes.destiny FROM DetourManifests 
+        INNER JOIN Flights ON flightCode = Flights.code
+        INNER JOIN Routes ON Flights.routeId = Routes.id
+        WHERE DetourManifests.state = 'Approved'
+      `, { type: sequelize.QueryTypes.SELECT })
+      .then(result => {
+        // res.json({pene: 'pene'});
+        // res.json(result);
+        let detours = [];
+        result.forEach(element => {
+          detours.push({
+            id: element.id,
+            origin: element.origin,
+            destiny: element.destiny
+          });     
+          sequelize.query(`
+            SELECT id, name, responseTime, pricePerKilometer
+            FROM Providers
+            ORDER BY id ASC
+          `, { type: sequelize.QueryTypes.SELECT })
+          .then(result => {
+            let providers = [];
+            result.forEach(element =>{
+              providers.push({
+                id: element.id,
+                name: element.name,
+                responseTime: element.responseTime,
+                pricePerKilometer: element.pricePerKilometer
+              });
+            });
+            // res.json({charters, detours, providers});
+            res.render("admin/planningCharters", { title: 'admin' , charters, detours, providers});            
+          })
+          .catch(err => console.log(err));
+        });
+        // res.json(detourId);
+        // res.render("admin/planningCharters", { title: 'admin' , charters, detourId});
+      })
+      .catch(err => console.log(err));
+
+      
     })
     .catch(err => console.log(err));
   } else if (section === 'planningRoutes') { // Vista Planning -> Routes

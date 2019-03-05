@@ -15,7 +15,6 @@ block adminContent
                   th Arrival Date
                   th Provider Code
                   th State
-                  th Route Number
                   th Origin
                   th Destiny
             tbody
@@ -27,7 +26,6 @@ block adminContent
                      td #{h.moment(charter.arrivalDate).add(4, 'hours').format('lll')}
                      td #{charter.providerId}
                      td #{charter.state}
-                     td #{charter.routeId}
                      td #{charter.origin}
                      td #{charter.destiny}
       .formContainer
@@ -35,7 +33,7 @@ block adminContent
             .modal-content.contentModal.modalPlanningFlights
                h4 Plan Flight
                hr.separatorTitleModalAdmin
-               form(action="/admin/planningFlights" method="POST")
+               form(action="/admin/planningCharters" method="POST")
                   .row.rowModalAdmin
                      .input-field.col.s6 
                         i(class="far fa-calendar prefix material-icons")
@@ -47,13 +45,15 @@ block adminContent
                         label(for='depart') Depart Time
                   .row.rowModalAdmin2
                      .input-field.col.s6 
-                        //- select(name="airplaneId").selectAdmin.browser-default.selectFlightAirplane
-                        //-    option(value='', disabled='', selected='') Select Company Airplane
-                        //-    each airplaneId in airplanesIds
-                        //-       option(value=`${airplaneId.airplaneId}`) #{airplaneId.airplaneId}
-      //-                .input-field.col.s6 
-      //-                   select(name="routeNumber").selectAdmin.browser-default.selectFlightRoute
-      //-                      option(value='', disabled='', selected='') Select Route
-      //-             .modal-footer
-      //-                a.modal-close.waves-effect.waves-green.btn-flat(href='#!') Cancel
-      //-                button.modal-close.waves-effect.waves-green.btn-flat(type="submit") Save &nbsp;&nbsp;<i class="fas fa-save"></i>
+                        select(name="provider").selectAdmin.browser-default.selectFlightAirplane
+                           each provider in providers
+                              option(value=`${providers.id}`) #{provider.name} - #{provider.responseTime}H - #{provider.pricePerKilometer}$/Km
+                              //- COLOCAR CUAL DETOUR ESCOGER EN UN DROPDOWN MARICO EL QUE LO LEA
+//-                           each airplaneId in airplanesIds
+//-                              option(value=`${airplaneId.airplaneId}`) #{airplaneId.airplaneId}
+//-      //-                .input-field.col.s6 
+//-      //-                   select(name="routeNumber").selectAdmin.browser-default.selectFlightRoute
+//-      //-                      option(value='', disabled='', selected='') Select Route
+//-      //-             .modal-footer
+//-     //-                a.modal-close.waves-effect.waves-green.btn-flat(href='#!') Cancel
+//-      //-                button.modal-close.waves-effect.waves-green.btn-flat(type="submit") Save &nbsp;&nbsp;<i class="fas fa-save"></i>
