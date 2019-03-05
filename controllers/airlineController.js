@@ -1,5 +1,6 @@
 const sequelize = require("../config/database");
 const Customer = require("../models/Customer");
+const FlightTicket = require("../models/FlightTicket");
 
 exports.viewHome = (req, res) => {
   res.render("home", { title: 'home' });
@@ -1654,8 +1655,17 @@ exports.searchFlights = (req, res) => {
 };
 
 exports.purchaseFlightTicket = (req, res) => {
+  const identityCardB = req.body.identityCardBuyer; const firstNameB = req.body.firstNameBuyer; const lastNameB = req.body.lastNameBuyer; const ageB = req.body.ageBuyer; const emailB = req.body.emailBuyer; const nationalityB = req.body.nationalityBuyer; const genderB = req.body.genderBuyer;
+  let identityCardP = ''; let firstNameP = ''; let lastNameP = ''; let ageP = ''; let emailP = ''; let nationalityP = ''; let genderP = '';
+  if (req.body.identityCardPassenger) {
+    identityCardP = req.body.identityCardPassenger; firstNamedP = req.body.firstNamePassenger; lastNameP = req.body.lastNamePassenger; ageP = req.body.agePassenger; emailP = req.body.emailPassenger; nationalityP = req.body.nationalityPassenger; genderP = req.body.genderPassenger;
+  }
+  const cantScales = req.body.cantScales;
 
-  res.json({pene: 'pene'});
+  if (cantScales === 1) { // Vuelo sin escalas
+
+  }
+  
 
 };
 

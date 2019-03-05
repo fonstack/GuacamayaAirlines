@@ -41,6 +41,7 @@ block content
                                  td #{flight[0].destiny}
                               td= h.moment(flight[0].date).add(4, 'hours').format('lll')
                               td #{flight[0].basePrice} $
+                              - flight.salePrice = flight[0].basePrice;
                               td.buttonCell 
                                  a(class="waves-effect waves-light btn-small modal-trigger" href=`#purchaseModal${index}`) Purchase&nbsp;&nbsp; <i class="fas fa-cart-plus"></i>
                //- SI TIENE ESCALA
@@ -73,6 +74,7 @@ block content
                                  if indexx == 0
                                     - let precioTotal = 0;
                                     - flight.forEach(ele => precioTotal += ele.basePrice);
+                                    - flight.salePrice = precioTotal;
                                     td(rowspan="2").totalPriceColl  <span class="flightImportant">#{precioTotal} $</span>
                                     td(rowspan="2").buttonCell 
                                        a(class="waves-effect waves-light btn-small modal-trigger" href=`#purchaseModal${index}`) Purchase&nbsp;&nbsp; <i class="fas fa-cart-plus"></i>
@@ -105,6 +107,7 @@ block content
                                  if indexx == 0
                                     - let precioTotal = 0;
                                     - flight.forEach(ele => precioTotal += ele.basePrice);
+                                    - flight.salePrice = precioTotal;
                                     td(rowspan="3").totalPriceColl  <span class="flightImportant">#{precioTotal} $</span>
                                     td(rowspan="3").buttonCell 
                                        a(class="waves-effect waves-light btn-small modal-trigger" href=`#purchaseModal${index}`) Purchase&nbsp;&nbsp; <i class="fas fa-cart-plus"></i>
@@ -118,6 +121,7 @@ block content
                         form(action="/purchaseTicket" method="POST")
                            input(type="hidden" name="flightCode" value=`${flight[0].code}`)
                            input(type="hidden" name="cantScales" value='1')
+                           input(type="hidden" name="salePrice" value=`${flight.salePrice}`)
                            .frontSide
                               //- INFORMACIÓN DEL COMPRADOR
                               p.title Buyer Information [FC] = #{flight[0].code} [CS] = #{flight.length}&nbsp;&nbsp;
@@ -244,6 +248,7 @@ block content
                            input(type="hidden" name="flightCodeOne" value=`${flight[0].code}`)
                            input(type="hidden" name="flightCodeTwo" value=`${flight[1].code}`)
                            input(type="hidden" name="cantScales" value='2')
+                           input(type="hidden" name="salePrice" value=`${flight.salePrice}`)
                            .frontSide
                               //- INFORMACIÓN DEL COMPRADOR
                               p.title Buyer Information [FC] = #{flight[0].code} [CS] = #{flight.length} &nbsp;&nbsp;
@@ -373,6 +378,7 @@ block content
                            input(type="hidden" name="flightCodeTwo" value=`${flight[1].code}`)
                            input(type="hidden" name="flightCodeThree" value=`${flight[2].code}`)
                            input(type="hidden" name="cantScales" value='3')
+                           input(type="hidden" name="salePrice" value=`${flight.salePrice}`)
                            .frontSide
                               //- INFORMACIÓN DEL COMPRADOR
                               p.title Buyer Information [FC] = #{flight[0].code} [CS] = #{flight.length} &nbsp;&nbsp;
