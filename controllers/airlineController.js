@@ -1662,23 +1662,482 @@ exports.purchaseFlightTicket = (req, res) => {
     identityCardP = req.body.identityCardPassenger; firstNamedP = req.body.firstNamePassenger; lastNameP = req.body.lastNamePassenger; ageP = req.body.agePassenger; emailP = req.body.emailPassenger; nationalityP = req.body.nationalityPassenger; genderP = req.body.genderPassenger;
   }
   const cantScales = req.body.cantScales;
+  // res.json(req.body);
 
-  if (cantScales === 1) { // Vuelo sin escalas
-    let idB = ''; let idP = '';
+  if (cantScales == 1) { // Vuelo sin escalas
+    let idB = ''; 
+    let idP = '';
 
-    if (identityCardP !== '') {
+    if (identityCardP !== '') { // Si hay pasajero distinto al comprador
       sequelize.query(`
         SELECT id
         FROM Customers
         WHERE identityCard = ${identityCardB}
       `, { type: sequelize.QueryTypes.SELECT })
         .then(result => {
-          console.log(result.id);
+          idB = result[0].id;
+          
+          return sequelize.query(`
+            SELECT id
+            FROM Customers
+            WHERE identityCard = ${identityCardP}
+          `, { type: sequelize.QueryTypes.SELECT });
         })
+        .then(result => {
+          idP = result[0].id;
+
+          FlightTicket.create({
+            buyerId: idB,
+            passengerId: idP,
+            salePrice: req.body.salePrice
+          })
+          .then(result => {
+            let type = '';
+            if (req.body.seatScale == 1 || req.body.seatScale == 2 || req.body.seatScale == 3 || req.body.seatScale == 4 || req.body.seatScale == 5 || req.body.seatScale == 6 || req.body.seatScale == 7 || req.body.seatScale == 8) {
+              type = 'Business';
+            } else {
+              type = 'Economic';
+            }
+
+            FlightTicket_Flights.create({
+              flightTicketId: result.id,
+              flightCode: req.body.flightCode,
+              type: type,
+              seatNumber: req.body.seatScale,
+              cantPacking: req.body.packingScale
+            })
+            .then(result => {
+              req.flash('success', 'Ticket successfully purchased!');
+              req.session.save(function () {
+                res.redirect('/');
+              });
+              return null;
+            })
+            .catch(err => console.log(err));
+            return null;
+          })
+          .catch(err => console.log(err));
+          return null;
+        })
+        .catch(err => console.log(err));
+
+    } else { // Si el pasajero es igual al comprador
+      sequelize.query(`
+        SELECT id
+        FROM Customers
+        WHERE identityCard = ${identityCardB}
+      `, { type: sequelize.QueryTypes.SELECT })
+        .then(result => {
+          idB = result[0].id;
+          idP = result[0].id;
+
+          FlightTicket.create({
+            buyerId: idB,
+            passengerId: idP,
+            salePrice: req.body.salePrice
+          })
+          .then(result => {
+            let type = '';
+            if (req.body.seatScale == 1 || req.body.seatScale == 2 || req.body.seatScale == 3 || req.body.seatScale == 4 || req.body.seatScale == 5 || req.body.seatScale == 6 || req.body.seatScale == 7 || req.body.seatScale == 8) {
+              type = 'Business';
+            } else {
+              type = 'Economic';
+            }
+
+            FlightTicket_Flights.create({
+              flightTicketId: result.id,
+              flightCode: req.body.flightCode,
+              type: type,
+              seatNumber: req.body.seatScale,
+              cantPacking: req.body.packingScale
+            })
+            .then(result => {
+              req.flash('success', 'Ticket successfully purchased!');
+              req.session.save(function () {
+                res.redirect('/');
+              });
+
+              return null;
+            })
+            .catch(err => console.log(err));
+            return null;
+          })
+          .catch(err => console.log(err));
+          return null;
+        })
+        .catch(err => console.log(err));
+
+    }
+  } else if (cantScales == 2) { // Vuelo con 1 escala
+    let idB = ''; 
+    let idP = '';
+
+    if (identityCardP !== '') { // Si hay pasajero distinto al comprador
+      sequelize.query(`
+        SELECT id
+        FROM Customers
+        WHERE identityCard = ${identityCardB}
+      `, { type: sequelize.QueryTypes.SELECT })
+        .then(result => {
+          idB = result[0].id;
+          
+          return sequelize.query(`
+            SELECT id
+            FROM Customers
+            WHERE identityCard = ${identityCardP}
+          `, { type: sequelize.QueryTypes.SELECT });
+        })
+        .then(result => {
+          idP = result[0].id;
+
+          FlightTicket.create({
+            buyerId: idB,
+            passengerId: idP,
+            salePrice: req.body.salePrice[0]
+          })
+          .then(result => {
+            let type = '';
+            if (req.body.seatScale[0] == 1 || req.body.seatScale[0] == 2 || req.body.seatScale[0] == 3 || req.body.seatScale[0] == 4 || req.body.seatScale[0] == 5 || req.body.seatScale[0] == 6 || req.body.seatScale[0] == 7 || req.body.seatScale[0] == 8) {
+              type = 'Business';
+            } else {
+              type = 'Economic';
+            }
+
+            FlightTicket_Flights.create({
+              flightTicketId: result.id,
+              flightCode: req.body.flightCodeOne,
+              type: type,
+              seatNumber: req.body.seatScale[0],
+              cantPacking: req.body.packingScale[0]
+            })
+            .then(result => {
+              
+              FlightTicket.create({
+                buyerId: idB,
+                passengerId: idP,
+                salePrice: req.body.salePrice[1]
+              })
+                .then(result => {
+                  let type = '';
+                  if (req.body.seatScale[1] == 1 || req.body.seatScale[1] == 2 || req.body.seatScale[1] == 3 || req.body.seatScale[1] == 4 || req.body.seatScale[1] == 5 || req.body.seatScale[1] == 6 || req.body.seatScale[1] == 7 || req.body.seatScale[1] == 8) {
+                    type = 'Business';
+                  } else {
+                    type = 'Economic';
+                  }
+
+                  FlightTicket_Flights.create({
+                    flightTicketId: result.id,
+                    flightCode: req.body.flightCodeTwo,
+                    type: type,
+                    seatNumber: req.body.seatScale[1],
+                    cantPacking: req.body.packingScale[1]
+                  })
+                    .then(result => {
+                      req.flash('success', 'Ticket successfully purchased!');
+                      req.session.save(function () {
+                        res.redirect('/');
+                      });
+
+                      return null;
+                    })
+                  return null;
+                })
+                return null;
+            })
+            .catch(err => console.log(err));
+            return null;
+          })
+          .catch(err => console.log(err));
+          return null;
+        })
+        .catch(err => console.log(err));
+
+    } else { // Si el pasajero es igual al comprador
+
+      sequelize.query(`
+        SELECT id
+        FROM Customers
+        WHERE identityCard = ${identityCardB}
+      `, { type: sequelize.QueryTypes.SELECT })
+        .then(result => {
+          idB = result[0].id;
+          idP = result[0].id;
+
+          FlightTicket.create({
+            buyerId: idB,
+            passengerId: idP,
+            salePrice: req.body.salePrice[0]
+          })
+          .then(result => {
+            let type = '';
+            if (req.body.seatScale[0] == 1 || req.body.seatScale[0] == 2 || req.body.seatScale[0] == 3 || req.body.seatScale[0] == 4 || req.body.seatScale[0] == 5 || req.body.seatScale[0] == 6 || req.body.seatScale[0] == 7 || req.body.seatScale[0] == 8) {
+              type = 'Business';
+            } else {
+              type = 'Economic';
+            }
+
+            FlightTicket_Flights.create({
+              flightTicketId: result.id,
+              flightCode: req.body.flightCodeOne,
+              type: type,
+              seatNumber: req.body.seatScale[0],
+              cantPacking: req.body.packingScale[0]
+            })
+            .then(result => {
+              
+              FlightTicket.create({
+                buyerId: idB,
+                passengerId: idP,
+                salePrice: req.body.salePrice[1]
+              })
+                .then(result => {
+                  let type = '';
+                  if (req.body.seatScale[1] == 1 || req.body.seatScale[1] == 2 || req.body.seatScale[1] == 3 || req.body.seatScale[1] == 4 || req.body.seatScale[1] == 5 || req.body.seatScale[1] == 6 || req.body.seatScale[1] == 7 || req.body.seatScale[1] == 8) {
+                    type = 'Business';
+                  } else {
+                    type = 'Economic';
+                  }
+
+                  FlightTicket_Flights.create({
+                    flightTicketId: result.id,
+                    flightCode: req.body.flightCodeTwo,
+                    type: type,
+                    seatNumber: req.body.seatScale[1],
+                    cantPacking: req.body.packingScale[1]
+                  })
+                    .then(result => {
+                      req.flash('success', 'Ticket successfully purchased!');
+                      req.session.save(function () {
+                        res.redirect('/');
+                      });
+
+                      return null;
+                    })
+                  return null;
+                })
+                return null;
+            })
+            .catch(err => console.log(err));
+            return null;
+          })
+          .catch(err => console.log(err));
+          return null;
+        })
+        .catch(err => console.log(err));
+
+    }
+  } else if (cantScales == 3) { // Vuelo con 2 escalas
+    let idB = ''; 
+    let idP = '';
+
+    if (identityCardP !== '') { // Si hay pasajero distinto al comprador
+      sequelize.query(`
+        SELECT id
+        FROM Customers
+        WHERE identityCard = ${identityCardB}
+      `, { type: sequelize.QueryTypes.SELECT })
+        .then(result => {
+          idB = result[0].id;
+          
+          return sequelize.query(`
+            SELECT id
+            FROM Customers
+            WHERE identityCard = ${identityCardP}
+          `, { type: sequelize.QueryTypes.SELECT });
+        })
+        .then(result => {
+          idP = result[0].id;
+
+          FlightTicket.create({
+            buyerId: idB,
+            passengerId: idP,
+            salePrice: req.body.salePrice[0]
+          })
+          .then(result => {
+            let type = '';
+            if (req.body.seatScale[0] == 1 || req.body.seatScale[0] == 2 || req.body.seatScale[0] == 3 || req.body.seatScale[0] == 4 || req.body.seatScale[0] == 5 || req.body.seatScale[0] == 6 || req.body.seatScale[0] == 7 || req.body.seatScale[0] == 8) {
+              type = 'Business';
+            } else {
+              type = 'Economic';
+            }
+
+            FlightTicket_Flights.create({
+              flightTicketId: result.id,
+              flightCode: req.body.flightCodeOne,
+              type: type,
+              seatNumber: req.body.seatScale[0],
+              cantPacking: req.body.packingScale[0]
+            })
+            .then(result => {
+              
+              FlightTicket.create({
+                buyerId: idB,
+                passengerId: idP,
+                salePrice: req.body.salePrice[1]
+              })
+                .then(result => {
+                  let type = '';
+                  if (req.body.seatScale[1] == 1 || req.body.seatScale[1] == 2 || req.body.seatScale[1] == 3 || req.body.seatScale[1] == 4 || req.body.seatScale[1] == 5 || req.body.seatScale[1] == 6 || req.body.seatScale[1] == 7 || req.body.seatScale[1] == 8) {
+                    type = 'Business';
+                  } else {
+                    type = 'Economic';
+                  }
+
+                  FlightTicket_Flights.create({
+                    flightTicketId: result.id,
+                    flightCode: req.body.flightCodeTwo,
+                    type: type,
+                    seatNumber: req.body.seatScale[1],
+                    cantPacking: req.body.packingScale[1]
+                  })
+                    .then(result => {
+                      
+                      FlightTicket.create({
+                        buyerId: idB,
+                        passengerId: idP,
+                        salePrice: req.body.salePrice[2]
+                      })
+                      .then(result => {
+                        let type = '';
+                        if (req.body.seatScale[2] == 1 || req.body.seatScale[2] == 2 || req.body.seatScale[2] == 3 || req.body.seatScale[2] == 4 || req.body.seatScale[2] == 5 || req.body.seatScale[2] == 6 || req.body.seatScale[2] == 7 || req.body.seatScale[2] == 8) {
+                          type = 'Business';
+                        } else {
+                          type = 'Economic';
+                        }
+
+                        FlightTicket_Flights.create({
+                          flightTicketId: result.id,
+                          flightCode: req.body.flightCodeThree,
+                          type: type,
+                          seatNumber: req.body.seatScale[2],
+                          cantPacking: req.body.packingScale[2]
+                        })
+                        .then(result => {
+                          req.flash('success', 'Ticket successfully purchased!');
+                          req.session.save(function () {
+                            res.redirect('/');
+                          });
+    
+                          return null;
+                        })
+                        .catch(err => console.log(err));
+                        return null;
+                      })
+                      .catch(err => console.log(err));
+                    })
+                  return null;
+                })
+                return null;
+            })
+            .catch(err => console.log(err));
+            return null;
+          })
+          .catch(err => console.log(err));
+          return null;
+        })
+        .catch(err => console.log(err));
+
+    } else { // Si el pasajero es igual al comprador
+
+      sequelize.query(`
+      SELECT id
+      FROM Customers
+      WHERE identityCard = ${identityCardB}
+    `, { type: sequelize.QueryTypes.SELECT })
+      .then(result => {
+        idB = result[0].id;
+        idP = result[0].id;
+
+        FlightTicket.create({
+          buyerId: idB,
+          passengerId: idP,
+          salePrice: req.body.salePrice[0]
+        })
+        .then(result => {
+          let type = '';
+          if (req.body.seatScale[0] == 1 || req.body.seatScale[0] == 2 || req.body.seatScale[0] == 3 || req.body.seatScale[0] == 4 || req.body.seatScale[0] == 5 || req.body.seatScale[0] == 6 || req.body.seatScale[0] == 7 || req.body.seatScale[0] == 8) {
+            type = 'Business';
+          } else {
+            type = 'Economic';
+          }
+
+          FlightTicket_Flights.create({
+            flightTicketId: result.id,
+            flightCode: req.body.flightCodeOne,
+            type: type,
+            seatNumber: req.body.seatScale[0],
+            cantPacking: req.body.packingScale[0]
+          })
+          .then(result => {
+            
+            FlightTicket.create({
+              buyerId: idB,
+              passengerId: idP,
+              salePrice: req.body.salePrice[1]
+            })
+              .then(result => {
+                let type = '';
+                if (req.body.seatScale[1] == 1 || req.body.seatScale[1] == 2 || req.body.seatScale[1] == 3 || req.body.seatScale[1] == 4 || req.body.seatScale[1] == 5 || req.body.seatScale[1] == 6 || req.body.seatScale[1] == 7 || req.body.seatScale[1] == 8) {
+                  type = 'Business';
+                } else {
+                  type = 'Economic';
+                }
+
+                FlightTicket_Flights.create({
+                  flightTicketId: result.id,
+                  flightCode: req.body.flightCodeTwo,
+                  type: type,
+                  seatNumber: req.body.seatScale[1],
+                  cantPacking: req.body.packingScale[1]
+                })
+                  .then(result => {
+                    
+                    FlightTicket.create({
+                      buyerId: idB,
+                      passengerId: idP,
+                      salePrice: req.body.salePrice[2]
+                    })
+                    .then(result => {
+                      let type = '';
+                      if (req.body.seatScale[2] == 1 || req.body.seatScale[2] == 2 || req.body.seatScale[2] == 3 || req.body.seatScale[2] == 4 || req.body.seatScale[2] == 5 || req.body.seatScale[2] == 6 || req.body.seatScale[2] == 7 || req.body.seatScale[2] == 8) {
+                        type = 'Business';
+                      } else {
+                        type = 'Economic';
+                      }
+
+                      FlightTicket_Flights.create({
+                        flightTicketId: result.id,
+                        flightCode: req.body.flightCodeThree,
+                        type: type,
+                        seatNumber: req.body.seatScale[2],
+                        cantPacking: req.body.packingScale[2]
+                      })
+                      .then(result => {
+                        req.flash('success', 'Ticket successfully purchased!');
+                        req.session.save(function () {
+                          res.redirect('/');
+                        });
+  
+                        return null;
+                      })
+                      .catch(err => console.log(err));
+                      return null;
+                    })
+                    .catch(err => console.log(err));
+                  })
+                return null;
+              })
+              return null;
+          })
+          .catch(err => console.log(err));
+          return null;
+        })
+        .catch(err => console.log(err));
+        return null;
+      })
+      .catch(err => console.log(err));
     }
   }
-  
-
 };
 
 exports.saveCustomer = (req, res, next) => {
@@ -1695,7 +2154,6 @@ exports.saveCustomer = (req, res, next) => {
     WHERE identityCard = ${identityCardB}
   `, { type: sequelize.QueryTypes.SELECT })
     .then(result => {
-      res.json(result);
       if (result.length === 0) { // Si no existe ese Customer
         Customer.create({
           identityCard: identityCardB,
@@ -1738,10 +2196,9 @@ exports.saveCustomer = (req, res, next) => {
             return null;
           })
             .catch(err => console.log(err));
-      } 
-      return null;
+      } else {
+        next();
+      }
     })
     .catch(err => console.log(err));
-
-    
 };
