@@ -1,6 +1,7 @@
 const sequelize = require("../config/database");
 const Customer = require("../models/Customer");
 const FlightTicket = require("../models/FlightTicket");
+const FlightTicket_Flights = require("../models/FlightTicket_Flights");
 
 exports.viewHome = (req, res) => {
   res.render("home", { title: 'home' });
@@ -1663,7 +1664,18 @@ exports.purchaseFlightTicket = (req, res) => {
   const cantScales = req.body.cantScales;
 
   if (cantScales === 1) { // Vuelo sin escalas
+    let idB = ''; let idP = '';
 
+    if (identityCardP !== '') {
+      sequelize.query(`
+        SELECT id
+        FROM Customers
+        WHERE identityCard = ${identityCardB}
+      `, { type: sequelize.QueryTypes.SELECT })
+        .then(result => {
+          console.log(result.id);
+        })
+    }
   }
   
 
@@ -1683,6 +1695,7 @@ exports.saveCustomer = (req, res, next) => {
     WHERE identityCard = ${identityCardB}
   `, { type: sequelize.QueryTypes.SELECT })
     .then(result => {
+      res.json(result);
       if (result.length === 0) { // Si no existe ese Customer
         Customer.create({
           identityCard: identityCardB,
@@ -1693,36 +1706,42 @@ exports.saveCustomer = (req, res, next) => {
           gender: genderB,
           nationality: nationalityB
         })
-          .then(result => console.log('BUYERRRRRRRRRR ', result))
+          .then(result => {
+            console.log('BUYERRRRRRRRRR ', result)
+            if (identityCardP !== '') { // Si el Passenger es distinto al Buyer
+              // Verificamos si existe el Customer en la BDD
+              sequelize.query(`
+                SELECT identityCard
+                FROM Customers
+                WHERE identityCard = ${identityCardP}
+              `, { type: sequelize.QueryTypes.SELECT })
+                .then(result => {
+                  if (result.length === 0) { // Si no existe ese Customer
+                    Customer.create({
+                      identityCard: identityCardP,
+                      firstName: firstNameP,
+                      lastName: lastNameP,
+                      email: emailP,
+                      age: ageP,
+                      gender: genderP,
+                      nationality: nationalityP
+                    })
+                      .then(result => {
+                        console.log('PASSENGERRRRRR ', result);
+                        next();
+                      })
+                        .catch(err => console.log(err));
+                }
+              })
+              .catch(err => console.log(err));
+            }
+            return null;
+          })
             .catch(err => console.log(err));
       } 
-
-      if (identityCardP !== '') { // Si el Passenger es distinto al Buyer
-        // Verificamos si existe el Customer en la BDD
-        sequelize.query(`
-          SELECT identityCard
-          FROM Customers
-          WHERE identityCard = ${identityCardP}
-        `, { type: sequelize.QueryTypes.SELECT })
-          .then(result => {
-            if (result.length === 0) { // Si no existe ese Customer
-              Customer.create({
-                identityCard: identityCardP,
-                firstName: firstNameP,
-                lastName: lastNameP,
-                email: emailP,
-                age: ageP,
-                gender: genderP,
-                nationality: nationalityP
-              })
-                .then(result => console.log('PASSENGERRRRRR ', result))
-                  .catch(err => console.log(err));
-          }
-        })
-        .catch(err => console.log(err));
-      }
+      return null;
     })
     .catch(err => console.log(err));
 
-    next();
+    
 };
