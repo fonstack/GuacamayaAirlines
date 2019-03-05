@@ -9,7 +9,8 @@ exports.viewAdminOnly = (req, res) => {
 exports.viewAdmin = (req, res) => {
   const section = req.params.section;
 
-  if (section === 'planningFlights') {
+  // ------ PLANNINGS ------
+  if (section === 'planningFlights') { // Vista Planning -> Flights
     let flights = [];
     let routesVSairplanes = [];
     sequelize.query(`
@@ -41,7 +42,7 @@ exports.viewAdmin = (req, res) => {
       res.render("admin/planningFlights", { title: 'admin', flights, airplanesIds: result });
     })
     .catch(err => console.log(err));
-  } else if (section === 'planningCharters') {
+  } else if (section === 'planningCharters') { // Vista Planning -> Charters
     let charters = [];
     sequelize.query(`
       SELECT Charters.id, Charters.date, Charters.state, Charters.detourId, Charters.providerId, Providers.name, routeId, Routes.origin, Routes.destiny
@@ -67,9 +68,9 @@ exports.viewAdmin = (req, res) => {
       res.render("admin/planningCharters", { title: 'admin' , charters});
     })
     .catch(err => console.log(err));
-  } else if (section === 'planningRoutes') {
+  } else if (section === 'planningRoutes') { // Vista Planning -> Routes
     res.render("admin/planningRoutes", { title: 'admin' });
-  } else if (section === 'planningAirplanes') {
+  } else if (section === 'planningAirplanes') { // Vista Planning -> Airplanes
     let airplanes = [];
     sequelize.query(`
       SELECT id, model, state
@@ -88,19 +89,24 @@ exports.viewAdmin = (req, res) => {
     .catch(err => console.log(err));
   }
 
-  else if (section === 'reportsFailures') {
+  // ------ REPORTS ------
+  else if (section === 'reportsFailures') { // Vista Report -> Failures
     res.render("admin/reportsFailures", { title: 'admin' });
-  } else if (section === 'reportsMaintenances') {
+  } else if (section === 'reportsMaintenances') { // Vista Report -> Maintenances
     res.render("admin/reportsMaintenances", { title: 'admin' });
-  } else if (section === 'reportsDetours') {
+  } else if (section === 'reportsDetours') { // Vista Report -> Detours
     res.render("admin/reportsDetours", { title: 'admin' });
-  } else if (section === 'reportsCancelations') {
+  } else if (section === 'reportsCancelations') { // Vista Report -> Cancelations
     res.render("admin/reportsCancelations", { title: 'admin' });
   }
 
-  else if (section === 'salesFlightTickets') {
+  // ------ SALES ------
+  else if (section === 'salesFlightTickets') { // Vista Sales -> Flight Tickets
     res.render("admin/salesFlightTickets", { title: 'admin' });
-  } else if (section === 'statisticsFlightTickets') {
+  } 
+  
+  // ------ STATISTICS ------
+  else if (section === 'statisticsFlightTickets') { // Vista Statistics -> Flight Tickets
     res.render("admin/statisticsFlightTickets", { title: 'admin' });
   }
 
@@ -114,7 +120,7 @@ exports.viewAdmin = (req, res) => {
 
 
 // VISTAS ESPECÍFICAS ADMIN
-exports.adminFlights = (req, res) => {
+exports.planningFlights = (req, res) => {
   const date = req.body.date;
   const time = req.body.time;
   let dateLacra = `${ date.split('/')[2] }-${ date.split('/')[1] }-${ date.split('/')[0] } ${ time.split(':')[0] }:${ time.split(':')[1] }:00`;

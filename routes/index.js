@@ -34,7 +34,7 @@ router.get("/logout", authController.logout);
 // Admin View
 router.get("/admin/:section", authController.needLogged, adminController.viewAdmin);
 router.get("/admin", authController.needLogged, adminController.viewAdminOnly);
-router.post("/admin/planningFlights", authController.needLogged, adminController.adminFlights);
+router.post("/admin/planningFlights", authController.needLogged, adminController.planningFlights);
 
 
 router.post("/sendCustomer", (req, res) => {
@@ -46,7 +46,7 @@ router.post("/sendCustomer", (req, res) => {
 // API
 router.get('/getCustomers', apiController.getCustomers);
 router.get('/getCustomer/:identityC', apiController.getCustomer);
-router.get('/getEmptySeats/:flightCode', apiController.getEmptySeats);
+router.get('/getEmptySeats/:flightCode', apiController.getEmptySeatsOfFlight);
 router.get('/getAirplaneRoutes/:airplaneId', apiController.getAirplanesRoutes);
 
 module.exports = router;

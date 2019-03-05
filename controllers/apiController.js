@@ -25,7 +25,7 @@ exports.getCustomer = (req, res) => {
       .catch(err => console.log(err));
 };
 
-exports.getEmptySeats = (req, res) => {
+exports.getEmptySeatsOfFlight = (req, res) => {
   const flightCode = req.params.flightCode;
 
   sequelize.query(`

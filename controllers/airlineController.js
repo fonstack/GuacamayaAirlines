@@ -922,7 +922,7 @@ exports.searchFlights = (req, res) => {
       .catch(err => console.log(err));
 
 
-    } else if (req.body.from && req.body.to && req.body.from && req.body.dateDepart && req.body.scales) { // From, To, Date, Scales
+  } else if (req.body.from && req.body.to && req.body.dateDepart && req.body.scales) { // From, To, Date, Scales
 
       sequelize.query(`
       SELECT city, lon, lat, name 
