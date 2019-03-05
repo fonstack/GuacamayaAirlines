@@ -45,7 +45,7 @@ exports.viewAdmin = (req, res) => {
   } else if (section === 'planningCharters') { // Vista Planning -> Charters
     let charters = [];
     sequelize.query(`
-      SELECT Charters.id, Charters.date, Charters.state, Charters.detourId, Charters.providerId, Providers.name, routeId, Routes.origin, Routes.destiny
+      SELECT Charters.id, Charters.date as departDate, date + INTERVAL(Routes.travelTime) HOUR as arrivalDate, Charters.state, Charters.detourId, Charters.providerId, Providers.name, routeId, Routes.origin, Routes.destiny
       FROM Charters
       INNER JOIN Routes ON Routes.id = Charters.routeId
       INNER JOIN Providers ON providerId = Providers.id
@@ -54,7 +54,8 @@ exports.viewAdmin = (req, res) => {
       result.forEach(element => {
           charters.push({
             id: element.id,
-            date: element.date,
+            departDate: element.departDate,
+            arrivalDate: element.arrivalDate,
             state: element.state,
             detourId: element.detourId,
             providerId: element.providerId,
