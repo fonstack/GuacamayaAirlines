@@ -2552,31 +2552,52 @@ $(document).ready(function () {
   });
 }); // -+-+-+-+-+ INITIALIZATION AND FUNCTIONALITY  OF SELECT FROM FLIGHTS ADMIN -+-+-+-+-+
 
-document.querySelector('.selectFlightRoute').disabled = true;
-document.querySelector('.selectFlightAirplane').addEventListener('change', function () {
-  var airplaneIdChanged = document.querySelector('.selectFlightAirplane').value;
+if (document.querySelector('.selectFlightRoute')) {
   document.querySelector('.selectFlightRoute').disabled = true;
-  axios.get("/getAirplaneRoutes/".concat(airplaneIdChanged)).then(function (response) {
-    document.querySelector('.selectFlightRoute').innerHTML = '';
-    var opt = document.createElement('option');
-    opt.value = '';
-    opt.disabled = true;
-    opt.selected = true;
-    opt.innerHTML = 'Select Company Airplane';
-    document.querySelector('.selectFlightRoute').appendChild(opt);
+  document.querySelector('.selectFlightAirplane').addEventListener('change', function () {
+    var airplaneIdChanged = document.querySelector('.selectFlightAirplane').value;
+    document.querySelector('.selectFlightRoute').disabled = true;
+    axios.get("/getAirplaneRoutes/".concat(airplaneIdChanged)).then(function (response) {
+      document.querySelector('.selectFlightRoute').innerHTML = '';
+      var opt = document.createElement('option');
+      opt.value = '';
+      opt.disabled = true;
+      opt.selected = true;
+      opt.innerHTML = 'Select Company Airplane';
+      document.querySelector('.selectFlightRoute').appendChild(opt);
 
-    for (var i = 0; i < response.data.airplaneRoutes.length; i++) {
-      var _opt = document.createElement('option');
+      for (var i = 0; i < response.data.airplaneRoutes.length; i++) {
+        var _opt = document.createElement('option');
 
-      _opt.value = response.data.airplaneRoutes[i].routeId;
-      _opt.innerHTML = "".concat(response.data.airplaneRoutes[i].routeId, " \u27A1 ").concat(response.data.airplaneRoutes[i].origin, "-").concat(response.data.airplaneRoutes[i].destiny);
-      document.querySelector('.selectFlightRoute').appendChild(_opt);
-    }
+        _opt.value = response.data.airplaneRoutes[i].routeId;
+        _opt.innerHTML = "".concat(response.data.airplaneRoutes[i].routeId, " \u27A1 ").concat(response.data.airplaneRoutes[i].origin, "-").concat(response.data.airplaneRoutes[i].destiny);
+        document.querySelector('.selectFlightRoute').appendChild(_opt);
+      }
 
-    document.querySelector('.selectFlightRoute').disabled = false;
-  }).catch(function (err) {
-    return console.log(err);
+      document.querySelector('.selectFlightRoute').disabled = false;
+    }).catch(function (err) {
+      return console.log(err);
+    });
   });
+} // -+-+-+-+-+ INITIALIZATION CHART OF ADMIN VIEW -+-+-+-+-+
+
+
+var ctx = document.getElementById("myChart");
+var myChart = new Chart(ctx, {
+  // The type of chart we want to create
+  type: 'line',
+  // The data for our dataset
+  data: {
+    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    datasets: [{
+      label: "My First dataset",
+      backgroundColor: '#2BBBAD',
+      borderColor: '#2BBBAD',
+      data: [0, 10, 5, 2, 20, 30, 45]
+    }]
+  },
+  // Configuration options go here
+  options: {}
 }); // -+-+-+-+-+ VALIDACIÓN DEL CONFIRM PASSWORD DE REGISTER -+-+-+-+-+
 
 var confirmPassRegister = document.getElementById('confirmpasswordRegister');

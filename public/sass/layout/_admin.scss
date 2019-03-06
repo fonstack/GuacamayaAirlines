@@ -53,6 +53,111 @@
    margin-left: 2rem;
 }
 
+.chartContainer {
+   background-color: rgb(231, 231, 231);
+   box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.238);
+   border-radius: .4rem;
+   width: 95%;
+   margin: 0 auto;
+   padding: .8rem 1.4rem;
+}
+
+.titleee {
+   text-align: center;
+   font-weight: 300;
+   color: rgb(32, 32, 32);
+   text-transform: uppercase;
+   letter-spacing: 6px;
+   font-size: 4rem;
+   border-bottom: 2px solid rgb(49, 49, 49);
+   width: 96%;
+   margin: 0 auto;
+   margin-bottom: 2rem;
+   transition: all .3s;
+
+   &:not(:first-child) {
+      margin-top: 2.8rem;
+   }
+
+   &:hover {
+      letter-spacing: 9px;
+   }
+}
+
+.rowBoxes {
+   width: 95%;
+   margin: 0 auto;
+   margin-top: 1rem;
+}
+
+.adminBox {
+   background-color: rgb(46, 46, 46);
+   box-shadow: .25rem .25rem .25rem rgba(0, 0, 0, 0.197);
+   border-radius: 3px;
+   width: 100%;
+   padding: .7rem 1.2rem;
+
+   .titleBox {
+      color: rgb(197, 197, 197);
+      text-transform: uppercase;
+      font-size: 1.4rem;
+      font-weight: 300;
+      padding-bottom: 1rem;
+
+      &-2 {
+         padding-bottom: .2rem;
+      }
+   }
+
+   .contInfo {
+      display: flex;
+      justify-content: center;
+   }
+
+   .infoBox {
+      color: rgb(197, 197, 197);
+      font-size: 2.95rem;
+      text-align: center;
+      font-weight: 100;
+
+      &-num {
+         font-weight: 900;
+         color: #2FBCAC;
+      }
+   }
+
+   .rowRange {
+      margin-bottom: 0 !important;
+
+      .buttonRange {
+         height: 26px;
+         line-height: 26px;
+         padding: 0 7px;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+      }
+
+      .buttonSearchBox {
+         color: #FFF;
+         height: 26px;
+         line-height: 26px;
+         padding: 0 7px;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+      }
+
+      .colButtonBox {
+         height: 36px;
+      }
+
+      .rangePercentageIncDec {
+         border: 0;
+      }
+   }
+}
+
 
 
 // ADMINS SECTIONS

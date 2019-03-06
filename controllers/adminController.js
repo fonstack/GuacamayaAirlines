@@ -3,7 +3,7 @@ const Flight = require("../models/Flight");
 const moment = require('moment');
 
 exports.viewAdminOnly = (req, res) => {
-  res.render("admin", { title: 'admin' });
+  res.render("admin", { title: 'adminOnly' });
 };
 
 exports.viewAdmin = (req, res) => {
