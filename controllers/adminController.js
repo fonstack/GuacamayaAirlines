@@ -3,8 +3,53 @@ const Flight = require("../models/Flight");
 const moment = require('moment');
 
 exports.viewAdminOnly = (req, res) => {
-  res.render("admin", { title: 'adminOnly' });
+  // -------- NUMBER OF FLIGHTS PER AIRPLANE ----------
+  let flightsPerAirplane = [];
+  let mostVisitedAirport = [];
+  sequelize.query(`
+    SELECT airplaneId, count(code)
+    FROM Flights
+    GROUP BY airplaneId
+    ORDER BY airplaneId ASC
+  `, { type: sequelize.QueryTypes.SELECT })
+  .then(result =>{
+    // res.json(result);
+    flightsPerAirplane = result;
+    // res.json(flightsPerAirplane);
+    sequelize.query(`
+      SELECT count(Routes.destiny) as timesVisited, Routes.destiny as airport
+      FROM Flights
+      INNER JOIN Routes ON Flights.routeId = Routes.id
+      INNER JOIN FlightTicket_Flights ON Flights.code = FlightTicket_Flights.flightCode
+      GROUP BY destiny  
+      ORDER BY count(Routes.destiny) DESC
+    `, { type: sequelize.QueryTypes.SELECT })
+    .then(result =>{
+      mostVisitedAirport = result;
+      sequelize.query(`
+      SELECT Flights.airplaneId, (SUM(FlightTicket_Flights.cantPacking*23)/count(DISTINCT Flights.code)) as promedio
+      FROM Flights
+      INNER JOIN FlightTicket_Flights ON Flights.code = FlightTicket_Flights.flightCode
+      GROUP BY Flights.airplaneId
+      `, { type: sequelize.QueryTypes.SELECT })
+      .then(result =>{
+        res.json(result);
+      })
+      .catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
+  })
+  .catch(err => console.log(err));
+  // res.render("admin", { title: 'adminOnly' });
 };
+
+// sequelize.query(`
+
+// `, { type: sequelize.QueryTypes.SELECT })
+// .then(result =>{
+
+// })
+// .catch(err => console.log(err));
 
 exports.viewAdmin = (req, res) => {
   const section = req.params.section;
