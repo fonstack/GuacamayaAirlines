@@ -568,33 +568,56 @@ $(document).ready( function () {
 
 
 // -+-+-+-+-+ INITIALIZATION AND FUNCTIONALITY  OF SELECT FROM FLIGHTS ADMIN -+-+-+-+-+
-document.querySelector('.selectFlightRoute').disabled = true;
-
-document.querySelector('.selectFlightAirplane').addEventListener('change', () => {
-  const airplaneIdChanged = document.querySelector('.selectFlightAirplane').value;
+if (document.querySelector('.selectFlightRoute')) {
   document.querySelector('.selectFlightRoute').disabled = true;
 
-  axios.get(`/getAirplaneRoutes/${airplaneIdChanged}`)
-    .then(response => {
-      document.querySelector('.selectFlightRoute').innerHTML = '';
+  document.querySelector('.selectFlightAirplane').addEventListener('change', () => {
+    const airplaneIdChanged = document.querySelector('.selectFlightAirplane').value;
+    document.querySelector('.selectFlightRoute').disabled = true;
 
-      const opt = document.createElement('option');
-      opt.value = '';
-      opt.disabled = true;
-      opt.selected = true;
-      opt.innerHTML = 'Select Company Airplane';
-      document.querySelector('.selectFlightRoute').appendChild(opt);
+    axios.get(`/getAirplaneRoutes/${airplaneIdChanged}`)
+      .then(response => {
+        document.querySelector('.selectFlightRoute').innerHTML = '';
 
-      for (let i = 0; i < response.data.airplaneRoutes.length; i++) {
         const opt = document.createElement('option');
-        opt.value = response.data.airplaneRoutes[i].routeId;
-        opt.innerHTML = `${response.data.airplaneRoutes[i].routeId} ➡ ${response.data.airplaneRoutes[i].origin}-${response.data.airplaneRoutes[i].destiny}`;
+        opt.value = '';
+        opt.disabled = true;
+        opt.selected = true;
+        opt.innerHTML = 'Select Company Airplane';
         document.querySelector('.selectFlightRoute').appendChild(opt);
-      }
 
-      document.querySelector('.selectFlightRoute').disabled = false;
-    }).catch(err => console.log(err));
+        for (let i = 0; i < response.data.airplaneRoutes.length; i++) {
+          const opt = document.createElement('option');
+          opt.value = response.data.airplaneRoutes[i].routeId;
+          opt.innerHTML = `${response.data.airplaneRoutes[i].routeId} ➡ ${response.data.airplaneRoutes[i].origin}-${response.data.airplaneRoutes[i].destiny}`;
+          document.querySelector('.selectFlightRoute').appendChild(opt);
+        }
 
+        document.querySelector('.selectFlightRoute').disabled = false;
+      }).catch(err => console.log(err));
+  });
+}
+
+
+// -+-+-+-+-+ INITIALIZATION CHART OF ADMIN VIEW -+-+-+-+-+
+const ctx = document.getElementById("myChart");
+const myChart = new Chart(ctx, {
+  // The type of chart we want to create
+  type: 'line',
+
+  // The data for our dataset
+  data: {
+      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      datasets: [{
+          label: "My First dataset",
+          backgroundColor: '#2BBBAD',
+          borderColor: '#2BBBAD',
+          data: [0, 10, 5, 2, 20, 30, 45],
+      }]
+  },
+
+  // Configuration options go here
+  options: {}
 });
 
 

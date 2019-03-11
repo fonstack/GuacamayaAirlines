@@ -53,7 +53,75 @@ block content
                   a(href="/admin/statisticsFlightTickets") Flight Tickets
                      i(class="fas fa-angle-right ml-4")
 
-      
-
    .admin-section
       block adminContent
+      if title == 'adminOnly'
+         //- Porcentaje de subida o bajada al precio base
+         //- Cantidad de pasajes en total vendidos
+         //- Ganacias totales de todos los tickets
+         //- Vuelos con sobreventa
+         .row.rowBoxes
+            .col.s3
+               .adminBox
+                  .titleBox - Increase Percentage -
+                  form(action="" method="")
+                     .row.rowRange
+                        .col.s10
+                           p.range-field
+                              input.rangePercentageIncDec(type='range' min='-99' max='99' name="percentageIncDec")
+                        .col.s2.colButtonBox
+                           button.btn.waves-effect.waves-light.buttonRange(type='submit') <i class="fas fa-check"></i>
+
+            .col.s3
+               .adminBox
+                  .titleBox.titleBox-2 - Tickets Sold -
+                  .contInfo
+                     p.infoBox.infoBox-num#cantTicketsSold 45
+                     p.infoBox &nbsp;Tickets 
+
+            .col.s3
+               .adminBox
+                  .titleBox.titleBox-2 - Flights with Overbooking -
+                  .contInfo
+                     p.infoBox.infoBox-num#cantTicketsSold 12
+                     p.infoBox &nbsp;Flights 
+
+            .col.s3
+               .adminBox
+                  .titleBox.titleBox-2 - Total Profits -
+                  .row.rowRange
+                     .col.s10
+                        .contInfo
+                           p.infoBox.infoBox-num#cantTicketsSold 9856
+                           p.infoBox &nbsp;$
+                     .col.s2.colButtonBox
+                        a.btn.waves-effect.waves-light.buttonSearchBox(href="#") <i class="fas fa-search-dollar"></i>
+
+
+         .titleee - Number of Flights per Month -
+         .chartContainer
+            <canvas id="myChart" width="1000" height="100"></canvas>
+
+         .titleee - Number of Flights per Airplane -
+         .chartContainer
+            <canvas id="myChart" width="1000" height="100"></canvas>
+
+         .titleee - More visited airports -
+         .chartContainer
+            <canvas id="myChart" width="1000" height="100"></canvas>
+
+         .titleee - Average weight per Airplane -
+         .chartContainer
+            <canvas id="myChart" width="1000" height="100"></canvas>
+
+         //- Gráfico de torta
+         .titleee - Percentage of use per Airplane -
+         .chartContainer
+            <canvas id="myChart" width="1000" height="100"></canvas>
+
+         //- Demográficas, varios gráficos de torta (edad, sexo, nacionalidad)   
+         .titleee - Percentage of use per Airplane -
+         .chartContainer
+            <canvas id="myChart" width="1000" height="100"></canvas>
+
+   

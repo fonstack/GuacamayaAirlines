@@ -74,7 +74,9 @@ block content
                                  if indexx == 0
                                     - let precioTotal = 0;
                                     - flight.forEach(ele => precioTotal += ele.basePrice);
-                                    - flight.salePrice = precioTotal;
+                                    - flight.salePrice = [];
+                                    - flight.salePrice[0] = flight[0].basePrice;
+                                    - flight.salePrice[1] = flight[1].basePrice;
                                     td(rowspan="2").totalPriceColl  <span class="flightImportant">#{precioTotal} $</span>
                                     td(rowspan="2").buttonCell 
                                        a(class="waves-effect waves-light btn-small modal-trigger" href=`#purchaseModal${index}`) Purchase&nbsp;&nbsp; <i class="fas fa-cart-plus"></i>
@@ -107,7 +109,10 @@ block content
                                  if indexx == 0
                                     - let precioTotal = 0;
                                     - flight.forEach(ele => precioTotal += ele.basePrice);
-                                    - flight.salePrice = precioTotal;
+                                    - flight.salePrice = [];
+                                    - flight.salePrice[0] = flight[0].basePrice;
+                                    - flight.salePrice[1] = flight[1].basePrice;
+                                    - flight.salePrice[2] = flight[2].basePrice;
                                     td(rowspan="3").totalPriceColl  <span class="flightImportant">#{precioTotal} $</span>
                                     td(rowspan="3").buttonCell 
                                        a(class="waves-effect waves-light btn-small modal-trigger" href=`#purchaseModal${index}`) Purchase&nbsp;&nbsp; <i class="fas fa-cart-plus"></i>
@@ -217,10 +222,9 @@ block content
                               .row.firstRow
                                  .input-field.col.s8.rangeField
                                     p.range-field Quantity of Packing
-                                       input(type='range' value="0" min='0' max='3' name=`packingScale${flight[0].code}`)
+                                       //- input(type='range' value="0" min='0' max='3' name=`packingScale${flight[0].code}`)
+                                       input(type='range' value="0" min='0' max='3' name=`packingScale`)
                                  .input-field.col.s4
-                                    //- select(required name=`seatScale${scale.code}` id=`selectSeat${scale.code}`).select-home.browser-default.selectSeats
-                                    //-    option(value='' disabled hidden selected) Seat
                                     .preloader-wrapper.small.active.loaderSeatMap
                                        .spinner-layer.spinner-green-only
                                           .circle-clipper.left
@@ -232,7 +236,8 @@ block content
                                     - const num =  Math.round(Math.random() * 1000000);
                                     .seatMaps(id=`seat-map_${num}_${flight[0].code}`)
                                     p.textMap Seat Number
-                                    input(required type="text" name=`seatScale${flight[0].code}` id=`seatNum_${num}_${flight[0].code}`).disabledPirata.inputSeat
+                                    //- input(required type="text" name=`seatScale${flight[0].code}` id=`seatNum_${num}_${flight[0].code}`).disabledPirata.inputSeat
+                                    input(required type="text" name=`seatScale` id=`seatNum_${num}_${flight[0].code}`).disabledPirata.inputSeat
                               .modal-footer
                                  a.waves-effect.waves-green.btn-flat#backForm Back Step 🠜
                                  button#buttonPurchaseTicket.waves-effect.waves-green.btn-flat(type="submit" disabled) Purchase Ticket ✓
@@ -248,7 +253,8 @@ block content
                            input(type="hidden" name="flightCodeOne" value=`${flight[0].code}`)
                            input(type="hidden" name="flightCodeTwo" value=`${flight[1].code}`)
                            input(type="hidden" name="cantScales" value='2')
-                           input(type="hidden" name="salePrice" value=`${flight.salePrice}`)
+                           input(type="hidden" name="salePrice" value=`${flight.salePrice[0]}`)
+                           input(type="hidden" name="salePrice" value=`${flight.salePrice[1]}`)
                            .frontSide
                               //- INFORMACIÓN DEL COMPRADOR
                               p.title Buyer Information [FC] = #{flight[0].code} [CS] = #{flight.length} &nbsp;&nbsp;
@@ -345,10 +351,9 @@ block content
                                  .row.firstRow
                                     .input-field.col.s8.rangeField
                                        p.range-field Quantity of Packing
-                                          input(type='range' value="0" min='0' max='3' name=`packingScale${scale.code}`)
+                                          //- input(type='range' value="0" min='0' max='3' name=`packingScale${scale.code}`)
+                                          input(type='range' value="0" min='0' max='3' name=`packingScale`)
                                     .input-field.col.s4
-                                       //- select(required name=`seatScale${scale.code}` id=`selectSeat${scale.code}`).select-home.browser-default.selectSeats
-                                       //-    option(value='' disabled hidden selected) Seat
                                        .preloader-wrapper.small.active.loaderSeatMap
                                           .spinner-layer.spinner-green-only
                                              .circle-clipper.left
@@ -360,7 +365,8 @@ block content
                                        - const num =  Math.round(Math.random() * 1000000);
                                        .seatMaps(id=`seat-map_${num}_${scale.code}`)
                                        p.textMap Seat Number
-                                       input(type="text" name=`seatScale${scale.code}` id=`seatNum_${num}_${scale.code}`).disabledPirata.inputSeat
+                                       //- input(type="text" name=`seatScale${scale.code}` id=`seatNum_${num}_${scale.code}`).disabledPirata.inputSeat
+                                       input(type="text" name=`seatScale` id=`seatNum_${num}_${scale.code}`).disabledPirata.inputSeat
                                        
                               .modal-footer
                                  a.waves-effect.waves-green.btn-flat#backForm Back Step 🠜
@@ -378,7 +384,9 @@ block content
                            input(type="hidden" name="flightCodeTwo" value=`${flight[1].code}`)
                            input(type="hidden" name="flightCodeThree" value=`${flight[2].code}`)
                            input(type="hidden" name="cantScales" value='3')
-                           input(type="hidden" name="salePrice" value=`${flight.salePrice}`)
+                           input(type="hidden" name="salePrice" value=`${flight.salePrice[0]}`)
+                           input(type="hidden" name="salePrice" value=`${flight.salePrice[1]}`)
+                           input(type="hidden" name="salePrice" value=`${flight.salePrice[2]}`)
                            .frontSide
                               //- INFORMACIÓN DEL COMPRADOR
                               p.title Buyer Information [FC] = #{flight[0].code} [CS] = #{flight.length} &nbsp;&nbsp;
@@ -475,10 +483,9 @@ block content
                                  .row.firstRow
                                     .input-field.col.s8.rangeField
                                        p.range-field Quantity of Packing
-                                          input(type='range' value="0" min='0' max='3' name=`packingScale${scale.code}`)
+                                          //- input(type='range' value="0" min='0' max='3' name=`packingScale${scale.code}`)
+                                          input(type='range' value="0" min='0' max='3' name=`packingScale`)
                                     .input-field.col.s4
-                                       //- select(required name=`seatScale${scale.code}` id=`selectSeat${scale.code}`).select-home.browser-default.selectSeats
-                                       //-    option(value='' disabled hidden selected) Seat
                                        .preloader-wrapper.small.active.loaderSeatMap
                                           .spinner-layer.spinner-green-only
                                              .circle-clipper.left
@@ -490,7 +497,8 @@ block content
                                        - const num =  Math.round(Math.random() * 1000000);
                                        .seatMaps(id=`seat-map_${num}_${scale.code}`)
                                        p.textMap Seat Number
-                                       input(type="text" name=`seatScale${scale.code}` id=`seatNum_${num}_${scale.code}`).disabledPirata.inputSeat
+                                       //- input(type="text" name=`seatScale${scale.code}` id=`seatNum_${num}_${scale.code}`).disabledPirata.inputSeat
+                                       input(type="text" name=`seatScale` id=`seatNum_${num}_${scale.code}`).disabledPirata.inputSeat
                                        
                               .modal-footer
                                  a.waves-effect.waves-green.btn-flat#backForm Back Step 🠜

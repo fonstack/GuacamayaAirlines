@@ -39,7 +39,7 @@ html(lang="en")
                   .navbar__logo
                      a(href="/") 
                         img(src="/images/logoTexto.png", alt="").navbar__logo__img
-         else if title === 'admin'
+         else if title === 'admin' || title === 'adminOnly'
             .navbar.navbar-two
                .navbar__links
                   .navbar__logo
@@ -94,5 +94,6 @@ html(lang="en")
       script(src="/seats/jquery.seat-charts.min.js")
       script(src="/tooltip/tooltipster.bundle.min.js" defer)
       script(src="/dist/main.bundle.js" defer)
-      script(src="https://unpkg.com/axios/dist/axios.min.js" defer)
+      script(src="https://unpkg.com/axios/dist/axios.min.js")
+      script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js")
       

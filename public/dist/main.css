@@ -1266,6 +1266,95 @@ div.seatCharts-row {
 .ml-4 {
   margin-left: 2rem; }
 
+.chartContainer {
+  background-color: #e7e7e7;
+  -webkit-box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.238);
+          box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.238);
+  border-radius: .4rem;
+  width: 95%;
+  margin: 0 auto;
+  padding: .8rem 1.4rem; }
+
+.titleee {
+  text-align: center;
+  font-weight: 300;
+  color: #202020;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  font-size: 4rem;
+  border-bottom: 2px solid #313131;
+  width: 96%;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  -webkit-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s; }
+  .titleee:not(:first-child) {
+    margin-top: 2.8rem; }
+  .titleee:hover {
+    letter-spacing: 9px; }
+
+.rowBoxes {
+  width: 95%;
+  margin: 0 auto;
+  margin-top: 1rem; }
+
+.adminBox {
+  background-color: #2e2e2e;
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.197);
+          box-shadow: 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.197);
+  border-radius: 3px;
+  width: 100%;
+  padding: .7rem 1.2rem; }
+  .adminBox .titleBox {
+    color: #c5c5c5;
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    font-weight: 300;
+    padding-bottom: 1rem; }
+    .adminBox .titleBox-2 {
+      padding-bottom: .2rem; }
+  .adminBox .contInfo {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center; }
+  .adminBox .infoBox {
+    color: #c5c5c5;
+    font-size: 2.95rem;
+    text-align: center;
+    font-weight: 100; }
+    .adminBox .infoBox-num {
+      font-weight: 900;
+      color: #2FBCAC; }
+  .adminBox .rowRange {
+    margin-bottom: 0 !important; }
+    .adminBox .rowRange .buttonRange {
+      height: 26px;
+      line-height: 26px;
+      padding: 0 7px;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+          -ms-transform: translate(-50%, -50%);
+              transform: translate(-50%, -50%); }
+    .adminBox .rowRange .buttonSearchBox {
+      color: #FFF;
+      height: 26px;
+      line-height: 26px;
+      padding: 0 7px;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+          -ms-transform: translate(-50%, -50%);
+              transform: translate(-50%, -50%); }
+    .adminBox .rowRange .colButtonBox {
+      height: 36px; }
+    .adminBox .rowRange .rangePercentageIncDec {
+      border: 0; }
+
 .titlee {
   text-align: center;
   font-weight: 300;
