@@ -35,6 +35,7 @@ router.get("/logout", authController.logout);
 router.get("/admin/:section", authController.needLogged, adminController.viewAdmin);
 router.get("/admin", authController.needLogged, adminController.viewAdminOnly);
 router.post("/admin/planningFlights", authController.needLogged, adminController.planningFlights);
+router.post("/admin/planningCharters", authController.needLogged, adminController.planningCharters);
 
 // Purchase Ticket
 router.post("/purchaseTicket", airlineController.saveCustomer, airlineController.purchaseFlightTicket);

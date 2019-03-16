@@ -4,7 +4,10 @@ block adminContent
    .adminSect
       p.titlee Planning Flights
       .contButton
-         a.waves-effect.waves-light.btn.modal-trigger.createButton.grey.darken-3(href='#modal1') - Plan a new flight -
+         if detours
+            a.waves-effect.waves-light.btn.modal-trigger.createButton.grey.darken-3(href='#modal1' disabled) - Plan a new flight -
+         else
+            a.waves-effect.waves-light.btn.modal-trigger.createButton.grey.darken-3(href='#modal1' ) - Plan a new flight -
       .tableContainer
          table#tablePlanningFlights.hover.order-column.tableFlinchi
             thead
@@ -47,13 +50,20 @@ block adminContent
                      .input-field.col.s6 
                         select(name="provider").selectAdmin.browser-default.selectFlightAirplane
                            each provider in providers
-                              option(value=`${providers.id}`) #{provider.name} - #{provider.responseTime}H - #{provider.pricePerKilometer}$/Km
+                              option(value=`${provider.id}`) #{provider.id} #{provider.name} - #{provider.responseTime}H - #{provider.pricePerKilometer}$/Km
+                     .input-field.col.s6 
+                        select(name="detour").selectAdmin.browser-default.selectFlightAirplane
+                           each detour in detours
+                              option(value=`${detour.id}`) Origin: #{detour.origin} Destiny: #{detour.destiny}
+                  .modal-footer
+                     a.modal-close.waves-effect.waves-green.btn-flat(href='#!') Cancel
+                     button.modal-close.waves-effect.waves-green.btn-flat(type="submit") Save &nbsp;&nbsp;<i class="fas fa-save"></i>
                               //- COLOCAR CUAL DETOUR ESCOGER EN UN DROPDOWN MARICO EL QUE LO LEA
 //-                           each airplaneId in airplanesIds
 //-                              option(value=`${airplaneId.airplaneId}`) #{airplaneId.airplaneId}
 //-      //-                .input-field.col.s6 
 //-      //-                   select(name="routeNumber").selectAdmin.browser-default.selectFlightRoute
 //-      //-                      option(value='', disabled='', selected='') Select Route
-//-      //-             .modal-footer
-//-     //-                a.modal-close.waves-effect.waves-green.btn-flat(href='#!') Cancel
-//-      //-                button.modal-close.waves-effect.waves-green.btn-flat(type="submit") Save &nbsp;&nbsp;<i class="fas fa-save"></i>
+               //-   .modal-footer
+               //-     a.modal-close.waves-effect.waves-green.btn-flat(href='#!') Cancel
+               //-      button.modal-close.waves-effect.waves-green.btn-flat(type="submit") Save &nbsp;&nbsp;<i class="fas fa-save"></i>

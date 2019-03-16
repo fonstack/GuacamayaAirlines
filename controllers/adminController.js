@@ -1,6 +1,7 @@
 const sequelize = require("../config/database");
 const Flight = require("../models/Flight");
 const moment = require('moment');
+const Charter = require("../models/Charter");
 
 exports.viewAdminOnly = (req, res) => {
   // -------- NUMBER OF FLIGHTS PER AIRPLANE ----------
@@ -33,7 +34,8 @@ exports.viewAdminOnly = (req, res) => {
       GROUP BY Flights.airplaneId
       `, { type: sequelize.QueryTypes.SELECT })
       .then(result =>{
-        res.json(result);
+        // res.json(result);
+        res.render("admin", { title: 'adminOnly' });
       })
       .catch(err => console.log(err));
     })
@@ -119,15 +121,20 @@ exports.viewAdmin = (req, res) => {
         WHERE DetourManifests.state = 'Approved'
       `, { type: sequelize.QueryTypes.SELECT })
       .then(result => {
+        // res.json({penexote: 'escroto'});
         // res.json({pene: 'pene'});
         // res.json(result);
         let detours = [];
+        // res.json({penexote: 'escroto'});
         result.forEach(element => {
           detours.push({
             id: element.id,
             origin: element.origin,
             destiny: element.destiny
-          });     
+          });
+        });
+        
+          // res.json({penexote: 'escroto'});     
           sequelize.query(`
             SELECT id, name, responseTime, pricePerKilometer
             FROM Providers
@@ -144,10 +151,9 @@ exports.viewAdmin = (req, res) => {
               });
             });
             // res.json({charters, detours, providers});
-            res.render("admin/planningCharters", { title: 'admin' , charters, detours, providers});            
+            res.render("admin/planningCharters", { title: 'Planning Charters' , charters, detours, providers});            
           })
           .catch(err => console.log(err));
-        });
         // res.json(detourId);
         // res.render("admin/planningCharters", { title: 'admin' , charters, detourId});
       })
@@ -172,7 +178,15 @@ exports.viewAdmin = (req, res) => {
           state: element.state
         });
       });
-      res.render("admin/planningAirplanes", { title: 'admin' , airplanes});
+      sequelize.query(`
+        SELECT model
+        FROM AirplaneModels
+      `, { type: sequelize.QueryTypes.SELECT })
+      .then(result=> {
+        // res.json(result);
+        res.render("admin/planningAirplanes", { title: 'admin' , airplanes, models: result});
+      })
+      .catch(err => console.log(err));
     })
     .catch(err => console.log(err));
   }
@@ -225,4 +239,48 @@ exports.planningFlights = (req, res) => {
       res.redirect('/admin/planningFlights');
     })
     .catch(err => console.log(err));
+};
+
+exports.planningCharters = (req, res) => {
+  const date = req.body.date;
+  const time = req.body.time;
+  const provider = req.body.provider;
+  const detour = req.body.detour;
+  let dateLacra = `${ date.split('/')[2] }-${ date.split('/')[1] }-${ date.split('/')[0] } ${ time.split(':')[0] }:${ time.split(':')[1] }:00`;
+  dateLacra = moment(dateLacra).add(-4, 'hours');
+  // res.json({penesito: {dateLacra, provider, detour}});
+  sequelize.query(`
+    SELECT DetourManifests.id, Routes.id as routeId FROM DetourManifests 
+    INNER JOIN Flights ON flightCode = Flights.code
+    INNER JOIN Routes ON Flights.routeId = Routes.id
+    WHERE DetourManifests.id = ${detour}
+  `, { type: sequelize.QueryTypes.SELECT } )
+  .then(result =>{
+    // res.json({penexote: 'escroto'});
+    let route = result.routeId;
+    Charter.create({
+      date: dateLacra,
+      routeId: route,
+      providerId: provider,
+      detourId: detour
+    })
+    .then(result => {
+      // res.json(result);
+      sequelize.query(`
+        UPDATE DetourManifests
+        SET state = 'done'
+        WHERE id = ${detour}
+      `, { type: sequelize.QueryTypes.UPDATE })
+      .then(result =>{
+        // res.json(result);
+        req.flash('success', 'You have successfully registered a Charter Flight');
+        res.redirect('/admin/planningCharters');
+      })
+      .catch(err => console.log(err));
+
+    })
+    .catch(err => console.log(err));
+  })
+  .catch(err => console.log(err));
+
 };
