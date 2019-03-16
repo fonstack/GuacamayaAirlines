@@ -72,3 +72,54 @@ exports.getAirplanesRoutes = (req, res) => {
       return null;
     })
 }
+
+exports.getTicketsSold = (req, res) => {
+  sequelize.query(`
+    SELECT count(id) as cant
+    FROM FlightTickets
+  `, { type: sequelize.QueryTypes.SELECT })
+    .then(result => {
+      res.json({ticketsSold: result});
+      return null;
+    })
+}
+
+exports.getFlightsOverbooking = (req, res) => {
+  sequelize.query(`
+    SELECT count(flightCode) as cant
+    FROM FlightTicket_Flights
+    WHERE affectOverbooking = 1
+  `, { type: sequelize.QueryTypes.SELECT })
+    .then(result => {
+      res.json({flightsOverbooking: result});
+      return null;
+    })
+}
+
+exports.getTotalProfits = (req, res) => {
+  sequelize.query(`
+    SELECT SUM(salePrice) as profits
+    FROM FlightTickets
+  `, { type: sequelize.QueryTypes.SELECT })
+    .then(result => {
+      res.json({profits: result});
+      return null;
+    })
+}
+
+exports.getProfitOnInterval = (req, res) => {
+  const date1 = req.params.first;
+  const dateLacra1 = `${ date1.split('-')[2] }-${ date1.split('-')[1] }-${ date1.split('-')[0] }`;
+  const date2 = req.params.second;
+  const dateLacra2 = `${ date2.split('-')[2] }-${ date2.split('-')[1] }-${ date2.split('-')[0] }`;
+
+  sequelize.query(`
+    SELECT SUM(salePrice) as profits
+    FROM FlightTickets
+    WHERE '${dateLacra1}' < createdAt AND '${dateLacra2}' > createdAt
+  `, { type: sequelize.QueryTypes.SELECT })
+    .then(result => {
+      res.json({profits: result});
+      return null;
+    })
+}

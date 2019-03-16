@@ -76,14 +76,14 @@ block content
                .adminBox
                   .titleBox.titleBox-2 - Tickets Sold -
                   .contInfo
-                     p.infoBox.infoBox-num#cantTicketsSold 45
+                     p.infoBox.infoBox-num#cantTicketsSold
                      p.infoBox &nbsp;Tickets 
 
             .col.s3
                .adminBox
                   .titleBox.titleBox-2 - Flights with Overbooking -
                   .contInfo
-                     p.infoBox.infoBox-num#cantTicketsSold 12
+                     p.infoBox.infoBox-num#flightsOverbooking
                      p.infoBox &nbsp;Flights 
 
             .col.s3
@@ -92,10 +92,30 @@ block content
                   .row.rowRange
                      .col.s10
                         .contInfo
-                           p.infoBox.infoBox-num#cantTicketsSold 9856
+                           p.infoBox.infoBox-num#totalProfits
                            p.infoBox &nbsp;$
                      .col.s2.colButtonBox
-                        a.btn.waves-effect.waves-light.buttonSearchBox(href="#") <i class="fas fa-search-dollar"></i>
+                        a.btn.waves-effect.waves-light.buttonSearchBox.modal-trigger(href="#modal1") <i class="fas fa-search-dollar"></i>
+         #modal1.modal
+            .modal-content.contentModalProfits
+               .row
+                  .input-field.col.s6 
+                     i(class="far fa-calendar prefix material-icons")
+                     input.datepickerProfits#intervalProfit1(type='text' placeholder="Choose the Depart Date" name="firstDate")
+                     label(for='depart') First Date
+                  .input-field.col.s6 
+                     i(class="far fa-calendar prefix material-icons")
+                     input.datepickerProfitss#intervalProfit2(type='text' placeholder="Choose the Depart Date" name="secondDate")
+                     label(for='depart') Second Date
+               .row
+                  .contInfoInterval
+                     p Interval Profit:&nbsp;
+                     p.infoBox.infoBox-num#intervalProfit ---
+                     p.infoBox &nbsp;$
+               .modal-footer
+                  a.modal-close.waves-effect.waves-green.btn-flat(href='#!') Cancel
+                  button.waves-effect.waves-green.btn-flat#findIntervalProfit Find &nbsp;&nbsp;<i class="fas fa-search"></i>
+
 
 
          .titleee - Number of Flights per Month -

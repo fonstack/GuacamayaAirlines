@@ -47,5 +47,9 @@ router.get('/getCustomers', apiController.getCustomers);
 router.get('/getCustomer/:identityC', apiController.getCustomer);
 router.get('/getEmptySeats/:flightCode', apiController.getEmptySeatsOfFlight);
 router.get('/getAirplaneRoutes/:airplaneId', apiController.getAirplanesRoutes);
+router.get('/getTicketsSold', apiController.getTicketsSold);
+router.get('/getFlightsOverbooking', apiController.getFlightsOverbooking);
+router.get('/getTotalProfits', apiController.getTotalProfits);
+router.get('/getProfitOnInterval/:first/:second', apiController.getProfitOnInterval);
 
 module.exports = router;

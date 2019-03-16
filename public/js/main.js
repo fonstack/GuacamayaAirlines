@@ -36,6 +36,28 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+  const elems = document.querySelector('.datepickerProfits');
+  const cont = document.querySelector('.admin-section');
+  const instances = M.Datepicker.init(elems, {
+    autoClose: true,
+    container: cont,
+    format: 'dd-mm-yyyy',
+    firstDay: 1
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const elems = document.querySelector('.datepickerProfitss');
+  const cont = document.querySelector('.admin-section');
+  const instances = M.Datepicker.init(elems, {
+    autoClose: true,
+    container: cont,
+    format: 'dd-mm-yyyy',
+    firstDay: 1
+  });
+});
+
 
 // -+-+-+-+-+ INITIALIZATION TIMEPICKER HOME -- Materialize -+-+-+-+-+
 document.addEventListener('DOMContentLoaded', function() {
@@ -567,7 +589,7 @@ $(document).ready( function () {
 } );
 
 
-// -+-+-+-+-+ INITIALIZATION AND FUNCTIONALITY  OF SELECT FROM FLIGHTS ADMIN -+-+-+-+-+
+// -+-+-+-+-+ INITIALIZATION AND FUNCTIONALITY OF SELECT FROM FLIGHTS ADMIN -+-+-+-+-+
 if (document.querySelector('.selectFlightRoute')) {
   document.querySelector('.selectFlightRoute').disabled = true;
 
@@ -597,6 +619,48 @@ if (document.querySelector('.selectFlightRoute')) {
       }).catch(err => console.log(err));
   });
 }
+
+
+// -+-+-+-+-+ INITIALIZATION STATISTICS OF ADMIN VIEW -+-+-+-+-+
+axios.get(`/getTicketsSold`)
+  .then(response => {
+    if (document.querySelector('#cantTicketsSold')) {
+      const cantTicketsSoldP = document.querySelector('#cantTicketsSold');
+      cantTicketsSoldP.innerHTML = response.data.ticketsSold[0].cant;
+    }
+  }).catch(err => console.log(err));
+
+axios.get(`/getFlightsOverbooking`)
+  .then(response => {
+    if (document.querySelector('#flightsOverbooking')) {
+      const cantflightsOverbooking = document.querySelector('#flightsOverbooking');
+      cantflightsOverbooking.innerHTML = response.data.flightsOverbooking[0].cant;
+    }
+  }).catch(err => console.log(err));
+
+axios.get(`/getTotalProfits`)
+  .then(response => {
+    if (document.querySelector('#totalProfits')) {
+      const totalProfits = document.querySelector('#totalProfits');
+      totalProfits.innerHTML = response.data.profits[0].profits;
+    }
+  }).catch(err => console.log(err));
+
+if (document.querySelector('#findIntervalProfit')) {
+  document.querySelector('#findIntervalProfit').addEventListener('click', () => {
+  const date1 = document.querySelector('#intervalProfit1').value;
+  const date2 = document.querySelector('#intervalProfit2').value;
+
+  axios.get(`/getProfitOnInterval/${date1}/${date2}`)
+    .then(response => {
+      document.querySelector('#intervalProfit').innerHTML = response.data.profits[0].profits;
+    }).catch(err => console.log(err));
+  })
+}
+
+
+
+
 
 
 // -+-+-+-+-+ INITIALIZATION CHART OF ADMIN VIEW -+-+-+-+-+

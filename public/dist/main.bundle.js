@@ -1997,6 +1997,26 @@ document.addEventListener('DOMContentLoaded', function () {
     minDate: minDate,
     maxDate: maxDate
   });
+});
+document.addEventListener('DOMContentLoaded', function () {
+  var elems = document.querySelector('.datepickerProfits');
+  var cont = document.querySelector('.admin-section');
+  var instances = M.Datepicker.init(elems, {
+    autoClose: true,
+    container: cont,
+    format: 'dd-mm-yyyy',
+    firstDay: 1
+  });
+});
+document.addEventListener('DOMContentLoaded', function () {
+  var elems = document.querySelector('.datepickerProfitss');
+  var cont = document.querySelector('.admin-section');
+  var instances = M.Datepicker.init(elems, {
+    autoClose: true,
+    container: cont,
+    format: 'dd-mm-yyyy',
+    firstDay: 1
+  });
 }); // -+-+-+-+-+ INITIALIZATION TIMEPICKER HOME -- Materialize -+-+-+-+-+
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -2550,7 +2570,7 @@ $(document).ready(function () {
   $('#tablePlanningFlights').DataTable({
     "lengthMenu": [5, 10, 20, 50]
   });
-}); // -+-+-+-+-+ INITIALIZATION AND FUNCTIONALITY  OF SELECT FROM FLIGHTS ADMIN -+-+-+-+-+
+}); // -+-+-+-+-+ INITIALIZATION AND FUNCTIONALITY OF SELECT FROM FLIGHTS ADMIN -+-+-+-+-+
 
 if (document.querySelector('.selectFlightRoute')) {
   document.querySelector('.selectFlightRoute').disabled = true;
@@ -2575,6 +2595,44 @@ if (document.querySelector('.selectFlightRoute')) {
       }
 
       document.querySelector('.selectFlightRoute').disabled = false;
+    }).catch(function (err) {
+      return console.log(err);
+    });
+  });
+} // -+-+-+-+-+ INITIALIZATION STATISTICS OF ADMIN VIEW -+-+-+-+-+
+
+
+axios.get("/getTicketsSold").then(function (response) {
+  if (document.querySelector('#cantTicketsSold')) {
+    var cantTicketsSoldP = document.querySelector('#cantTicketsSold');
+    cantTicketsSoldP.innerHTML = response.data.ticketsSold[0].cant;
+  }
+}).catch(function (err) {
+  return console.log(err);
+});
+axios.get("/getFlightsOverbooking").then(function (response) {
+  if (document.querySelector('#flightsOverbooking')) {
+    var cantflightsOverbooking = document.querySelector('#flightsOverbooking');
+    cantflightsOverbooking.innerHTML = response.data.flightsOverbooking[0].cant;
+  }
+}).catch(function (err) {
+  return console.log(err);
+});
+axios.get("/getTotalProfits").then(function (response) {
+  if (document.querySelector('#totalProfits')) {
+    var totalProfits = document.querySelector('#totalProfits');
+    totalProfits.innerHTML = response.data.profits[0].profits;
+  }
+}).catch(function (err) {
+  return console.log(err);
+});
+
+if (document.querySelector('#findIntervalProfit')) {
+  document.querySelector('#findIntervalProfit').addEventListener('click', function () {
+    var date1 = document.querySelector('#intervalProfit1').value;
+    var date2 = document.querySelector('#intervalProfit2').value;
+    axios.get("/getProfitOnInterval/".concat(date1, "/").concat(date2)).then(function (response) {
+      document.querySelector('#intervalProfit').innerHTML = response.data.profits[0].profits;
     }).catch(function (err) {
       return console.log(err);
     });

@@ -1355,6 +1355,21 @@ div.seatCharts-row {
     .adminBox .rowRange .rangePercentageIncDec {
       border: 0; }
 
+.contentModalProfits {
+  background-color: #fafafa;
+  padding: 0 2rem !important;
+  padding-top: 3.8rem !important;
+  height: 23rem !important; }
+
+.contInfoInterval {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 2.4rem;
+  padding: 0 2rem; }
+  .contInfoInterval #intervalProfit {
+    color: #2FBCAC; }
+
 .titlee {
   text-align: center;
   font-weight: 300;
