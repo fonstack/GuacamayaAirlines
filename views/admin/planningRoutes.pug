@@ -1,4 +1,25 @@
 extends ../admin
 
+
 block adminContent
-   p Planning Routes
+   .adminSect
+      p.titlee Routes
+      .tableContainer
+         table#tablePlanningFlights.hover.order-column.tableFlinchi
+               thead
+                  tr
+                     th Route ID
+                     th Origin
+                     th Destiny
+                     th Base Price
+                     th Travel Distance
+                     th Travel Time
+               tbody
+                  each route in routes
+                     tr
+                        td #{route.id}
+                        td #{route.origin}
+                        td #{route.destiny}
+                        td #{route.basePrice}
+                        td #{route.travelDistance}
+                        td #{route.travelTime}

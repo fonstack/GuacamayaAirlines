@@ -2,6 +2,7 @@ const sequelize = require("../config/database");
 const Flight = require("../models/Flight");
 const moment = require('moment');
 const Charter = require("../models/Charter");
+const Airplane = require("../models/Airplane");
 
 exports.viewAdminOnly = (req, res) => {
   // -------- NUMBER OF FLIGHTS PER AIRPLANE ----------
@@ -163,7 +164,28 @@ exports.viewAdmin = (req, res) => {
     })
     .catch(err => console.log(err));
   } else if (section === 'planningRoutes') { // Vista Planning -> Routes
-    res.render("admin/planningRoutes", { title: 'admin' });
+    let routes = [];
+    sequelize.query(`
+      SELECT id, origin, destiny, concat(basePrice, ' $') as basePrice, concat(travelDistance, ' Km') as travelDistance, concat(travelTime, ' Hrs') as travelTime FROM Routes
+    `, { type: sequelize.QueryTypes.SELECT })
+    .then( result => {
+      result.forEach(element =>{
+        routes.push({
+          id: element.id,
+          origin: element.origin,
+          destiny: element.destiny,
+          basePrice: element.basePrice,
+          travelDistance: element.travelDistance,
+          travelTime: element.travelTime
+        });
+      });
+      res.render("admin/planningRoutes", { title: 'admin' , routes});
+    })
+    .catch(err => console.log(err));
+
+
+
+    // res.render("admin/planningRoutes", { title: 'admin' });
   } else if (section === 'planningAirplanes') { // Vista Planning -> Airplanes
     let airplanes = [];
     sequelize.query(`
@@ -286,10 +308,17 @@ exports.planningCharters = (req, res) => {
 };
 
 exports.planningAirplanes = (req, res) => {
-  
+  const state = req.body.state;
+  const model = req.body.model;
 
-
-
-
-  
+  Airplane.create({
+    model: model,
+    state: state
+  })
+  .then(result => {
+    req.flash('success', 'You have successfully registered an Airplane');
+    res.redirect('/admin/planningAirplanes');
+  })
+  .catch(err => console.log(err));
 };
+
