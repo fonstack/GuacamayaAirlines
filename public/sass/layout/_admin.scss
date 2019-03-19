@@ -60,6 +60,7 @@
    width: 95%;
    margin: 0 auto;
    padding: .8rem 1.4rem;
+   position: relative;
 }
 
 .titleee {
@@ -173,6 +174,13 @@
    #intervalProfit {
       color: #2FBCAC;
    }
+}
+
+.loaderChart1, .loaderChart2 {
+   position: absolute;
+   left: 50%;
+   top: 50%;
+   transform: translate(-50%, -50%);
 }
 
 

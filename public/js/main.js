@@ -1,6 +1,7 @@
 import "../sass/styles.scss";
 const http = new XMLHttpRequest();
 const axios = require('axios');
+import 'babel-polyfill';
 
 
 // -+-+-+-+-+ INITIALIZATION DATEPICKER HOME -- Materialize -+-+-+-+-+
@@ -664,25 +665,72 @@ if (document.querySelector('#findIntervalProfit')) {
 
 
 // -+-+-+-+-+ INITIALIZATION CHART OF ADMIN VIEW -+-+-+-+-+
-const ctx = document.getElementById("myChart");
-const myChart = new Chart(ctx, {
-  // The type of chart we want to create
-  type: 'line',
+(async function initChart1() {
+  const enero = await axios.get(`/getNumberFlights/01`);
+  const febrero = await axios.get(`/getNumberFlights/02`);
+  const marzo = await axios.get(`/getNumberFlights/03`);
+  const abril = await axios.get(`/getNumberFlights/04`);
+  const mayo = await axios.get(`/getNumberFlights/05`);
+  const junio = await axios.get(`/getNumberFlights/06`);
+  const julio = await axios.get(`/getNumberFlights/07`);
+  const agosto = await axios.get(`/getNumberFlights/08`);
+  const septiembre = await axios.get(`/getNumberFlights/09`);
+  const octubre = await axios.get(`/getNumberFlights/10`);
+  const noviembre = await axios.get(`/getNumberFlights/11`);
+  const diciembre = await axios.get(`/getNumberFlights/12`);
 
-  // The data for our dataset
-  data: {
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
-      datasets: [{
-          label: "My First dataset",
-          backgroundColor: '#2BBBAD',
-          borderColor: '#2BBBAD',
-          data: [0, 10, 5, 2, 20, 30, 45],
-      }]
-  },
+  const ctx = document.getElementById("chart1");
+    const myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "November", "December"],
+          datasets: [{
+              label: "Flights per Month",
+              backgroundColor: '#2BBBAD',
+              borderColor: '#2BBBAD',
+              data: [enero.data[0].cant, febrero.data[0].cant, marzo.data[0].cant, abril.data[0].cant, mayo.data[0].cant, junio.data[0].cant, julio.data[0].cant, agosto.data[0].cant, septiembre.data[0].cant, octubre.data[0].cant, noviembre.data[0].cant, diciembre.data[0].cant],
+          }]
+      },
+      options: {}
+    });
 
-  // Configuration options go here
-  options: {}
-});
+    document.querySelector('.loaderChart1').style.display = 'none';
+})();
+
+
+(async function initChart2() {
+  const airplanes = await axios.get(`/getDifferentsAirplanes`);
+  let arrayAirplanes = [];
+  (airplanes.data).forEach(element => {
+    arrayAirplanes.push(`${element.id} ~ ${element.model}`);
+  });
+
+  const flightsAirplanes = await axios.get(`/getFlightsPerAirplane`);
+  let arrayFlights = [];
+    (flightsAirplanes.data).forEach(element => {
+      arrayFlights.push(element.cant);
+    });
+
+  const ctx = document.getElementById("chart2");
+    const myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: arrayAirplanes,
+          datasets: [{
+              label: "Flights per Airplane",
+              backgroundColor: '#2BBBAD',
+              borderColor: '#2BBBAD',
+              data: arrayFlights,
+          }]
+      },
+      options: {}
+    });
+
+    document.querySelector('.loaderChart2').style.display = 'none';
+})();
+
+
+
 
 
 

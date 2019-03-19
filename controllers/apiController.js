@@ -123,3 +123,41 @@ exports.getProfitOnInterval = (req, res) => {
       return null;
     })
 }
+
+exports.getNumberFlightsPerMonth = (req, res) => {
+  const month = req.params.month;
+
+  sequelize.query(`
+    SELECT count(code) as cant
+    FROM Flights
+    WHERE date BETWEEN '2019-${month}-01' AND '2019-${month}-31'
+  `, { type: sequelize.QueryTypes.SELECT })
+    .then(result => {
+      res.json(result);
+      return null;
+    })
+}
+
+exports.getDifferentsAirplanes = (req, res) => {
+  sequelize.query(`
+    SELECT id, model 
+    FROM Airplanes
+  `, { type: sequelize.QueryTypes.SELECT })
+    .then(result => {
+      res.json(result);
+      return null;
+    })
+}
+
+exports.getFlightsPerAirplane = (req, res) => {
+  sequelize.query(`
+    SELECT count(code) as cant
+    FROM Flights
+    GROUP BY airplaneId
+    ORDER BY airplaneId ASC
+  `, { type: sequelize.QueryTypes.SELECT })
+    .then(result => {
+      res.json(result);
+      return null;
+    })
+}

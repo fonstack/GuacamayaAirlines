@@ -51,5 +51,8 @@ router.get('/getTicketsSold', apiController.getTicketsSold);
 router.get('/getFlightsOverbooking', apiController.getFlightsOverbooking);
 router.get('/getTotalProfits', apiController.getTotalProfits);
 router.get('/getProfitOnInterval/:first/:second', apiController.getProfitOnInterval);
+router.get('/getNumberFlights/:month', apiController.getNumberFlightsPerMonth);
+router.get('/getDifferentsAirplanes', apiController.getDifferentsAirplanes);
+router.get('/getFlightsPerAirplane', apiController.getFlightsPerAirplane);
 
 module.exports = router;

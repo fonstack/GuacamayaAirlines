@@ -1200,7 +1200,7 @@ div.seatCharts-row {
 .textMap {
   text-align: center; }
 
-.preloader-wrapper {
+.loaderSeatMap {
   position: absolute;
   left: 50%;
   top: 24%;
@@ -1273,7 +1273,8 @@ div.seatCharts-row {
   border-radius: .4rem;
   width: 95%;
   margin: 0 auto;
-  padding: .8rem 1.4rem; }
+  padding: .8rem 1.4rem;
+  position: relative; }
 
 .titleee {
   text-align: center;
@@ -1369,6 +1370,14 @@ div.seatCharts-row {
   padding: 0 2rem; }
   .contInfoInterval #intervalProfit {
     color: #2FBCAC; }
+
+.loaderChart1, .loaderChart2 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%); }
 
 .titlee {
   text-align: center;
