@@ -49,10 +49,14 @@ router.get('/getEmptySeats/:flightCode', apiController.getEmptySeatsOfFlight);
 router.get('/getAirplaneRoutes/:airplaneId', apiController.getAirplanesRoutes);
 router.get('/getTicketsSold', apiController.getTicketsSold);
 router.get('/getFlightsOverbooking', apiController.getFlightsOverbooking);
+router.get('/getFlightsOverbookingPercentage', apiController.getFlightsOverbookingPercentage);
 router.get('/getTotalProfits', apiController.getTotalProfits);
 router.get('/getProfitOnInterval/:first/:second', apiController.getProfitOnInterval);
 router.get('/getNumberFlights/:month', apiController.getNumberFlightsPerMonth);
 router.get('/getDifferentsAirplanes', apiController.getDifferentsAirplanes);
 router.get('/getFlightsPerAirplane', apiController.getFlightsPerAirplane);
+router.get('/getCantTicketsPerAirport', apiController.getCantTicketsPerAirport);
+router.get('/getAverageWeightPerAirplane', apiController.getAverageWeightPerAirplane);
+router.get('/getAirplanesPerState', apiController.getAirplanesPerState);
 
 module.exports = router;

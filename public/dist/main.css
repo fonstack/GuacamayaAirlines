@@ -1371,7 +1371,7 @@ div.seatCharts-row {
   .contInfoInterval #intervalProfit {
     color: #2FBCAC; }
 
-.loaderChart1, .loaderChart2 {
+.loaderChart1, .loaderChart2, .loaderChart3, .loaderChart4, .loaderChart5, .loaderChart6 {
   position: absolute;
   left: 50%;
   top: 50%;

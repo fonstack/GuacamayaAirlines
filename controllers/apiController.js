@@ -86,15 +86,27 @@ exports.getTicketsSold = (req, res) => {
 
 exports.getFlightsOverbooking = (req, res) => {
   sequelize.query(`
-    SELECT count(flightCode) as cant
+    SELECT count(DISTINCT flightTicketId) as cant, count(DISTINCT flightTicketId), count(case flightTicketId when affectOverbooking = 1 then 1 else null end)
     FROM FlightTicket_Flights
-    WHERE affectOverbooking = 1
   `, { type: sequelize.QueryTypes.SELECT })
     .then(result => {
       res.json({flightsOverbooking: result});
       return null;
     })
 }
+
+exports.getFlightsOverbookingPercentage = (req, res) => {
+  sequelize.query(`
+    SELECT TRUNCATE((100*(count(case flightTicketId when affectOverbooking = 1 then 1 else null end)/count(DISTINCT flightTicketId))), 1) as cant 
+    FROM FlightTicket_Flights
+  `, { type: sequelize.QueryTypes.SELECT })
+    .then(result => {
+      res.json({flightsOverbookingPercentage: result});
+      return null;
+    })
+}
+
+  
 
 exports.getTotalProfits = (req, res) => {
   sequelize.query(`
@@ -155,6 +167,48 @@ exports.getFlightsPerAirplane = (req, res) => {
     FROM Flights
     GROUP BY airplaneId
     ORDER BY airplaneId ASC
+  `, { type: sequelize.QueryTypes.SELECT })
+    .then(result => {
+      res.json(result);
+      return null;
+    })
+}
+
+exports.getCantTicketsPerAirport = (req, res) => {
+  sequelize.query(`
+    SELECT count(Routes.destiny) as cant
+    FROM Flights
+    INNER JOIN Routes ON Flights.routeId = Routes.id
+    INNER JOIN FlightTicket_Flights ON Flights.code = FlightTicket_Flights.flightCode
+    GROUP BY Routes.destiny
+    ORDER BY Routes.destiny ASC
+  `, { type: sequelize.QueryTypes.SELECT })
+    .then(result => {
+      res.json(result);
+      return null;
+    })
+}
+
+exports.getAverageWeightPerAirplane = (req, res) => {
+  sequelize.query(`
+    SELECT Flights.airplaneId, (SUM(FlightTicket_Flights.cantPacking * 23) / count(DISTINCT Flights.code)) as promedio
+    FROM Flights
+    INNER JOIN FlightTicket_Flights ON Flights.code = FlightTicket_Flights.flightCode
+    GROUP BY Flights.airplaneId
+    ORDER BY Flights.airplaneId ASC
+  `, { type: sequelize.QueryTypes.SELECT })
+    .then(result => {
+      res.json(result);
+      return null;
+    })
+}
+
+exports.getAirplanesPerState = (req, res) => {
+  sequelize.query(`
+    SELECT count(id) as cant, state
+    FROM Airplanes
+    GROUP BY state
+    ORDER BY state ASC
   `, { type: sequelize.QueryTypes.SELECT })
     .then(result => {
       res.json(result);

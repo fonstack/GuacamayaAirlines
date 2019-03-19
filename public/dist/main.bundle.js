@@ -15133,7 +15133,7 @@ axios.get("/getTicketsSold").then(function (response) {
     cantTicketsSoldP.innerHTML = response.data.ticketsSold[0].cant;
   }
 }).catch(function (err) {
-  return console.log(err);
+  return console.log(err.response);
 });
 axios.get("/getFlightsOverbooking").then(function (response) {
   if (document.querySelector('#flightsOverbooking')) {
@@ -15141,7 +15141,15 @@ axios.get("/getFlightsOverbooking").then(function (response) {
     cantflightsOverbooking.innerHTML = response.data.flightsOverbooking[0].cant;
   }
 }).catch(function (err) {
-  return console.log(err);
+  return console.log(err.response);
+});
+axios.get("/getFlightsOverbookingPercentage").then(function (response) {
+  if (document.querySelector('#flightsOverbookingPercentage')) {
+    var cantflightsOverbooking = document.querySelector('#flightsOverbookingPercentage');
+    cantflightsOverbooking.innerHTML = response.data.flightsOverbookingPercentage[0].cant;
+  }
+}).catch(function (err) {
+  return console.log(err.response);
 });
 axios.get("/getTotalProfits").then(function (response) {
   if (document.querySelector('#totalProfits')) {
@@ -15149,7 +15157,7 @@ axios.get("/getTotalProfits").then(function (response) {
     totalProfits.innerHTML = response.data.profits[0].profits;
   }
 }).catch(function (err) {
-  return console.log(err);
+  return console.log(err.response);
 });
 
 if (document.querySelector('#findIntervalProfit')) {
@@ -15159,7 +15167,7 @@ if (document.querySelector('#findIntervalProfit')) {
     axios.get("/getProfitOnInterval/".concat(date1, "/").concat(date2)).then(function (response) {
       document.querySelector('#intervalProfit').innerHTML = response.data.profits[0].profits;
     }).catch(function (err) {
-      return console.log(err);
+      return console.log(err.response);
     });
   });
 } // -+-+-+-+-+ INITIALIZATION CHART OF ADMIN VIEW -+-+-+-+-+
@@ -15320,6 +15328,209 @@ if (document.querySelector('#findIntervalProfit')) {
   }
 
   return initChart2;
+})()();
+(function () {
+  var _initChart3 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee3() {
+    var ticketsAirports, arrayTickets, ctx, myChart;
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return axios.get("/getCantTicketsPerAirport");
+
+          case 2:
+            ticketsAirports = _context3.sent;
+            arrayTickets = [];
+            ticketsAirports.data.forEach(function (element) {
+              arrayTickets.push(element.cant);
+            });
+            ctx = document.getElementById("chart3");
+            myChart = new Chart(ctx, {
+              type: 'line',
+              data: {
+                labels: ["ATL", "CCS", "CDG", "DXB", "JFK", "MIA"],
+                datasets: [{
+                  label: "Tickets per Airport",
+                  backgroundColor: '#2BBBAD',
+                  borderColor: '#2BBBAD',
+                  data: arrayTickets
+                }]
+              },
+              options: {}
+            });
+            document.querySelector('.loaderChart3').style.display = 'none';
+
+          case 8:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3, this);
+  }));
+
+  function initChart3() {
+    return _initChart3.apply(this, arguments);
+  }
+
+  return initChart3;
+})()();
+(function () {
+  var _initChart4 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee4() {
+    var airplanes, arrayAirplanes, weightAirplane, arrayWeights, ctx, myChart;
+    return regeneratorRuntime.wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.next = 2;
+            return axios.get("/getDifferentsAirplanes");
+
+          case 2:
+            airplanes = _context4.sent;
+            arrayAirplanes = [];
+            airplanes.data.forEach(function (element) {
+              arrayAirplanes.push("".concat(element.id, " ~ ").concat(element.model));
+            });
+            _context4.next = 7;
+            return axios.get("/getAverageWeightPerAirplane");
+
+          case 7:
+            weightAirplane = _context4.sent;
+            arrayWeights = [];
+            weightAirplane.data.forEach(function (element) {
+              arrayWeights.push(element.promedio);
+            });
+            ctx = document.getElementById("chart4");
+            myChart = new Chart(ctx, {
+              type: 'line',
+              data: {
+                labels: arrayAirplanes,
+                datasets: [{
+                  label: "Tickets per Airport",
+                  backgroundColor: '#2BBBAD',
+                  borderColor: '#2BBBAD',
+                  data: arrayWeights
+                }]
+              },
+              options: {}
+            });
+            document.querySelector('.loaderChart4').style.display = 'none';
+
+          case 13:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4, this);
+  }));
+
+  function initChart4() {
+    return _initChart4.apply(this, arguments);
+  }
+
+  return initChart4;
+})()();
+(function () {
+  var _initChart5 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee5() {
+    var airplanes, arrayAirplanes, ctx, myChart;
+    return regeneratorRuntime.wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            _context5.next = 2;
+            return axios.get("/getDifferentsAirplanes");
+
+          case 2:
+            airplanes = _context5.sent;
+            arrayAirplanes = [];
+            airplanes.data.forEach(function (element) {
+              arrayAirplanes.push("".concat(element.id, " ~ ").concat(element.model));
+            });
+            ctx = document.getElementById("chart5");
+            myChart = new Chart(ctx, {
+              type: 'pie',
+              data: {
+                labels: arrayAirplanes,
+                datasets: [{
+                  label: "Tickets per Airport",
+                  backgroundColor: ['#2BBBAD', '#9BBBAC', '#1B9BAD', '#2B7BAD', '#2BBBAD', '#2BBB0D', '#CCB4A1', '#DC3A11', '#DC3AA1', '#AC3AF6'],
+                  borderColor: ['#2BBBAD', '#9BBBAC', '#1B9BAD', '#2B7BAD', '#2BBBAD', '#2BBB0D', '#CCB4A1', '#DC3A11', '#DC3AA1', '#AC3AF6'],
+                  data: [1, 2, 9]
+                }]
+              },
+              options: {}
+            });
+            document.querySelector('.loaderChart5').style.display = 'none';
+
+          case 8:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5, this);
+  }));
+
+  function initChart5() {
+    return _initChart5.apply(this, arguments);
+  }
+
+  return initChart5;
+})()();
+(function () {
+  var _initChart6 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee6() {
+    var airplanes, arrayCant, arrayStates, ctx, myChart;
+    return regeneratorRuntime.wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            _context6.next = 2;
+            return axios.get("/getAirplanesPerState");
+
+          case 2:
+            airplanes = _context6.sent;
+            arrayCant = [];
+            arrayStates = [];
+            airplanes.data.forEach(function (element) {
+              arrayCant.push(element.cant);
+              arrayStates.push(element.state);
+            });
+            ctx = document.getElementById("chart6");
+            myChart = new Chart(ctx, {
+              type: 'pie',
+              data: {
+                labels: arrayStates,
+                datasets: [{
+                  label: "Tickets per Airport",
+                  backgroundColor: ['#CCB4A1', '#2BBBAD', '#1B9BAD', '#DC3AA1', '#DC3A11', '#9BBBAC', '#2BBBAD', '#AC3AF6', '#2B7BAD', '#2BBB0D'],
+                  borderColor: ['#CCB4A1', '#2BBBAD', '#1B9BAD', '#DC3AA1', '#DC3A11', '#9BBBAC', '#2BBBAD', '#AC3AF6', '#2B7BAD', '#2BBB0D'],
+                  data: arrayCant
+                }]
+              },
+              options: {}
+            });
+            document.querySelector('.loaderChart6').style.display = 'none';
+
+          case 9:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    }, _callee6, this);
+  }));
+
+  function initChart6() {
+    return _initChart6.apply(this, arguments);
+  }
+
+  return initChart6;
 })()(); // -+-+-+-+-+ VALIDACIÓN DEL CONFIRM PASSWORD DE REGISTER -+-+-+-+-+
 
 var confirmPassRegister = document.getElementById('confirmpasswordRegister');

@@ -84,7 +84,9 @@ block content
                   .titleBox.titleBox-2 - Flights with Overbooking -
                   .contInfo
                      p.infoBox.infoBox-num#flightsOverbooking
-                     p.infoBox &nbsp;Flights 
+                     p.infoBox &nbsp;Flights [&nbsp;
+                     p.infoBox.infoBox-num#flightsOverbookingPercentage
+                     p.infoBox &nbsp;% ]
 
             .col.s3
                .adminBox
@@ -144,16 +146,53 @@ block content
 
          .titleee - More visited airports -
          .chartContainer
-            <canvas id="myChart" width="1000" height="100"></canvas>
+            <canvas id="chart3" width="1000" height="100"></canvas>
+            .preloader-wrapper.small.active.loaderChart3
+               .spinner-layer.spinner-green-only
+                  .circle-clipper.left
+                     .circle
+                  .gap-patch
+                     .circle
+                  .circle-clipper.right
+                     .circle
 
          .titleee - Average weight per Airplane -
          .chartContainer
-            <canvas id="myChart" width="1000" height="100"></canvas>
+            <canvas id="chart4" width="1000" height="100"></canvas>
+            .preloader-wrapper.small.active.loaderChart4
+               .spinner-layer.spinner-green-only
+                  .circle-clipper.left
+                     .circle
+                  .gap-patch
+                     .circle
+                  .circle-clipper.right
+                     .circle
 
          //- Gráfico de torta
          .titleee - Percentage of use per Airplane -
          .chartContainer
-            <canvas id="myChart" width="1000" height="100"></canvas>
+            <canvas id="chart5" width="600" height="150"></canvas>
+            .preloader-wrapper.small.active.loaderChart5
+               .spinner-layer.spinner-green-only
+                  .circle-clipper.left
+                     .circle
+                  .gap-patch
+                     .circle
+                  .circle-clipper.right
+                     .circle
+
+         //- Gráfico de torta
+         .titleee - Percentage Airplanes per states -
+         .chartContainer
+            <canvas id="chart6" width="600" height="150"></canvas>
+            .preloader-wrapper.small.active.loaderChart6
+               .spinner-layer.spinner-green-only
+                  .circle-clipper.left
+                     .circle
+                  .gap-patch
+                     .circle
+                  .circle-clipper.right
+                     .circle
 
          //- Demográficas, varios gráficos de torta (edad, sexo, nacionalidad)   
          .titleee - Percentage of use per Airplane -
