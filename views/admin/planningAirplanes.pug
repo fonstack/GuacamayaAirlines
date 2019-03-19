@@ -29,9 +29,14 @@ block adminContent
                                 select(name="model").selectAdmin.browser-default.selectFlightAirplane
                                     each model in models
                                         option(value=`${model.model}`) #{model.model}
+                            .input-field.col.s6 
+                                select(name="model").selectAdmin.browser-default.selectFlightAirplane
+                                        option(value="Working") Working
+                                        option(value="In Maintenance") In Maintenance
+                                        option(value="Unavailable") Unavailable
                         //- .input-field.col.s6 
                         //- .input-field.col.s6 
                     //- .row.rowModalAdmin2
-                    //- .modal-footer
-                    //-     a.modal-close.waves-effect.waves-green.btn-flat(href='#!') Cancel
-                    //-     button.modal-close.waves-effect.waves-green.btn-flat(type="submit") Save &nbsp;&nbsp;<i class="fas fa-save"></i>
+                    .modal-footer
+                        a.modal-close.waves-effect.waves-green.btn-flat(href='#!') Cancel
+                        button.modal-close.waves-effect.waves-green.btn-flat(type="submit") Save &nbsp;&nbsp;<i class="fas fa-save"></i>

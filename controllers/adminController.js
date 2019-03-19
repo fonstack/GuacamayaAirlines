@@ -284,3 +284,12 @@ exports.planningCharters = (req, res) => {
   .catch(err => console.log(err));
 
 };
+
+exports.planningAirplanes = (req, res) => {
+  
+
+
+
+
+  
+};
