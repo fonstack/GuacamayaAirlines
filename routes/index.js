@@ -37,6 +37,8 @@ router.get("/admin", authController.needLogged, adminController.viewAdminOnly);
 router.post("/admin/planningFlights", authController.needLogged, adminController.planningFlights);
 router.post("/admin/planningCharters", authController.needLogged, adminController.planningCharters);
 router.post("/admin/planningAirplanes", authController.needLogged, adminController.planningAirplanes);
+router.post("/admin/reportsFailures", authController.needLogged, adminController.reportsFailures);
+router.post("/admin/reportsMaintenance", authController.needLogged, adminController.reportsMaintenance);
 
 // Purchase Ticket
 router.post("/purchaseTicket", airlineController.saveCustomer, airlineController.purchaseFlightTicket);

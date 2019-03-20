@@ -3,6 +3,8 @@ const Flight = require("../models/Flight");
 const moment = require('moment');
 const Charter = require("../models/Charter");
 const Airplane = require("../models/Airplane");
+const FailureReport = require("../models/FailureReport");
+const MaintenanceReport = require("../models/MaintenanceReport");
 
 exports.viewAdminOnly = (req, res) => {
   // -------- NUMBER OF FLIGHTS PER AIRPLANE ----------
@@ -152,7 +154,7 @@ exports.viewAdmin = (req, res) => {
               });
             });
             // res.json({charters, detours, providers});
-            res.render("admin/planningCharters", { title: 'Planning Charters' , charters, detours, providers});            
+            res.render("admin/planningCharters", { title: 'admin' , charters, detours, providers});            
           })
           .catch(err => console.log(err));
         // res.json(detourId);
@@ -219,21 +221,39 @@ exports.viewAdmin = (req, res) => {
     SELECT id, airplaneId, date, state
     FROM FailureReports
     `, { type: sequelize.QueryTypes.SELECT})
-    .then(failures=>{
-      res.render("admin/reportsFailures", { title: 'Failure Resport' , failures});
+    .then(result => {
+      const failures = result;
+      sequelize.query(`
+        SELECT id
+        FROM Airplanes
+      `,{ type: sequelize.QueryTypes.SELECT })
+      .then(models =>{
+        res.render("admin/reportsFailures", { title: 'admin' , failures, models});
+      })
+      .catch(err => console.log(err));
     })  
     .catch(err => console.log(err));
 
 
   } else if (section === 'reportsMaintenances') { // Vista Report -> Maintenances
+
     sequelize.query(`
-    SELECT id, airplaneId, startDate, endDate
-    FROM MaintenanceReports
-    `, { type: sequelize.QueryTypes.SELECT})
-    .then(mants=>{
-      res.render("admin/reportsMaintenances", { title: 'Maintenance Report' , mants });
-    })  
-    .catch(err => console.log(err));
+        SELECT id
+        FROM Airplanes
+      `,{ type: sequelize.QueryTypes.SELECT })
+      .then(result => {
+        const models = result;
+        sequelize.query(`
+        SELECT id, airplaneId, startDate, endDate
+        FROM MaintenanceReports
+        `, { type: sequelize.QueryTypes.SELECT})
+        .then(mants=>{
+          res.render("admin/reportsMaintenances", { title: 'admin' , mants, models });
+        })  
+        .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
+
     
 
   } else if (section === 'reportsDetours') { // Vista Report -> Detours
@@ -254,7 +274,7 @@ exports.viewAdmin = (req, res) => {
     FROM CancelationManifests
     `, { type: sequelize.QueryTypes.SELECT})
     .then(cans=>{
-      res.render("admin/reportsCancelations", { title: 'Cancelations Manifest' , cans});
+      res.render("admin/reportsCancelations", { title: 'admin' , cans});
     })  
     .catch(err => console.log(err));
   }
@@ -353,6 +373,48 @@ exports.planningAirplanes = (req, res) => {
   .then(result => {
     req.flash('success', 'You have successfully registered an Airplane');
     res.redirect('/admin/planningAirplanes');
+  })
+  .catch(err => console.log(err));
+};
+
+exports.reportsFailures = (req, res) => {
+  const airplaneId = req.body.airplaneId;
+  const date = new Date();
+  let dateLacra = `${ date.getFullYear() }-${ date.getMonth() + 1 }-${ date.getDate() } ${ date.getHours() }:${ date.getMinutes() }:00`;
+  dateLacra = moment(dateLacra).add(-4, 'hours');
+
+  FailureReport.create({
+    airplaneId: airplaneId,
+    state: 'Pending',
+    date: dateLacra
+  })
+  .then(result => {
+    req.flash('success', 'You have successfully registered a Failure');
+    res.redirect('/admin/reportsFailures');
+  })
+  .catch(err => console.log(err));
+};
+
+exports.reportsMaintenance = (req, res) => {
+  const airplaneId = req.body.airplaneId;
+  const date = req.body.date;
+  const time = req.body.time;
+
+  
+  let dateLacra = `${ date.split('/')[2] }-${ date.split('/')[1] }-${ date.split('/')[0] } ${ time.split(':')[0] }:${ time.split(':')[1] }:00`;
+  dateLacra = moment(dateLacra).add(-4, 'hours');
+  const dateLacra2 = moment(dateLacra).add(3, 'days');
+
+  console.log(dateLacra, date)
+
+  MaintenanceReport.create({
+    airplaneId: airplaneId,
+    startDate: dateLacra,
+    endDate: dateLacra2
+  })
+  .then(result => {
+    req.flash('success', 'You have successfully registered a Maintenance');
+    res.redirect('/admin/reportsMaintenances');
   })
   .catch(err => console.log(err));
 };

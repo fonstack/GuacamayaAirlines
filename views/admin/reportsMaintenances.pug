@@ -3,20 +3,42 @@ extends ../admin
 block adminContent
    .adminSect
       p.titlee Maintenance Report
-      //- .contButton
-      //-          a.waves-effect.waves-light.btn.modal-trigger.createButton.grey.darken-3(href='#modal1' ) - Add a new Airplane -
+      .contButton
+               a.waves-effect.waves-light.btn.modal-trigger.createButton.grey.darken-3(href='#modal1' ) - Add a Mainteance Report -
       .tableContainer
-            table#tablePlanningFlights.hover.order-column.tableFlinchi
-               thead
+         table#tablePlanningFlights.hover.order-column.tableFlinchi
+            thead
+               tr
+                  th Maintenance ID
+                  th Airplane ID
+                  th Start Date
+                  th End Date
+            tbody
+               each mant in mants
                   tr
-                     th Maintenance ID
-                     th Airplane ID
-                     th Start Date
-                     th End Date
-               tbody
-                  each mant in mants
-                        tr
-                           td #{mant.id}  
-                           td #{mant.airplaneId}
-                           td #{h.moment(mant.date).add(4, 'hours').format('lll')}
-                           td #{h.moment(mant.date).add(4, 'hours').format('lll')}
+                     td #{mant.id}  
+                     td #{mant.airplaneId}
+                     td #{h.moment(mant.date).add(4, 'hours').format('lll')}
+                     td #{h.moment(mant.date).add(4, 'hours').format('lll')}
+      .formContainer
+         #modal1.modal
+               .modal-content.contentModal.modalPlanningFlights
+                  h4 Add a Mainteance Report
+                  hr.separatorTitleModalAdmin
+                  form(action="/admin/reportsMaintenance" method="POST")
+                     .row.rowModalAdmin
+                        .input-field.col.s6 
+                           i(class="far fa-calendar prefix material-icons")
+                           input.datepickerAdmin(type='text' placeholder="Choose the Depart Date" name="date")
+                           label(for='depart') Start Date
+                        .input-field.col.s6 
+                           i(class="far fa-clock prefix material-icons")
+                           input.timepickerAdmin(type='text' placeholder="Choose the Depart Time" name="time")
+                     .row.rowModalAdmin
+                        .input-field.col.s12
+                           select(name="airplaneId").selectAdmin.browser-default.selectFlightAirplane
+                              each model in models
+                                 option(value=`${model.id}`) #{model.id}
+                     .modal-footer
+                           a.modal-close.waves-effect.waves-green.btn-flat(href='#!') Cancel
+                           button.modal-close.waves-effect.waves-green.btn-flat(type="submit") Save &nbsp;&nbsp;<i class="fas fa-save"></i>
