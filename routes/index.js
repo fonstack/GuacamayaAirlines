@@ -58,5 +58,9 @@ router.get('/getFlightsPerAirplane', apiController.getFlightsPerAirplane);
 router.get('/getCantTicketsPerAirport', apiController.getCantTicketsPerAirport);
 router.get('/getAverageWeightPerAirplane', apiController.getAverageWeightPerAirplane);
 router.get('/getAirplanesPerState', apiController.getAirplanesPerState);
+router.get('/getUseOfAirplanes', apiController.getUseOfAirplanes);
+router.get('/getPeopleVsAge', apiController.getPeopleVsAge);
+router.get('/getPeopleVsNationality', apiController.getPeopleVsNationality);
+router.get('/getPeopleVsGender', apiController.getPeopleVsGender);
 
 module.exports = router;

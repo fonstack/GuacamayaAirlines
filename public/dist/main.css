@@ -1371,13 +1371,26 @@ div.seatCharts-row {
   .contInfoInterval #intervalProfit {
     color: #2FBCAC; }
 
-.loaderChart1, .loaderChart2, .loaderChart3, .loaderChart4, .loaderChart5, .loaderChart6 {
+.loaderChart1, .loaderChart2, .loaderChart3, .loaderChart4, .loaderChart5, .loaderChart6, .loaderChart7, .loaderChart8, .loaderChart9 {
   position: absolute;
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
       -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%); }
+
+.containerThreeCharts {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 95%;
+  margin: 0 auto;
+  padding: .8rem 1.4rem;
+  position: relative;
+  padding-bottom: 3.5rem; }
+
+.chartContainerxd {
+  margin-right: 2.4rem; }
 
 .titlee {
   text-align: center;

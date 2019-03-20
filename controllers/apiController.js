@@ -86,7 +86,7 @@ exports.getTicketsSold = (req, res) => {
 
 exports.getFlightsOverbooking = (req, res) => {
   sequelize.query(`
-    SELECT count(DISTINCT flightTicketId) as cant, count(DISTINCT flightTicketId), count(case flightTicketId when affectOverbooking = 1 then 1 else null end)
+    SELECT count(DISTINCT flightTicketId), count(DISTINCT flightTicketId), count(case flightTicketId when affectOverbooking = 1 then 1 else null end) as cant
     FROM FlightTicket_Flights
   `, { type: sequelize.QueryTypes.SELECT })
     .then(result => {
@@ -96,12 +96,22 @@ exports.getFlightsOverbooking = (req, res) => {
 }
 
 exports.getFlightsOverbookingPercentage = (req, res) => {
+  let percentage= {};
   sequelize.query(`
-    SELECT TRUNCATE((100*(count(case flightTicketId when affectOverbooking = 1 then 1 else null end)/count(DISTINCT flightTicketId))), 1) as cant 
+    SELECT count(case flightTicketId when affectOverbooking = 1 then 1 else null end) as cant
     FROM FlightTicket_Flights
   `, { type: sequelize.QueryTypes.SELECT })
     .then(result => {
-      res.json({flightsOverbookingPercentage: result});
+      percentage.cant = result[0].cant;
+
+      sequelize.query(`
+        SELECT count(code) as cant
+        FROM Flights
+      `, { type: sequelize.QueryTypes.SELECT })
+        .then(result => {
+          percentage.cant = (percentage.cant / result[0].cant) * 100;
+          res.json({flightsOverbookingPercentage: percentage.cant});
+        })
       return null;
     })
 }
@@ -209,6 +219,57 @@ exports.getAirplanesPerState = (req, res) => {
     FROM Airplanes
     GROUP BY state
     ORDER BY state ASC
+  `, { type: sequelize.QueryTypes.SELECT })
+    .then(result => {
+      res.json(result);
+      return null;
+    })
+}
+
+exports.getUseOfAirplanes = (req, res) => {
+  sequelize.query(`
+    SELECT count(code)/(SELECT count(code) FROM Flights) as vuelos, airplaneId FROM Flights
+    GROUP BY airplaneId
+    ORDER BY airplaneId ASC
+  `, { type: sequelize.QueryTypes.SELECT })
+    .then(result => {
+      res.json(result);
+      return null;
+    })
+}
+
+exports.getPeopleVsAge = (req, res) => {
+  sequelize.query(`
+    SELECT count(age) as totalCustomers, age
+    FROM Customers
+    GROUP BY age
+    ORDER BY totalCustomers DESC
+  `, { type: sequelize.QueryTypes.SELECT })
+    .then(result => {
+      res.json(result);
+      return null;
+    })
+}
+
+exports.getPeopleVsNationality = (req, res) => {
+  sequelize.query(`
+    SELECT count(nationality) as totalCustomers, nationality
+    FROM Customers
+    GROUP BY nationality
+    ORDER BY totalCustomers DESC
+  `, { type: sequelize.QueryTypes.SELECT })
+    .then(result => {
+      res.json(result);
+      return null;
+    })
+}
+
+exports.getPeopleVsGender = (req, res) => {
+  sequelize.query(`
+    SELECT count(gender) as totalCustomers, gender
+    FROM Customers
+    GROUP BY gender
+    ORDER BY gender DESC
   `, { type: sequelize.QueryTypes.SELECT })
     .then(result => {
       res.json(result);

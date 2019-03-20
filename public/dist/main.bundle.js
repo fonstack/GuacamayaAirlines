@@ -15146,7 +15146,7 @@ axios.get("/getFlightsOverbooking").then(function (response) {
 axios.get("/getFlightsOverbookingPercentage").then(function (response) {
   if (document.querySelector('#flightsOverbookingPercentage')) {
     var cantflightsOverbooking = document.querySelector('#flightsOverbookingPercentage');
-    cantflightsOverbooking.innerHTML = response.data.flightsOverbookingPercentage[0].cant;
+    cantflightsOverbooking.innerHTML = response.data.flightsOverbookingPercentage;
   }
 }).catch(function (err) {
   return console.log(err.response);
@@ -15173,365 +15173,527 @@ if (document.querySelector('#findIntervalProfit')) {
 } // -+-+-+-+-+ INITIALIZATION CHART OF ADMIN VIEW -+-+-+-+-+
 
 
-(function () {
-  var _initChart = _asyncToGenerator(
-  /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee() {
-    var enero, febrero, marzo, abril, mayo, junio, julio, agosto, septiembre, octubre, noviembre, diciembre, ctx, myChart;
-    return regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return axios.get("/getNumberFlights/01");
+if (document.getElementById("chart1")) {
+  (function () {
+    var _initChart = _asyncToGenerator(
+    /*#__PURE__*/
+    regeneratorRuntime.mark(function _callee() {
+      var enero, febrero, marzo, abril, mayo, junio, julio, agosto, septiembre, octubre, noviembre, diciembre, ctx, myChart;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return axios.get("/getNumberFlights/01");
 
-          case 2:
-            enero = _context.sent;
-            _context.next = 5;
-            return axios.get("/getNumberFlights/02");
+            case 2:
+              enero = _context.sent;
+              _context.next = 5;
+              return axios.get("/getNumberFlights/02");
 
-          case 5:
-            febrero = _context.sent;
-            _context.next = 8;
-            return axios.get("/getNumberFlights/03");
+            case 5:
+              febrero = _context.sent;
+              _context.next = 8;
+              return axios.get("/getNumberFlights/03");
 
-          case 8:
-            marzo = _context.sent;
-            _context.next = 11;
-            return axios.get("/getNumberFlights/04");
+            case 8:
+              marzo = _context.sent;
+              _context.next = 11;
+              return axios.get("/getNumberFlights/04");
 
-          case 11:
-            abril = _context.sent;
-            _context.next = 14;
-            return axios.get("/getNumberFlights/05");
+            case 11:
+              abril = _context.sent;
+              _context.next = 14;
+              return axios.get("/getNumberFlights/05");
 
-          case 14:
-            mayo = _context.sent;
-            _context.next = 17;
-            return axios.get("/getNumberFlights/06");
+            case 14:
+              mayo = _context.sent;
+              _context.next = 17;
+              return axios.get("/getNumberFlights/06");
 
-          case 17:
-            junio = _context.sent;
-            _context.next = 20;
-            return axios.get("/getNumberFlights/07");
+            case 17:
+              junio = _context.sent;
+              _context.next = 20;
+              return axios.get("/getNumberFlights/07");
 
-          case 20:
-            julio = _context.sent;
-            _context.next = 23;
-            return axios.get("/getNumberFlights/08");
+            case 20:
+              julio = _context.sent;
+              _context.next = 23;
+              return axios.get("/getNumberFlights/08");
 
-          case 23:
-            agosto = _context.sent;
-            _context.next = 26;
-            return axios.get("/getNumberFlights/09");
+            case 23:
+              agosto = _context.sent;
+              _context.next = 26;
+              return axios.get("/getNumberFlights/09");
 
-          case 26:
-            septiembre = _context.sent;
-            _context.next = 29;
-            return axios.get("/getNumberFlights/10");
+            case 26:
+              septiembre = _context.sent;
+              _context.next = 29;
+              return axios.get("/getNumberFlights/10");
 
-          case 29:
-            octubre = _context.sent;
-            _context.next = 32;
-            return axios.get("/getNumberFlights/11");
+            case 29:
+              octubre = _context.sent;
+              _context.next = 32;
+              return axios.get("/getNumberFlights/11");
 
-          case 32:
-            noviembre = _context.sent;
-            _context.next = 35;
-            return axios.get("/getNumberFlights/12");
+            case 32:
+              noviembre = _context.sent;
+              _context.next = 35;
+              return axios.get("/getNumberFlights/12");
 
-          case 35:
-            diciembre = _context.sent;
-            ctx = document.getElementById("chart1");
-            myChart = new Chart(ctx, {
-              type: 'line',
-              data: {
-                labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "November", "December"],
-                datasets: [{
-                  label: "Flights per Month",
-                  backgroundColor: '#2BBBAD',
-                  borderColor: '#2BBBAD',
-                  data: [enero.data[0].cant, febrero.data[0].cant, marzo.data[0].cant, abril.data[0].cant, mayo.data[0].cant, junio.data[0].cant, julio.data[0].cant, agosto.data[0].cant, septiembre.data[0].cant, octubre.data[0].cant, noviembre.data[0].cant, diciembre.data[0].cant]
-                }]
-              },
-              options: {}
-            });
-            document.querySelector('.loaderChart1').style.display = 'none';
+            case 35:
+              diciembre = _context.sent;
+              ctx = document.getElementById("chart1");
+              myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                  labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "November", "December"],
+                  datasets: [{
+                    label: "Flights per Month",
+                    backgroundColor: '#2BBBAD',
+                    borderColor: '#2BBBAD',
+                    data: [enero.data[0].cant, febrero.data[0].cant, marzo.data[0].cant, abril.data[0].cant, mayo.data[0].cant, junio.data[0].cant, julio.data[0].cant, agosto.data[0].cant, septiembre.data[0].cant, octubre.data[0].cant, noviembre.data[0].cant, diciembre.data[0].cant]
+                  }]
+                },
+                options: {}
+              });
+              document.querySelector('.loaderChart1').style.display = 'none';
 
-          case 39:
-          case "end":
-            return _context.stop();
+            case 39:
+            case "end":
+              return _context.stop();
+          }
         }
-      }
-    }, _callee, this);
-  }));
+      }, _callee, this);
+    }));
 
-  function initChart1() {
-    return _initChart.apply(this, arguments);
-  }
+    function initChart1() {
+      return _initChart.apply(this, arguments);
+    }
 
-  return initChart1;
-})()();
-(function () {
-  var _initChart2 = _asyncToGenerator(
-  /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee2() {
-    var airplanes, arrayAirplanes, flightsAirplanes, arrayFlights, ctx, myChart;
-    return regeneratorRuntime.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            _context2.next = 2;
-            return axios.get("/getDifferentsAirplanes");
+    return initChart1;
+  })()();
+  (function () {
+    var _initChart2 = _asyncToGenerator(
+    /*#__PURE__*/
+    regeneratorRuntime.mark(function _callee2() {
+      var airplanes, arrayAirplanes, flightsAirplanes, arrayFlights, ctx, myChart;
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return axios.get("/getDifferentsAirplanes");
 
-          case 2:
-            airplanes = _context2.sent;
-            arrayAirplanes = [];
-            airplanes.data.forEach(function (element) {
-              arrayAirplanes.push("".concat(element.id, " ~ ").concat(element.model));
-            });
-            _context2.next = 7;
-            return axios.get("/getFlightsPerAirplane");
+            case 2:
+              airplanes = _context2.sent;
+              arrayAirplanes = [];
+              airplanes.data.forEach(function (element) {
+                arrayAirplanes.push("".concat(element.id, " ~ ").concat(element.model));
+              });
+              _context2.next = 7;
+              return axios.get("/getFlightsPerAirplane");
 
-          case 7:
-            flightsAirplanes = _context2.sent;
-            arrayFlights = [];
-            flightsAirplanes.data.forEach(function (element) {
-              arrayFlights.push(element.cant);
-            });
-            ctx = document.getElementById("chart2");
-            myChart = new Chart(ctx, {
-              type: 'line',
-              data: {
-                labels: arrayAirplanes,
-                datasets: [{
-                  label: "Flights per Airplane",
-                  backgroundColor: '#2BBBAD',
-                  borderColor: '#2BBBAD',
-                  data: arrayFlights
-                }]
-              },
-              options: {}
-            });
-            document.querySelector('.loaderChart2').style.display = 'none';
+            case 7:
+              flightsAirplanes = _context2.sent;
+              arrayFlights = [];
+              flightsAirplanes.data.forEach(function (element) {
+                arrayFlights.push(element.cant);
+              });
+              ctx = document.getElementById("chart2");
+              myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                  labels: arrayAirplanes,
+                  datasets: [{
+                    label: "Flights per Airplane",
+                    backgroundColor: '#2BBBAD',
+                    borderColor: '#2BBBAD',
+                    data: arrayFlights
+                  }]
+                },
+                options: {}
+              });
+              document.querySelector('.loaderChart2').style.display = 'none';
 
-          case 13:
-          case "end":
-            return _context2.stop();
+            case 13:
+            case "end":
+              return _context2.stop();
+          }
         }
-      }
-    }, _callee2, this);
-  }));
+      }, _callee2, this);
+    }));
 
-  function initChart2() {
-    return _initChart2.apply(this, arguments);
-  }
+    function initChart2() {
+      return _initChart2.apply(this, arguments);
+    }
 
-  return initChart2;
-})()();
-(function () {
-  var _initChart3 = _asyncToGenerator(
-  /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee3() {
-    var ticketsAirports, arrayTickets, ctx, myChart;
-    return regeneratorRuntime.wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            _context3.next = 2;
-            return axios.get("/getCantTicketsPerAirport");
+    return initChart2;
+  })()();
+  (function () {
+    var _initChart3 = _asyncToGenerator(
+    /*#__PURE__*/
+    regeneratorRuntime.mark(function _callee3() {
+      var ticketsAirports, arrayTickets, ctx, myChart;
+      return regeneratorRuntime.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return axios.get("/getCantTicketsPerAirport");
 
-          case 2:
-            ticketsAirports = _context3.sent;
-            arrayTickets = [];
-            ticketsAirports.data.forEach(function (element) {
-              arrayTickets.push(element.cant);
-            });
-            ctx = document.getElementById("chart3");
-            myChart = new Chart(ctx, {
-              type: 'line',
-              data: {
-                labels: ["ATL", "CCS", "CDG", "DXB", "JFK", "MIA"],
-                datasets: [{
-                  label: "Tickets per Airport",
-                  backgroundColor: '#2BBBAD',
-                  borderColor: '#2BBBAD',
-                  data: arrayTickets
-                }]
-              },
-              options: {}
-            });
-            document.querySelector('.loaderChart3').style.display = 'none';
+            case 2:
+              ticketsAirports = _context3.sent;
+              arrayTickets = [];
+              ticketsAirports.data.forEach(function (element) {
+                arrayTickets.push(element.cant);
+              });
+              ctx = document.getElementById("chart3");
+              myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                  labels: ["ATL", "CCS", "CDG", "DXB", "JFK", "MIA"],
+                  datasets: [{
+                    label: "Tickets per Airport",
+                    backgroundColor: '#2BBBAD',
+                    borderColor: '#2BBBAD',
+                    data: arrayTickets
+                  }]
+                },
+                options: {}
+              });
+              document.querySelector('.loaderChart3').style.display = 'none';
 
-          case 8:
-          case "end":
-            return _context3.stop();
+            case 8:
+            case "end":
+              return _context3.stop();
+          }
         }
-      }
-    }, _callee3, this);
-  }));
+      }, _callee3, this);
+    }));
 
-  function initChart3() {
-    return _initChart3.apply(this, arguments);
-  }
+    function initChart3() {
+      return _initChart3.apply(this, arguments);
+    }
 
-  return initChart3;
-})()();
-(function () {
-  var _initChart4 = _asyncToGenerator(
-  /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee4() {
-    var airplanes, arrayAirplanes, weightAirplane, arrayWeights, ctx, myChart;
-    return regeneratorRuntime.wrap(function _callee4$(_context4) {
-      while (1) {
-        switch (_context4.prev = _context4.next) {
-          case 0:
-            _context4.next = 2;
-            return axios.get("/getDifferentsAirplanes");
+    return initChart3;
+  })()();
+  (function () {
+    var _initChart4 = _asyncToGenerator(
+    /*#__PURE__*/
+    regeneratorRuntime.mark(function _callee4() {
+      var airplanes, arrayAirplanes, weightAirplane, arrayWeights, ctx, myChart;
+      return regeneratorRuntime.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return axios.get("/getDifferentsAirplanes");
 
-          case 2:
-            airplanes = _context4.sent;
-            arrayAirplanes = [];
-            airplanes.data.forEach(function (element) {
-              arrayAirplanes.push("".concat(element.id, " ~ ").concat(element.model));
-            });
-            _context4.next = 7;
-            return axios.get("/getAverageWeightPerAirplane");
+            case 2:
+              airplanes = _context4.sent;
+              arrayAirplanes = [];
+              airplanes.data.forEach(function (element) {
+                arrayAirplanes.push("".concat(element.id, " ~ ").concat(element.model));
+              });
+              _context4.next = 7;
+              return axios.get("/getAverageWeightPerAirplane");
 
-          case 7:
-            weightAirplane = _context4.sent;
-            arrayWeights = [];
-            weightAirplane.data.forEach(function (element) {
-              arrayWeights.push(element.promedio);
-            });
-            ctx = document.getElementById("chart4");
-            myChart = new Chart(ctx, {
-              type: 'line',
-              data: {
-                labels: arrayAirplanes,
-                datasets: [{
-                  label: "Tickets per Airport",
-                  backgroundColor: '#2BBBAD',
-                  borderColor: '#2BBBAD',
-                  data: arrayWeights
-                }]
-              },
-              options: {}
-            });
-            document.querySelector('.loaderChart4').style.display = 'none';
+            case 7:
+              weightAirplane = _context4.sent;
+              arrayWeights = [];
+              weightAirplane.data.forEach(function (element) {
+                arrayWeights.push(element.promedio);
+              });
+              ctx = document.getElementById("chart4");
+              myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                  labels: arrayAirplanes,
+                  datasets: [{
+                    label: "Tickets per Airport",
+                    backgroundColor: '#2BBBAD',
+                    borderColor: '#2BBBAD',
+                    data: arrayWeights
+                  }]
+                },
+                options: {}
+              });
+              document.querySelector('.loaderChart4').style.display = 'none';
 
-          case 13:
-          case "end":
-            return _context4.stop();
+            case 13:
+            case "end":
+              return _context4.stop();
+          }
         }
-      }
-    }, _callee4, this);
-  }));
+      }, _callee4, this);
+    }));
 
-  function initChart4() {
-    return _initChart4.apply(this, arguments);
-  }
+    function initChart4() {
+      return _initChart4.apply(this, arguments);
+    }
 
-  return initChart4;
-})()();
-(function () {
-  var _initChart5 = _asyncToGenerator(
-  /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee5() {
-    var airplanes, arrayAirplanes, ctx, myChart;
-    return regeneratorRuntime.wrap(function _callee5$(_context5) {
-      while (1) {
-        switch (_context5.prev = _context5.next) {
-          case 0:
-            _context5.next = 2;
-            return axios.get("/getDifferentsAirplanes");
+    return initChart4;
+  })()();
+  (function () {
+    var _initChart5 = _asyncToGenerator(
+    /*#__PURE__*/
+    regeneratorRuntime.mark(function _callee5() {
+      var airplanes, arrayAirplanes, airplaneUse, arrayAirplanesUse, ctx, myChart;
+      return regeneratorRuntime.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.next = 2;
+              return axios.get("/getDifferentsAirplanes");
 
-          case 2:
-            airplanes = _context5.sent;
-            arrayAirplanes = [];
-            airplanes.data.forEach(function (element) {
-              arrayAirplanes.push("".concat(element.id, " ~ ").concat(element.model));
-            });
-            ctx = document.getElementById("chart5");
-            myChart = new Chart(ctx, {
-              type: 'pie',
-              data: {
-                labels: arrayAirplanes,
-                datasets: [{
-                  label: "Tickets per Airport",
-                  backgroundColor: ['#2BBBAD', '#9BBBAC', '#1B9BAD', '#2B7BAD', '#2BBBAD', '#2BBB0D', '#CCB4A1', '#DC3A11', '#DC3AA1', '#AC3AF6'],
-                  borderColor: ['#2BBBAD', '#9BBBAC', '#1B9BAD', '#2B7BAD', '#2BBBAD', '#2BBB0D', '#CCB4A1', '#DC3A11', '#DC3AA1', '#AC3AF6'],
-                  data: [1, 2, 9]
-                }]
-              },
-              options: {}
-            });
-            document.querySelector('.loaderChart5').style.display = 'none';
+            case 2:
+              airplanes = _context5.sent;
+              arrayAirplanes = [];
+              airplanes.data.forEach(function (element) {
+                arrayAirplanes.push("".concat(element.id, " ~ ").concat(element.model));
+              });
+              _context5.next = 7;
+              return axios.get("/getUseOfAirplanes");
 
-          case 8:
-          case "end":
-            return _context5.stop();
+            case 7:
+              airplaneUse = _context5.sent;
+              arrayAirplanesUse = [];
+              airplaneUse.data.forEach(function (element) {
+                arrayAirplanesUse.push(element.vuelos * 100);
+              });
+              ctx = document.getElementById("chart5");
+              myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                  labels: arrayAirplanes,
+                  datasets: [{
+                    label: "Tickets per Airport",
+                    backgroundColor: ['#2BBBAD', '#9BBBAC', '#1B9BAD', '#2B7BAD', '#2BBBAD', '#2BBB0D', '#CCB4A1', '#DC3A11', '#DC3AA1', '#AC3AF6'],
+                    borderColor: ['#2BBBAD', '#9BBBAC', '#1B9BAD', '#2B7BAD', '#2BBBAD', '#2BBB0D', '#CCB4A1', '#DC3A11', '#DC3AA1', '#AC3AF6'],
+                    data: arrayAirplanesUse
+                  }]
+                },
+                options: {}
+              });
+              document.querySelector('.loaderChart5').style.display = 'none';
+
+            case 13:
+            case "end":
+              return _context5.stop();
+          }
         }
-      }
-    }, _callee5, this);
-  }));
+      }, _callee5, this);
+    }));
 
-  function initChart5() {
-    return _initChart5.apply(this, arguments);
-  }
+    function initChart5() {
+      return _initChart5.apply(this, arguments);
+    }
 
-  return initChart5;
-})()();
-(function () {
-  var _initChart6 = _asyncToGenerator(
-  /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee6() {
-    var airplanes, arrayCant, arrayStates, ctx, myChart;
-    return regeneratorRuntime.wrap(function _callee6$(_context6) {
-      while (1) {
-        switch (_context6.prev = _context6.next) {
-          case 0:
-            _context6.next = 2;
-            return axios.get("/getAirplanesPerState");
+    return initChart5;
+  })()();
+  (function () {
+    var _initChart6 = _asyncToGenerator(
+    /*#__PURE__*/
+    regeneratorRuntime.mark(function _callee6() {
+      var airplanes, arrayCant, arrayStates, ctx, myChart;
+      return regeneratorRuntime.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              _context6.next = 2;
+              return axios.get("/getAirplanesPerState");
 
-          case 2:
-            airplanes = _context6.sent;
-            arrayCant = [];
-            arrayStates = [];
-            airplanes.data.forEach(function (element) {
-              arrayCant.push(element.cant);
-              arrayStates.push(element.state);
-            });
-            ctx = document.getElementById("chart6");
-            myChart = new Chart(ctx, {
-              type: 'pie',
-              data: {
-                labels: arrayStates,
-                datasets: [{
-                  label: "Tickets per Airport",
-                  backgroundColor: ['#CCB4A1', '#2BBBAD', '#1B9BAD', '#DC3AA1', '#DC3A11', '#9BBBAC', '#2BBBAD', '#AC3AF6', '#2B7BAD', '#2BBB0D'],
-                  borderColor: ['#CCB4A1', '#2BBBAD', '#1B9BAD', '#DC3AA1', '#DC3A11', '#9BBBAC', '#2BBBAD', '#AC3AF6', '#2B7BAD', '#2BBB0D'],
-                  data: arrayCant
-                }]
-              },
-              options: {}
-            });
-            document.querySelector('.loaderChart6').style.display = 'none';
+            case 2:
+              airplanes = _context6.sent;
+              arrayCant = [];
+              arrayStates = [];
+              airplanes.data.forEach(function (element) {
+                arrayCant.push(element.cant);
+                arrayStates.push(element.state);
+              });
+              ctx = document.getElementById("chart6");
+              myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                  labels: arrayStates,
+                  datasets: [{
+                    label: "Tickets per Airport",
+                    backgroundColor: ['#CCB4A1', '#2BBBAD', '#1B9BAD', '#DC3AA1', '#DC3A11', '#9BBBAC', '#2BBBAD', '#AC3AF6', '#2B7BAD', '#2BBB0D'],
+                    borderColor: ['#CCB4A1', '#2BBBAD', '#1B9BAD', '#DC3AA1', '#DC3A11', '#9BBBAC', '#2BBBAD', '#AC3AF6', '#2B7BAD', '#2BBB0D'],
+                    data: arrayCant
+                  }]
+                },
+                options: {}
+              });
+              document.querySelector('.loaderChart6').style.display = 'none';
 
-          case 9:
-          case "end":
-            return _context6.stop();
+            case 9:
+            case "end":
+              return _context6.stop();
+          }
         }
-      }
-    }, _callee6, this);
-  }));
+      }, _callee6, this);
+    }));
 
-  function initChart6() {
-    return _initChart6.apply(this, arguments);
-  }
+    function initChart6() {
+      return _initChart6.apply(this, arguments);
+    }
 
-  return initChart6;
-})()(); // -+-+-+-+-+ VALIDACIÓN DEL CONFIRM PASSWORD DE REGISTER -+-+-+-+-+
+    return initChart6;
+  })()();
+  (function () {
+    var _initChart7 = _asyncToGenerator(
+    /*#__PURE__*/
+    regeneratorRuntime.mark(function _callee7() {
+      var stats, arrayAge, arrayCant, ctx, myChart;
+      return regeneratorRuntime.wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              _context7.next = 2;
+              return axios.get("/getPeopleVsAge");
+
+            case 2:
+              stats = _context7.sent;
+              arrayAge = [];
+              arrayCant = [];
+              stats.data.forEach(function (element) {
+                arrayCant.push(element.totalCustomers);
+                arrayAge.push(element.age);
+              });
+              ctx = document.getElementById("chart7");
+              myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                  labels: arrayAge,
+                  datasets: [{
+                    label: "Tickets per Airport",
+                    backgroundColor: ['#CCB4A1', '#2BBBAD', '#1B9BAD', '#DC3AA1', '#DC3A11', '#9BBBAC', '#2BBBAD', '#AC3AF6', '#2B7BAD', '#2BBB0D'],
+                    borderColor: ['#CCB4A1', '#2BBBAD', '#1B9BAD', '#DC3AA1', '#DC3A11', '#9BBBAC', '#2BBBAD', '#AC3AF6', '#2B7BAD', '#2BBB0D'],
+                    data: arrayCant
+                  }]
+                },
+                options: {}
+              });
+              document.querySelector('.loaderChart7').style.display = 'none';
+
+            case 9:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7, this);
+    }));
+
+    function initChart7() {
+      return _initChart7.apply(this, arguments);
+    }
+
+    return initChart7;
+  })()();
+  (function () {
+    var _initChart8 = _asyncToGenerator(
+    /*#__PURE__*/
+    regeneratorRuntime.mark(function _callee8() {
+      var stats, arrayNationality, arrayCant, ctx, myChart;
+      return regeneratorRuntime.wrap(function _callee8$(_context8) {
+        while (1) {
+          switch (_context8.prev = _context8.next) {
+            case 0:
+              _context8.next = 2;
+              return axios.get("/getPeopleVsNationality");
+
+            case 2:
+              stats = _context8.sent;
+              arrayNationality = [];
+              arrayCant = [];
+              stats.data.forEach(function (element) {
+                arrayCant.push(element.totalCustomers);
+                arrayNationality.push(element.nationality);
+              });
+              ctx = document.getElementById("chart8");
+              myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                  labels: arrayNationality,
+                  datasets: [{
+                    label: "Tickets per Airport",
+                    backgroundColor: ['#CCB4A1', '#2BBBAD', '#2B7BAD', '#AC3AF6', '#2BBB0D', '#1B9BAD', '#9BBBAC', '#DC3A11', '#DC3AA1', '#2BBBAD'],
+                    borderColor: ['#CCB4A1', '#2BBBAD', '#2B7BAD', '#AC3AF6', '#2BBB0D', '#1B9BAD', '#9BBBAC', '#DC3A11', '#DC3AA1', '#2BBBAD'],
+                    data: arrayCant
+                  }]
+                },
+                options: {}
+              });
+              document.querySelector('.loaderChart8').style.display = 'none';
+
+            case 9:
+            case "end":
+              return _context8.stop();
+          }
+        }
+      }, _callee8, this);
+    }));
+
+    function initChart8() {
+      return _initChart8.apply(this, arguments);
+    }
+
+    return initChart8;
+  })()();
+  (function () {
+    var _initChart9 = _asyncToGenerator(
+    /*#__PURE__*/
+    regeneratorRuntime.mark(function _callee9() {
+      var stats, arrayGender, arrayCant, ctx, myChart;
+      return regeneratorRuntime.wrap(function _callee9$(_context9) {
+        while (1) {
+          switch (_context9.prev = _context9.next) {
+            case 0:
+              _context9.next = 2;
+              return axios.get("/getPeopleVsGender");
+
+            case 2:
+              stats = _context9.sent;
+              arrayGender = [];
+              arrayCant = [];
+              stats.data.forEach(function (element) {
+                arrayCant.push(element.totalCustomers);
+                arrayGender.push(element.gender);
+              });
+              ctx = document.getElementById("chart9");
+              myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                  labels: arrayGender,
+                  datasets: [{
+                    label: "Tickets per Airport",
+                    backgroundColor: ['#CCB4A1', '#2B7BAD', '#2BBB0D', '#2BBBAD', '#AC3AF6', '#DC3AA1', '#1B9BAD', '#2BBBAD', '#DC3A11', '#9BBBAC'],
+                    borderColor: ['#CCB4A1', '#2B7BAD', '#2BBB0D', '#2BBBAD', '#AC3AF6', '#DC3AA1', '#1B9BAD', '#2BBBAD', '#DC3A11', '#9BBBAC'],
+                    data: arrayCant
+                  }]
+                },
+                options: {}
+              });
+              document.querySelector('.loaderChart9').style.display = 'none';
+
+            case 9:
+            case "end":
+              return _context9.stop();
+          }
+        }
+      }, _callee9, this);
+    }));
+
+    function initChart9() {
+      return _initChart9.apply(this, arguments);
+    }
+
+    return initChart9;
+  })()();
+} // -+-+-+-+-+ VALIDACIÓN DEL CONFIRM PASSWORD DE REGISTER -+-+-+-+-+
+
 
 var confirmPassRegister = document.getElementById('confirmpasswordRegister');
 var passRegister = document.getElementById('passwordRegister');
