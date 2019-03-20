@@ -18,8 +18,8 @@ block adminContent
                   tr
                      td #{mant.id}  
                      td #{mant.airplaneId}
-                     td #{h.moment(mant.date).add(4, 'hours').format('lll')}
-                     td #{h.moment(mant.date).add(4, 'hours').format('lll')}
+                     td #{h.moment(mant.startDate).add(4, 'hours').format('lll')}
+                     td #{h.moment(mant.endDate).add(4, 'hours').format('lll')}
       .formContainer
          #modal1.modal
                .modal-content.contentModal.modalPlanningFlights
@@ -34,9 +34,10 @@ block adminContent
                         .input-field.col.s6 
                            i(class="far fa-clock prefix material-icons")
                            input.timepickerAdmin(type='text' placeholder="Choose the Depart Time" name="time")
-                     .row.rowModalAdmin
+                     .row.rowModalAdmin2
                         .input-field.col.s12
                            select(name="airplaneId").selectAdmin.browser-default.selectFlightAirplane
+                              option(value='', disabled='', selected='') Select Company Airplane
                               each model in models
                                  option(value=`${model.id}`) #{model.id}
                      .modal-footer

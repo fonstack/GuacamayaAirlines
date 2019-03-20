@@ -238,14 +238,14 @@ exports.viewAdmin = (req, res) => {
   } else if (section === 'reportsMaintenances') { // Vista Report -> Maintenances
 
     sequelize.query(`
-        SELECT id
-        FROM Airplanes
-      `,{ type: sequelize.QueryTypes.SELECT })
+      SELECT id
+      FROM Airplanes
+    `,{ type: sequelize.QueryTypes.SELECT })
       .then(result => {
         const models = result;
         sequelize.query(`
-        SELECT id, airplaneId, startDate, endDate
-        FROM MaintenanceReports
+          SELECT id, airplaneId, startDate, endDate
+          FROM MaintenanceReports
         `, { type: sequelize.QueryTypes.SELECT})
         .then(mants=>{
           res.render("admin/reportsMaintenances", { title: 'admin' , mants, models });

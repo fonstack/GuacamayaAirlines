@@ -116,8 +116,6 @@ exports.getFlightsOverbookingPercentage = (req, res) => {
     })
 }
 
-  
-
 exports.getTotalProfits = (req, res) => {
   sequelize.query(`
     SELECT SUM(salePrice) as profits
