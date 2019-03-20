@@ -1,4 +1,24 @@
 extends ../admin
 
 block adminContent
-   p Reports Detours
+   .adminSect
+      p.titlee Detour Manifest
+      //- .contButton
+      //-          a.waves-effect.waves-light.btn.modal-trigger.createButton.grey.darken-3(href='#modal1' ) - Add a new Airplane -
+      .tableContainer
+            table#tablePlanningFlights.hover.order-column.tableFlinchi
+               thead
+                  tr
+                     th Detour ID
+                     th Flight Code
+                     th New Destination
+                     th Date
+                     th State
+               tbody
+                  each detour in detours
+                        tr
+                           td #{detour.id}  
+                           td #{detour.flightCode}
+                           td #{detour.newDestination}
+                           td #{h.moment(detour.date).add(4, 'hours').format('lll')}
+                           td #{detour.state}

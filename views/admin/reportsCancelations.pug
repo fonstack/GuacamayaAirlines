@@ -1,4 +1,22 @@
 extends ../admin
 
 block adminContent
-   p Reports Cancelations
+   .adminSect
+      p.titlee Cancelations Manifest
+      //- .contButton
+      //-          a.waves-effect.waves-light.btn.modal-trigger.createButton.grey.darken-3(href='#modal1' ) - Add a new Airplane -
+      .tableContainer
+            table#tablePlanningFlights.hover.order-column.tableFlinchi
+               thead
+                  tr
+                     th Cancelation ID
+                     th Flight Code
+                     th Date
+                     th State
+               tbody
+                  each can in cans
+                        tr
+                           td #{can.id}  
+                           td #{can.flightCode}
+                           td #{h.moment(can.date).add(4, 'hours').format('lll')}
+                           td #{can.state}

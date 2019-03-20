@@ -1,4 +1,22 @@
 extends ../admin
 
 block adminContent
-   p Reports Maintenances
+   .adminSect
+      p.titlee Maintenance Report
+      //- .contButton
+      //-          a.waves-effect.waves-light.btn.modal-trigger.createButton.grey.darken-3(href='#modal1' ) - Add a new Airplane -
+      .tableContainer
+            table#tablePlanningFlights.hover.order-column.tableFlinchi
+               thead
+                  tr
+                     th Maintenance ID
+                     th Airplane ID
+                     th Start Date
+                     th End Date
+               tbody
+                  each mant in mants
+                        tr
+                           td #{mant.id}  
+                           td #{mant.airplaneId}
+                           td #{h.moment(mant.date).add(4, 'hours').format('lll')}
+                           td #{h.moment(mant.date).add(4, 'hours').format('lll')}

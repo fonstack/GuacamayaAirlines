@@ -1,4 +1,23 @@
 extends ../admin
 
 block adminContent
-   p Reports Failures
+   .adminSect
+      p.titlee Failure Reports
+      //- .contButton
+      //-          a.waves-effect.waves-light.btn.modal-trigger.createButton.grey.darken-3(href='#modal1' ) - Add a new Airplane -
+      .tableContainer
+            table#tablePlanningFlights.hover.order-column.tableFlinchi
+               thead
+                  tr
+                     th Failure ID
+                     th Airplane ID
+                     th Date
+                     th State
+               tbody
+                  each failure in failures
+                        tr
+                           td #{failure.id}  
+                           td #{failure.airplaneId}
+                           td #{h.moment(failure.date).add(4, 'hours').format('lll')}
+                           td #{failure.state}
+

@@ -215,13 +215,48 @@ exports.viewAdmin = (req, res) => {
 
   // ------ REPORTS ------
   else if (section === 'reportsFailures') { // Vista Report -> Failures
-    res.render("admin/reportsFailures", { title: 'admin' });
+    sequelize.query(`
+    SELECT id, airplaneId, date, state
+    FROM FailureReports
+    `, { type: sequelize.QueryTypes.SELECT})
+    .then(failures=>{
+      res.render("admin/reportsFailures", { title: 'Failure Resport' , failures});
+    })  
+    .catch(err => console.log(err));
+
+
   } else if (section === 'reportsMaintenances') { // Vista Report -> Maintenances
-    res.render("admin/reportsMaintenances", { title: 'admin' });
+    sequelize.query(`
+    SELECT id, airplaneId, startDate, endDate
+    FROM MaintenanceReports
+    `, { type: sequelize.QueryTypes.SELECT})
+    .then(mants=>{
+      res.render("admin/reportsMaintenances", { title: 'Maintenance Report' , mants });
+    })  
+    .catch(err => console.log(err));
+    
+
   } else if (section === 'reportsDetours') { // Vista Report -> Detours
-    res.render("admin/reportsDetours", { title: 'admin' });
+    sequelize.query(`
+    SELECT id, flightCode, newDestination, date, state
+    FROM DetourManifests
+    `, { type: sequelize.QueryTypes.SELECT})
+    .then(detours=>{
+      res.render("admin/reportsDetours", { title: 'admin' , detours});
+    })  
+    .catch(err => console.log(err));
+
+
   } else if (section === 'reportsCancelations') { // Vista Report -> Cancelations
-    res.render("admin/reportsCancelations", { title: 'admin' });
+
+    sequelize.query(`
+    SELECT id, flightCode, state, date
+    FROM CancelationManifests
+    `, { type: sequelize.QueryTypes.SELECT})
+    .then(cans=>{
+      res.render("admin/reportsCancelations", { title: 'Cancelations Manifest' , cans});
+    })  
+    .catch(err => console.log(err));
   }
 
   // ------ SALES ------
