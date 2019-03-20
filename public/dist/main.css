@@ -1200,7 +1200,7 @@ div.seatCharts-row {
 .textMap {
   text-align: center; }
 
-.preloader-wrapper {
+.loaderSeatMap {
   position: absolute;
   left: 50%;
   top: 24%;
@@ -1273,7 +1273,8 @@ div.seatCharts-row {
   border-radius: .4rem;
   width: 95%;
   margin: 0 auto;
-  padding: .8rem 1.4rem; }
+  padding: .8rem 1.4rem;
+  position: relative; }
 
 .titleee {
   text-align: center;
@@ -1354,6 +1355,42 @@ div.seatCharts-row {
       height: 36px; }
     .adminBox .rowRange .rangePercentageIncDec {
       border: 0; }
+
+.contentModalProfits {
+  background-color: #fafafa;
+  padding: 0 2rem !important;
+  padding-top: 3.8rem !important;
+  height: 23rem !important; }
+
+.contInfoInterval {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 2.4rem;
+  padding: 0 2rem; }
+  .contInfoInterval #intervalProfit {
+    color: #2FBCAC; }
+
+.loaderChart1, .loaderChart2, .loaderChart3, .loaderChart4, .loaderChart5, .loaderChart6, .loaderChart7, .loaderChart8, .loaderChart9 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%); }
+
+.containerThreeCharts {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 95%;
+  margin: 0 auto;
+  padding: .8rem 1.4rem;
+  position: relative;
+  padding-bottom: 3.5rem; }
+
+.chartContainerxd {
+  margin-right: 2.4rem; }
 
 .titlee {
   text-align: center;

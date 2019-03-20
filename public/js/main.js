@@ -1,6 +1,7 @@
 import "../sass/styles.scss";
 const http = new XMLHttpRequest();
 const axios = require('axios');
+import 'babel-polyfill';
 
 
 // -+-+-+-+-+ INITIALIZATION DATEPICKER HOME -- Materialize -+-+-+-+-+
@@ -33,6 +34,28 @@ document.addEventListener('DOMContentLoaded', function() {
     firstDay: 1,
     minDate: minDate,
     maxDate: maxDate
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const elems = document.querySelector('.datepickerProfits');
+  const cont = document.querySelector('.admin-section');
+  const instances = M.Datepicker.init(elems, {
+    autoClose: true,
+    container: cont,
+    format: 'dd-mm-yyyy',
+    firstDay: 1
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const elems = document.querySelector('.datepickerProfitss');
+  const cont = document.querySelector('.admin-section');
+  const instances = M.Datepicker.init(elems, {
+    autoClose: true,
+    container: cont,
+    format: 'dd-mm-yyyy',
+    firstDay: 1
   });
 });
 
@@ -567,7 +590,7 @@ $(document).ready( function () {
 } );
 
 
-// -+-+-+-+-+ INITIALIZATION AND FUNCTIONALITY  OF SELECT FROM FLIGHTS ADMIN -+-+-+-+-+
+// -+-+-+-+-+ INITIALIZATION AND FUNCTIONALITY OF SELECT FROM FLIGHTS ADMIN -+-+-+-+-+
 if (document.querySelector('.selectFlightRoute')) {
   document.querySelector('.selectFlightRoute').disabled = true;
 
@@ -599,26 +622,428 @@ if (document.querySelector('.selectFlightRoute')) {
 }
 
 
+// -+-+-+-+-+ INITIALIZATION STATISTICS OF ADMIN VIEW -+-+-+-+-+
+axios.get(`/getTicketsSold`)
+  .then(response => {
+    if (document.querySelector('#cantTicketsSold')) {
+      const cantTicketsSoldP = document.querySelector('#cantTicketsSold');
+      cantTicketsSoldP.innerHTML = response.data.ticketsSold[0].cant;
+    }
+  }).catch(err => console.log(err.response));
+
+axios.get(`/getFlightsOverbooking`)
+  .then(response => {
+    if (document.querySelector('#flightsOverbooking')) {
+      const cantflightsOverbooking = document.querySelector('#flightsOverbooking');
+      cantflightsOverbooking.innerHTML = response.data.flightsOverbooking[0].cant;
+    }
+  }).catch(err => console.log(err.response));
+
+axios.get(`/getFlightsOverbookingPercentage`)
+  .then(response => {
+    if (document.querySelector('#flightsOverbookingPercentage')) {
+      const cantflightsOverbooking = document.querySelector('#flightsOverbookingPercentage');
+      cantflightsOverbooking.innerHTML = (response.data.flightsOverbookingPercentage);
+    }
+  }).catch(err => console.log(err.response));
+
+axios.get(`/getTotalProfits`)
+  .then(response => {
+    if (document.querySelector('#totalProfits')) {
+      const totalProfits = document.querySelector('#totalProfits');
+      totalProfits.innerHTML = response.data.profits[0].profits;
+    }
+  }).catch(err => console.log(err.response));
+
+if (document.querySelector('#findIntervalProfit')) {
+  document.querySelector('#findIntervalProfit').addEventListener('click', () => {
+  const date1 = document.querySelector('#intervalProfit1').value;
+  const date2 = document.querySelector('#intervalProfit2').value;
+
+  axios.get(`/getProfitOnInterval/${date1}/${date2}`)
+    .then(response => {
+      document.querySelector('#intervalProfit').innerHTML = response.data.profits[0].profits;
+    }).catch(err => console.log(err.response));
+  })
+}
+
+
+
+
+
+
 // -+-+-+-+-+ INITIALIZATION CHART OF ADMIN VIEW -+-+-+-+-+
-const ctx = document.getElementById("myChart");
-const myChart = new Chart(ctx, {
-  // The type of chart we want to create
-  type: 'line',
+if (document.getElementById("chart1")) {
 
-  // The data for our dataset
-  data: {
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
-      datasets: [{
-          label: "My First dataset",
-          backgroundColor: '#2BBBAD',
-          borderColor: '#2BBBAD',
-          data: [0, 10, 5, 2, 20, 30, 45],
-      }]
-  },
+  (async function initChart1() {
+    const enero = await axios.get(`/getNumberFlights/01`);
+    const febrero = await axios.get(`/getNumberFlights/02`);
+    const marzo = await axios.get(`/getNumberFlights/03`);
+    const abril = await axios.get(`/getNumberFlights/04`);
+    const mayo = await axios.get(`/getNumberFlights/05`);
+    const junio = await axios.get(`/getNumberFlights/06`);
+    const julio = await axios.get(`/getNumberFlights/07`);
+    const agosto = await axios.get(`/getNumberFlights/08`);
+    const septiembre = await axios.get(`/getNumberFlights/09`);
+    const octubre = await axios.get(`/getNumberFlights/10`);
+    const noviembre = await axios.get(`/getNumberFlights/11`);
+    const diciembre = await axios.get(`/getNumberFlights/12`);
+  
+    const ctx = document.getElementById("chart1");
+      const myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "November", "December"],
+            datasets: [{
+                label: "Flights per Month",
+                backgroundColor: '#2BBBAD',
+                borderColor: '#2BBBAD',
+                data: [enero.data[0].cant, febrero.data[0].cant, marzo.data[0].cant, abril.data[0].cant, mayo.data[0].cant, junio.data[0].cant, julio.data[0].cant, agosto.data[0].cant, septiembre.data[0].cant, octubre.data[0].cant, noviembre.data[0].cant, diciembre.data[0].cant],
+            }]
+        },
+        options: {}
+      });
+  
+      document.querySelector('.loaderChart1').style.display = 'none';
+  })();
+  
+  (async function initChart2() {
+    const airplanes = await axios.get(`/getDifferentsAirplanes`);
+    let arrayAirplanes = [];
+    (airplanes.data).forEach(element => {
+      arrayAirplanes.push(`${element.id} ~ ${element.model}`);
+    });
+  
+    const flightsAirplanes = await axios.get(`/getFlightsPerAirplane`);
+    let arrayFlights = [];
+      (flightsAirplanes.data).forEach(element => {
+        arrayFlights.push(element.cant);
+      });
+  
+    const ctx = document.getElementById("chart2");
+      const myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: arrayAirplanes,
+            datasets: [{
+                label: "Flights per Airplane",
+                backgroundColor: '#2BBBAD',
+                borderColor: '#2BBBAD',
+                data: arrayFlights,
+            }]
+        },
+        options: {}
+      });
+  
+      document.querySelector('.loaderChart2').style.display = 'none';
+  })();
+  
+  (async function initChart3() {
+    const ticketsAirports = await axios.get(`/getCantTicketsPerAirport`);
+    let arrayTickets = [];
+      (ticketsAirports.data).forEach(element => {
+        arrayTickets.push(element.cant);
+      });
+  
+    const ctx = document.getElementById("chart3");
+      const myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["ATL", "CCS", "CDG", "DXB", "JFK", "MIA"],
+            datasets: [{
+                label: "Tickets per Airport",
+                backgroundColor: '#2BBBAD',
+                borderColor: '#2BBBAD',
+                data: arrayTickets,
+            }]
+        },
+        options: {}
+      });
+  
+      document.querySelector('.loaderChart3').style.display = 'none';
+  })();
+  
+  (async function initChart4() {
+    const airplanes = await axios.get(`/getDifferentsAirplanes`);
+    let arrayAirplanes = [];
+    (airplanes.data).forEach(element => {
+      arrayAirplanes.push(`${element.id} ~ ${element.model}`);
+    });
+  
+    const weightAirplane = await axios.get(`/getAverageWeightPerAirplane`);
+    let arrayWeights = [];
+    (weightAirplane.data).forEach(element => {
+      arrayWeights.push(element.promedio);
+    });
+  
+    const ctx = document.getElementById("chart4");
+      const myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: arrayAirplanes,
+            datasets: [{
+                label: "Tickets per Airport",
+                backgroundColor: '#2BBBAD',
+                borderColor: '#2BBBAD',
+                data: arrayWeights,
+            }]
+        },
+        options: {}
+      });
+  
+      document.querySelector('.loaderChart4').style.display = 'none';
+  })();
+  
+  (async function initChart5() {
+    const airplanes = await axios.get(`/getDifferentsAirplanes`);
+    let arrayAirplanes = [];
+    (airplanes.data).forEach(element => {
+      arrayAirplanes.push(`${element.id} ~ ${element.model}`);
+    });
 
-  // Configuration options go here
-  options: {}
-});
+    const airplaneUse = await axios.get(`/getUseOfAirplanes`);
+    let arrayAirplanesUse = [];
+    (airplaneUse.data).forEach(element => {
+      arrayAirplanesUse.push(element.vuelos * 100);
+    });
+  
+    const ctx = document.getElementById("chart5");
+      const myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: arrayAirplanes,
+            datasets: [{
+                label: "Tickets per Airport",
+                backgroundColor: [
+                  '#2BBBAD',
+                  '#9BBBAC',
+                  '#1B9BAD',
+                  '#2B7BAD',
+                  '#2BBBAD',
+                  '#2BBB0D',
+                  '#CCB4A1',
+                  '#DC3A11',
+                  '#DC3AA1',
+                  '#AC3AF6'
+                ],
+                borderColor: [
+                  '#2BBBAD',
+                  '#9BBBAC',
+                  '#1B9BAD',
+                  '#2B7BAD',
+                  '#2BBBAD',
+                  '#2BBB0D',
+                  '#CCB4A1',
+                  '#DC3A11',
+                  '#DC3AA1',
+                  '#AC3AF6'
+                ],
+                data: arrayAirplanesUse,
+            }]
+        },
+        options: {}
+      });
+  
+      document.querySelector('.loaderChart5').style.display = 'none';
+  })();
+  
+  (async function initChart6() {
+    const airplanes = await axios.get(`/getAirplanesPerState`);
+    let arrayCant = [];
+    let arrayStates = [];
+    (airplanes.data).forEach(element => {
+      arrayCant.push(element.cant);
+      arrayStates.push(element.state)
+    });
+  
+    const ctx = document.getElementById("chart6");
+      const myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: arrayStates,
+            datasets: [{
+                label: "Tickets per Airport",
+                backgroundColor: [
+                  '#CCB4A1',
+                  '#2BBBAD',
+                  '#1B9BAD',
+                  '#DC3AA1',
+                  '#DC3A11',
+                  '#9BBBAC',
+                  '#2BBBAD',
+                  '#AC3AF6',
+                  '#2B7BAD',
+                  '#2BBB0D'
+                ],
+                borderColor: [
+                  '#CCB4A1',
+                  '#2BBBAD',
+                  '#1B9BAD',
+                  '#DC3AA1',
+                  '#DC3A11',
+                  '#9BBBAC',
+                  '#2BBBAD',
+                  '#AC3AF6',
+                  '#2B7BAD',
+                  '#2BBB0D'
+                ],
+                data: arrayCant,
+            }]
+        },
+        options: {}
+      });
+  
+      document.querySelector('.loaderChart6').style.display = 'none';
+  })();
+  
+  (async function initChart7() {
+    const stats = await axios.get(`/getPeopleVsAge`);
+    let arrayAge = [];
+    let arrayCant = [];
+    (stats.data).forEach(element => {
+      arrayCant.push(element.totalCustomers);
+      arrayAge.push(element.age)
+    });
+  
+    const ctx = document.getElementById("chart7");
+      const myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: arrayAge,
+            datasets: [{
+                label: "Tickets per Airport",
+                backgroundColor: [
+                  '#CCB4A1',
+                  '#2BBBAD',
+                  '#1B9BAD',
+                  '#DC3AA1',
+                  '#DC3A11',
+                  '#9BBBAC',
+                  '#2BBBAD',
+                  '#AC3AF6',
+                  '#2B7BAD',
+                  '#2BBB0D'
+                ],
+                borderColor: [
+                  '#CCB4A1',
+                  '#2BBBAD',
+                  '#1B9BAD',
+                  '#DC3AA1',
+                  '#DC3A11',
+                  '#9BBBAC',
+                  '#2BBBAD',
+                  '#AC3AF6',
+                  '#2B7BAD',
+                  '#2BBB0D'
+                ],
+                data: arrayCant,
+            }]
+        },
+        options: {}
+      });
+  
+      document.querySelector('.loaderChart7').style.display = 'none';
+  })();
+  
+  (async function initChart8() {
+    const stats = await axios.get(`/getPeopleVsNationality`);
+    let arrayNationality = [];
+    let arrayCant = [];
+    (stats.data).forEach(element => {
+      arrayCant.push(element.totalCustomers);
+      arrayNationality.push(element.nationality)
+    });
+  
+    const ctx = document.getElementById("chart8");
+      const myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: arrayNationality,
+            datasets: [{
+                label: "Tickets per Airport",
+                backgroundColor: [
+                  '#CCB4A1',
+                  '#2BBBAD',
+                  '#2B7BAD',
+                  '#AC3AF6',
+                  '#2BBB0D',
+                  '#1B9BAD',
+                  '#9BBBAC',
+                  '#DC3A11',
+                  '#DC3AA1',
+                  '#2BBBAD',
+                ],
+                borderColor: [
+                  '#CCB4A1',
+                  '#2BBBAD',
+                  '#2B7BAD',
+                  '#AC3AF6',
+                  '#2BBB0D',
+                  '#1B9BAD',
+                  '#9BBBAC',
+                  '#DC3A11',
+                  '#DC3AA1',
+                  '#2BBBAD',
+                ],
+                data: arrayCant,
+            }]
+        },
+        options: {}
+      });
+  
+      document.querySelector('.loaderChart8').style.display = 'none';
+  })();
+  
+  (async function initChart9() {
+    const stats = await axios.get(`/getPeopleVsGender`);
+    let arrayGender = [];
+    let arrayCant = [];
+    (stats.data).forEach(element => {
+      arrayCant.push(element.totalCustomers);
+      arrayGender.push(element.gender)
+    });
+  
+    const ctx = document.getElementById("chart9");
+      const myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: arrayGender,
+            datasets: [{
+                label: "Tickets per Airport",
+                backgroundColor: [
+                  '#CCB4A1',
+                  '#2B7BAD',
+                  '#2BBB0D',
+                  '#2BBBAD',
+                  '#AC3AF6',
+                  '#DC3AA1',
+                  '#1B9BAD',
+                  '#2BBBAD',
+                  '#DC3A11',
+                  '#9BBBAC',
+                ],
+                borderColor: [
+                  '#CCB4A1',
+                  '#2B7BAD',
+                  '#2BBB0D',
+                  '#2BBBAD',
+                  '#AC3AF6',
+                  '#DC3AA1',
+                  '#1B9BAD',
+                  '#2BBBAD',
+                  '#DC3A11',
+                  '#9BBBAC',
+                ],
+                data: arrayCant,
+            }]
+        },
+        options: {}
+      });
+  
+      document.querySelector('.loaderChart9').style.display = 'none';
+  })();
+
+}
 
 
 
