@@ -1537,6 +1537,32 @@ table.tableFlinchi thead {
 .timepicker-digital-display {
   width: 12rem; }
 
+.containerBotonesAprobarRechazar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around; }
+
+.botonApprove, .botonReject {
+  padding: .7rem;
+  width: 1.5rem;
+  border: none;
+  color: #FFF;
+  -webkit-box-shadow: 0.2rem 0.2rem 1rem rgba(0, 0, 0, 0.21);
+          box-shadow: 0.2rem 0.2rem 1rem rgba(0, 0, 0, 0.21);
+  cursor: pointer; }
+
+.botonApprove {
+  background-color: #1f8d50; }
+
+.botonReject {
+  background-color: #801f1f; }
+
+.disa {
+  background-color: #383838;
+  cursor: not-allowed; }
+
 .project {
   width: 100%;
   min-height: 100vh;

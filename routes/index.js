@@ -39,6 +39,10 @@ router.post("/admin/planningCharters", authController.needLogged, adminControlle
 router.post("/admin/planningAirplanes", authController.needLogged, adminController.planningAirplanes);
 router.post("/admin/reportsFailures", authController.needLogged, adminController.reportsFailures);
 router.post("/admin/reportsMaintenance", authController.needLogged, adminController.reportsMaintenance);
+router.post("/admin/reportsDetours", authController.needLogged, adminController.reportsDetours);
+
+router.post("/admin/approveDetour/:detourId", authController.needLogged, adminController.approveDetour);
+router.post("/admin/rejectDetour/:detourId", authController.needLogged, adminController.rejectDetour);
 
 // Purchase Ticket
 router.post("/purchaseTicket", airlineController.saveCustomer, airlineController.purchaseFlightTicket);

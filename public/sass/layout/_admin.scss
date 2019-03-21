@@ -389,7 +389,32 @@ table.tableFlinchi {
    width: 12rem;
 }
 
+.containerBotonesAprobarRechazar {
+   display: flex;
+   justify-content: space-around
+}
 
+.botonApprove, .botonReject {
+   padding: .7rem;
+   width: 1.5rem;
+   border: none;
+   color: #FFF;
+   box-shadow: .2rem .2rem 1rem rgba(0, 0, 0, 0.21);
+   cursor: pointer;
+}
+
+.botonApprove {
+   background-color: rgb(31, 141, 80);
+}
+
+.botonReject {
+   background-color: rgb(128, 31, 31);
+}
+
+.disa {
+   background-color: rgb(56, 56, 56);
+   cursor: not-allowed;
+}
 
 
 
