@@ -44,6 +44,8 @@ router.post("/admin/reportsDetours", authController.needLogged, adminController.
 
 router.post("/admin/approveDetour/:detourId", authController.needLogged, adminController.approveDetour);
 router.post("/admin/rejectDetour/:detourId", authController.needLogged, adminController.rejectDetour);
+router.post("/admin/approveCancelation/:cancelationId", authController.needLogged, adminController.approveCancelation);
+router.post("/admin/rejectCancelation/:cancelationId", authController.needLogged, adminController.rejectCancelation);
 
 // Purchase Ticket
 router.post("/purchaseTicket", airlineController.saveCustomer, airlineController.purchaseFlightTicket);

@@ -518,3 +518,30 @@ exports.rejectDetour = (req, res) => {
       .catch(err => console.log(err));
 };
 
+
+exports.approveCancelation = (req, res) => {
+  const cancelationId = req.params.cancelationId;
+
+  CancelationManifest.update({ state: 'Approved' }, { where: { id: cancelationId } })
+    .then(result => {
+      req.flash('success', 'This Cancelation Manifest has been Approved');
+      req.session.save(function () {
+        res.redirect('/admin/reportsCancelations');
+      });
+    })
+      .catch(err => console.log(err));
+};
+
+exports.rejectCancelation = (req, res) => {
+  const cancelationId = req.params.cancelationId;
+
+  CancelationManifest.update({ state: 'Rejected' }, { where: { id: cancelationId } })
+    .then(result => {
+      req.flash('success', 'This Cancelation Manifest has been Rejected');
+      req.session.save(function () {
+        res.redirect('/admin/reportsCancelations');
+      });
+    })
+      .catch(err => console.log(err));
+};
+

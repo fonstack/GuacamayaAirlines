@@ -13,6 +13,7 @@ block adminContent
                      th Flight Code
                      th Date
                      th State
+                     th
                tbody
                   each can in cans
                      tr
@@ -20,6 +21,18 @@ block adminContent
                         td #{can.flightCode}
                         td #{h.moment(can.date).add(4, 'hours').format('lll')}
                         td #{can.state}
+                        td
+                           .containerBotonesAprobarRechazar
+                              form(action=`/admin/approveCancelation/${can.id}` method="POST")
+                                 if can.state == 'Approved' || can.state == 'Rejected'
+                                    button.botonApprove.disa(type="submit" disabled='true') <i class="fas fa-check"></i>
+                                 else
+                                    button.botonApprove(type="submit") <i class="fas fa-check"></i>
+                              form(action=`/admin/rejectCancelation/${can.id}` method="POST")
+                                 if can.state == 'Approved' || can.state == 'Rejected'
+                                    button.botonReject.disa(type="submit" disabled='true') <i class="fas fa-times"></i>
+                                 else
+                                    button.botonReject(type="submit") <i class="fas fa-times"></i>
       .formContainer
          #modal1.modal
                .modal-content.contentModal.modalPlanningFlights
