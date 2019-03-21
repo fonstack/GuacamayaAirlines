@@ -21,7 +21,7 @@ block adminContent
         .formContainer
             #modal1.modal
                 .modal-content.contentModal.modalPlanningFlights
-                    h4 Add a new Airplane 💋💋💋💋💋💋💋💋💋💋💋
+                    h4 Add a new Airplane
                     hr.separatorTitleModalAdmin
                     form(action="/admin/planningAirplanes" method="POST")
                         .row.rowModalAdmin
@@ -31,9 +31,9 @@ block adminContent
                                         option(value=`${model.model}`) #{model.model}
                             .input-field.col.s6 
                                 select(name="state").selectAdmin.browser-default.selectFlightAirplane
-                                        option(value="Working") Working
-                                        option(value="In Maintenance") In Maintenance
-                                        option(value="Unavailable") Unavailable
+                                    option(value="Working") Working
+                                    option(value="In Maintenance") In Maintenance
+                                    option(value="Unavailable") Unavailable
                         .modal-footer
                             a.modal-close.waves-effect.waves-green.btn-flat(href='#!') Cancel
                             button.modal-close.waves-effect.waves-green.btn-flat(type="submit") Save &nbsp;&nbsp;<i class="fas fa-save"></i>

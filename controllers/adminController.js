@@ -155,7 +155,7 @@ exports.viewAdmin = (req, res) => {
               });
             });
             // res.json({charters, detours, providers});
-            res.render("admin/planningCharters", { title: 'Planning Charters' , charters, detours, providers});            
+            res.render("admin/planningCharters", { title: 'admin' , charters, detours, providers});            
           })
           .catch(err => console.log(err));
         // res.json(detourId);
@@ -222,21 +222,39 @@ exports.viewAdmin = (req, res) => {
     SELECT id, airplaneId, date, state
     FROM FailureReports
     `, { type: sequelize.QueryTypes.SELECT})
-    .then(failures=>{
-      res.render("admin/reportsFailures", { title: 'Failure Resport' , failures});
+    .then(result => {
+      const failures = result;
+      sequelize.query(`
+        SELECT id
+        FROM Airplanes
+      `,{ type: sequelize.QueryTypes.SELECT })
+      .then(models =>{
+        res.render("admin/reportsFailures", { title: 'admin' , failures, models});
+      })
+      .catch(err => console.log(err));
     })  
     .catch(err => console.log(err));
 
 
   } else if (section === 'reportsMaintenances') { // Vista Report -> Maintenances
+
     sequelize.query(`
-    SELECT id, airplaneId, startDate, endDate
-    FROM MaintenanceReports
-    `, { type: sequelize.QueryTypes.SELECT})
-    .then(mants=>{
-      res.render("admin/reportsMaintenances", { title: 'Maintenance Report' , mants });
-    })  
-    .catch(err => console.log(err));
+        SELECT id
+        FROM Airplanes
+      `,{ type: sequelize.QueryTypes.SELECT })
+      .then(result => {
+        const models = result;
+        sequelize.query(`
+        SELECT id, airplaneId, startDate, endDate
+        FROM MaintenanceReports
+        `, { type: sequelize.QueryTypes.SELECT})
+        .then(mants=>{
+          res.render("admin/reportsMaintenances", { title: 'admin' , mants, models });
+        })  
+        .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
+
     
 
   } else if (section === 'reportsDetours') { // Vista Report -> Detours
