@@ -3,8 +3,8 @@ extends ../admin
 block adminContent
    .adminSect
       p.titlee Cancelations Manifest
-      //- .contButton
-      //-          a.waves-effect.waves-light.btn.modal-trigger.createButton.grey.darken-3(href='#modal1' ) - Add a new Airplane -
+      .contButton
+               a.waves-effect.waves-light.btn.modal-trigger.createButton.grey.darken-3(href='#modal1' ) - Add a new Cancelation -
       .tableContainer
             table#tablePlanningFlights.hover.order-column.tableFlinchi
                thead
@@ -15,8 +15,22 @@ block adminContent
                      th State
                tbody
                   each can in cans
-                        tr
-                           td #{can.id}  
-                           td #{can.flightCode}
-                           td #{h.moment(can.date).add(4, 'hours').format('lll')}
-                           td #{can.state}
+                     tr
+                        td #{can.id}  
+                        td #{can.flightCode}
+                        td #{h.moment(can.date).add(4, 'hours').format('lll')}
+                        td #{can.state}
+      .formContainer
+         #modal1.modal
+               .modal-content.contentModal.modalPlanningFlights
+                  h4 Add a new Cancelation
+                  hr.separatorTitleModalAdmin
+                  form(action="/admin/reportsCancelations" method="POST")
+                     .row.rowModalAdmin
+                           .input-field.col.s12
+                              select(name="flightCode").selectAdmin.browser-default.selectFlightAirplane
+                                 each model in models
+                                       option(value=`${model.code}`) #{model.code}
+                     .modal-footer
+                           a.modal-close.waves-effect.waves-green.btn-flat(href='#!') Cancel
+                           button.modal-close.waves-effect.waves-green.btn-flat(type="submit") Save &nbsp;&nbsp;<i class="fas fa-save"></i>

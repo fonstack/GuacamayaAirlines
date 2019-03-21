@@ -3,6 +3,9 @@ const Flight = require("../models/Flight");
 const moment = require('moment');
 const Charter = require("../models/Charter");
 const Airplane = require("../models/Airplane");
+const FailureReport = require("../models/FailureReport");
+const MaintenanceReport = require("../models/MaintenanceReport");
+const CanelationManifest = require("../models/CancelationManifest");
 
 exports.viewAdminOnly = (req, res) => {
   // -------- NUMBER OF FLIGHTS PER AIRPLANE ----------
@@ -253,15 +256,35 @@ exports.viewAdmin = (req, res) => {
     SELECT id, flightCode, state, date
     FROM CancelationManifests
     `, { type: sequelize.QueryTypes.SELECT})
-    .then(cans=>{
-      res.render("admin/reportsCancelations", { title: 'Cancelations Manifest' , cans});
+    .then(result =>{
+      let cans = result;
+      sequelize.query(`
+      SELECT code
+      FROM Flights
+      `, { type: sequelize.QueryTypes.SELECT})
+      .then(models => {
+        res.render("admin/reportsCancelations", { title: 'admin' , cans, models});
+      })  
+      .catch(err => console.log(err));
     })  
     .catch(err => console.log(err));
+
+
   }
 
   // ------ SALES ------
   else if (section === 'salesFlightTickets') { // Vista Sales -> Flight Tickets
-    res.render("admin/salesFlightTickets", { title: 'admin' });
+
+    sequelize.query(`
+      SELECT FlightTickets.id, CustomersB.firstName as firstNameBuyer, CustomersB.lastName as lastNameBuyer, CustomersP.firstName as firstNamePassenger, CustomersP.lastName as lastNamePassenger, FlightTickets.salePrice
+      FROM FlightTickets
+      INNER JOIN Customers as CustomersB ON buyerId = CustomersB.id
+      INNER JOIN Customers as CustomersP ON passengerId = CustomersP.id
+    `, { type: sequelize.QueryTypes.SELECT})
+    .then( tickets => {
+      res.render("admin/salesFlightTickets", { title: 'admin' , tickets});
+    })
+    .catch(err => console.log(err));
   } 
   
   // ------ STATISTICS ------
@@ -353,6 +376,69 @@ exports.planningAirplanes = (req, res) => {
   .then(result => {
     req.flash('success', 'You have successfully registered an Airplane');
     res.redirect('/admin/planningAirplanes');
+  })
+  .catch(err => console.log(err));
+};
+
+exports.reportsFailures = (req, res) => {
+  const airplaneId = req.body.airplaneId;
+  const date = new Date();
+  let dateLacra = `${ date.getFullYear() }-${ date.getMonth() + 1 }-${ date.getDate() } ${ date.getHours() }:${ date.getMinutes() }:00`;
+  dateLacra = moment(dateLacra).add(-4, 'hours');
+
+  FailureReport.create({
+    airplaneId: airplaneId,
+    state: 'Pending',
+    date: dateLacra
+  })
+  .then(result => {
+    req.flash('success', 'You have successfully registered a Failure');
+    res.redirect('/admin/reportsFailures');
+  })
+  .catch(err => console.log(err));
+};
+
+exports.reportsMaintenance = (req, res) => {
+  const airplaneId = req.body.airplaneId;
+  const date = req.body.date;
+  const time = req.body.time;
+
+  
+  let dateLacra = `${ date.split('/')[2] }-${ date.split('/')[1] }-${ date.split('/')[0] } ${ time.split(':')[0] }:${ time.split(':')[1] }:00`;
+  dateLacra = moment(dateLacra).add(-4, 'hours');
+  const dateLacra2 = moment(dateLacra).add(3, 'days');
+
+  console.log(dateLacra, date)
+
+  MaintenanceReport.create({
+    airplaneId: airplaneId,
+    startDate: dateLacra,
+    endDate: dateLacra2
+  })
+  .then(result => {
+    req.flash('success', 'You have successfully registered a Maintenance');
+    res.redirect('/admin/reportsMaintenances');
+  })
+  .catch(err => console.log(err));
+};
+
+exports.reportsCancelations = (req, res) => {
+  const flightCode = req.body.flightCode;
+
+  const date = new Date();
+  let dateLacra = `${ date.getFullYear() }-${ date.getMonth() + 1 }-${ date.getDate() } ${ date.getHours() }:${ date.getMinutes() }:00`;
+  dateLacra = moment(dateLacra).add(-4, 'hours');
+
+  // console.log(dateLacra, date)
+
+  CanelationManifest.create({
+    flightCode: flightCode,
+    date: dateLacra,
+    state: 'Pending'
+  })
+  .then(result => {
+    req.flash('success', 'You have successfully registered a Cancelation');
+    res.redirect('/admin/reportsCancelations');
   })
   .catch(err => console.log(err));
 };

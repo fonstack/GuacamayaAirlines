@@ -1,4 +1,22 @@
 extends ../admin
 
 block adminContent
-   p Sales Flight Tickets
+   .adminSect
+      p.titlee Sales
+      //- .contButton
+      //-          a.waves-effect.waves-light.btn.modal-trigger.createButton.grey.darken-3(href='#modal1' ) - Add a new Airplane -
+      .tableContainer
+            table#tablePlanningFlights.hover.order-column.tableFlinchi
+               thead
+                  tr
+                     th ID Compra
+                     th Nombre Comprador
+                     th Nombre Pasajero
+                     th Monto de Venta
+               tbody
+                  each ticket in tickets
+                     tr
+                        td #{ticket.id}  
+                        td #{ticket.firstNameBuyer} #{ticket.lastNameBuyer}
+                        td #{ticket.firstNamePassenger} #{ticket.lastNamePassenger}
+                        td #{ticket.salePrice}
