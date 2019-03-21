@@ -5,7 +5,8 @@ const Charter = require("../models/Charter");
 const Airplane = require("../models/Airplane");
 const FailureReport = require("../models/FailureReport");
 const MaintenanceReport = require("../models/MaintenanceReport");
-const CanelationManifest = require("../models/CancelationManifest");
+const CancelationManifest = require("../models/CancelationManifest");
+const DetourManifest = require("../models/DetourManifest");
 
 exports.viewAdminOnly = (req, res) => {
   // -------- NUMBER OF FLIGHTS PER AIRPLANE ----------
@@ -32,10 +33,10 @@ exports.viewAdminOnly = (req, res) => {
     .then(result =>{
       mostVisitedAirport = result;
       sequelize.query(`
-      SELECT Flights.airplaneId, (SUM(FlightTicket_Flights.cantPacking*23)/count(DISTINCT Flights.code)) as promedio
-      FROM Flights
-      INNER JOIN FlightTicket_Flights ON Flights.code = FlightTicket_Flights.flightCode
-      GROUP BY Flights.airplaneId
+        SELECT Flights.airplaneId, (SUM(FlightTicket_Flights.cantPacking*23)/count(DISTINCT Flights.code)) as promedio
+        FROM Flights
+        INNER JOIN FlightTicket_Flights ON Flights.code = FlightTicket_Flights.flightCode
+        GROUP BY Flights.airplaneId
       `, { type: sequelize.QueryTypes.SELECT })
       .then(result =>{
         // res.json(result);
@@ -48,14 +49,6 @@ exports.viewAdminOnly = (req, res) => {
   .catch(err => console.log(err));
   // res.render("admin", { title: 'adminOnly' });
 };
-
-// sequelize.query(`
-
-// `, { type: sequelize.QueryTypes.SELECT })
-// .then(result =>{
-
-// })
-// .catch(err => console.log(err));
 
 exports.viewAdmin = (req, res) => {
   const section = req.params.section;
@@ -239,14 +232,14 @@ exports.viewAdmin = (req, res) => {
   } else if (section === 'reportsMaintenances') { // Vista Report -> Maintenances
 
     sequelize.query(`
-        SELECT id
-        FROM Airplanes
-      `,{ type: sequelize.QueryTypes.SELECT })
+      SELECT id
+      FROM Airplanes
+    `,{ type: sequelize.QueryTypes.SELECT })
       .then(result => {
         const models = result;
         sequelize.query(`
-        SELECT id, airplaneId, startDate, endDate
-        FROM MaintenanceReports
+          SELECT id, airplaneId, startDate, endDate
+          FROM MaintenanceReports
         `, { type: sequelize.QueryTypes.SELECT})
         .then(mants=>{
           res.render("admin/reportsMaintenances", { title: 'admin' , mants, models });
@@ -259,11 +252,25 @@ exports.viewAdmin = (req, res) => {
 
   } else if (section === 'reportsDetours') { // Vista Report -> Detours
     sequelize.query(`
-    SELECT id, flightCode, newDestination, date, state
-    FROM DetourManifests
+      SELECT id, flightCode, newDestination, date, state
+      FROM DetourManifests
     `, { type: sequelize.QueryTypes.SELECT})
-    .then(detours=>{
-      res.render("admin/reportsDetours", { title: 'admin' , detours});
+    .then(result => {
+      const detours = result;
+
+      sequelize.query(`
+        SELECT Flights.code as code, Routes.origin as origin, Routes.destiny as destiny
+        FROM Flights
+        INNER JOIN Routes ON Flights.routeId = Routes.id
+        ORDER BY Flights.code ASC;
+      `, { type: sequelize.QueryTypes.SELECT})
+        .then(result => {
+
+          res.render("admin/reportsDetours", { title: 'admin' , detours,  flights: result});
+        })
+        .catch(err => console.log(err));
+
+
     })  
     .catch(err => console.log(err));
 
@@ -420,13 +427,11 @@ exports.reportsMaintenance = (req, res) => {
   const airplaneId = req.body.airplaneId;
   const date = req.body.date;
   const time = req.body.time;
-
   
   let dateLacra = `${ date.split('/')[2] }-${ date.split('/')[1] }-${ date.split('/')[0] } ${ time.split(':')[0] }:${ time.split(':')[1] }:00`;
   dateLacra = moment(dateLacra).add(-4, 'hours');
   const dateLacra2 = moment(dateLacra).add(3, 'days');
 
-  console.log(dateLacra, date)
 
   MaintenanceReport.create({
     airplaneId: airplaneId,
@@ -440,24 +445,76 @@ exports.reportsMaintenance = (req, res) => {
   .catch(err => console.log(err));
 };
 
+
+
+
 exports.reportsCancelations = (req, res) => {
   const flightCode = req.body.flightCode;
-
   const date = new Date();
   let dateLacra = `${ date.getFullYear() }-${ date.getMonth() + 1 }-${ date.getDate() } ${ date.getHours() }:${ date.getMinutes() }:00`;
   dateLacra = moment(dateLacra).add(-4, 'hours');
 
-  // console.log(dateLacra, date)
-
-  CanelationManifest.create({
+  CancelationManifest.create({
     flightCode: flightCode,
-    date: dateLacra,
-    state: 'Pending'
+    date: dateLacra
   })
   .then(result => {
     req.flash('success', 'You have successfully registered a Cancelation');
     res.redirect('/admin/reportsCancelations');
   })
+    .catch(err => console.log(err));
+}
+
+
+
+
+exports.reportsDetours = (req, res) => {
+  const newDestination = req.body.newDestination;
+  const flightCode = req.body.flightCode;
+  const date = new Date();
+  let dateLacra = `${ date.getFullYear() }-${ date.getMonth() + 1 }-${ date.getDate() } ${ date.getHours() }:${ date.getMinutes() }:00`;
+  dateLacra = moment(dateLacra).add(-4, 'hours');
+
+  DetourManifest.create({
+    newDestination,
+    flightCode,
+    date: dateLacra
+  })
+  .then(result => {
+    req.flash('success', 'You have successfully registered a Detour Manifest');
+    res.redirect('/admin/reportsDetours');
+  })
   .catch(err => console.log(err));
+};
+
+
+
+
+
+
+exports.approveDetour = (req, res) => {
+  const detourId = req.params.detourId;
+
+  DetourManifest.update({ state: 'Approved' }, { where: { id: detourId } })
+    .then(result => {
+      req.flash('success', 'This Detour Manifest has been Approved');
+      req.session.save(function () {
+        res.redirect('/admin/reportsDetours');
+      });
+    })
+      .catch(err => console.log(err));
+};
+
+exports.rejectDetour = (req, res) => {
+  const detourId = req.params.detourId;
+
+  DetourManifest.update({ state: 'Rejected' }, { where: { id: detourId } })
+    .then(result => {
+      req.flash('success', 'This Detour Manifest has been Rejected');
+      req.session.save(function () {
+        res.redirect('/admin/reportsDetours');
+      });
+    })
+      .catch(err => console.log(err));
 };
 

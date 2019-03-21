@@ -3,8 +3,8 @@ extends ../admin
 block adminContent
    .adminSect
       p.titlee Detour Manifest
-      //- .contButton
-      //-          a.waves-effect.waves-light.btn.modal-trigger.createButton.grey.darken-3(href='#modal1' ) - Add a new Airplane -
+      .contButton
+         a.waves-effect.waves-light.btn.modal-trigger.createButton.grey.darken-3(href='#modal1') - Generate a new detour manifest -
       .tableContainer
             table#tablePlanningFlights.hover.order-column.tableFlinchi
                thead
@@ -14,11 +14,49 @@ block adminContent
                      th New Destination
                      th Date
                      th State
+                     th
                tbody
                   each detour in detours
-                        tr
-                           td #{detour.id}  
-                           td #{detour.flightCode}
-                           td #{detour.newDestination}
-                           td #{h.moment(detour.date).add(4, 'hours').format('lll')}
-                           td #{detour.state}
+                     tr
+                        td #{detour.id}  
+                        td #{detour.flightCode}
+                        td #{detour.newDestination}
+                        td #{h.moment(detour.date).add(4, 'hours').format('lll')}
+                        td #{detour.state}
+                        td
+                           .containerBotonesAprobarRechazar
+                              form(action=`/admin/approveDetour/${detour.id}` method="POST")
+                                 if detour.state == 'Approved' || detour.state == 'Rejected'
+                                    button.botonApprove.disa(type="submit" disabled='true') <i class="fas fa-check"></i>
+                                 else
+                                    button.botonApprove(type="submit") <i class="fas fa-check"></i>
+                              form(action=`/admin/rejectDetour/${detour.id}` method="POST")
+                                 if detour.state == 'Approved' || detour.state == 'Rejected'
+                                    button.botonReject.disa(type="submit" disabled='true') <i class="fas fa-times"></i>
+                                 else
+                                    button.botonReject(type="submit") <i class="fas fa-times"></i>
+      .formContainer
+         #modal1.modal
+            .modal-content.contentModal.modalPlanningFlights
+               h4 Generate Detour Manifest
+               hr.separatorTitleModalAdmin
+               form(action="/admin/reportsDetours" method="POST")
+                  .row.rowModalAdmin
+                     .input-field.col.s6 
+                        select(name="flightCode").selectAdmin.browser-default.selectFlightAirplane
+                           option(value='', disabled='', selected='') Select Flight
+                           each flight in flights
+                              option(value=`${flight.code}`) #{flight.code} -> [#{flight.origin} - #{flight.destiny}]
+                     .input-field.col.s6 
+                        select(name="newDestination").selectAdmin.browser-default.selectFlightAirplane
+                           option(value='', disabled='', selected='') Select New Destination
+                           option(value=`MIA`) MIA
+                           option(value=`CCS`) CCS
+                           option(value=`CDG`) CDG
+                           option(value=`ATL`) ATL
+                           option(value=`DXB`) DXB
+                           option(value=`JFK`) JFK
+                  .row.rowModalAdmin2
+                  .modal-footer
+                     a.modal-close.waves-effect.waves-green.btn-flat(href='#!') Cancel
+                     button.modal-close.waves-effect.waves-green.btn-flat(type="submit") Save &nbsp;&nbsp;<i class="fas fa-save"></i>

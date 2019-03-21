@@ -31,6 +31,7 @@ block adminContent
                      .row.rowModalAdmin
                         .input-field.col.s12
                            select(name="airplaneId").selectAdmin.browser-default.selectFlightAirplane
+                              option(value='', disabled='', selected='') Select Company Airplane
                               each model in models
                                  option(value=`${model.id}`) #{model.id}
                      .modal-footer

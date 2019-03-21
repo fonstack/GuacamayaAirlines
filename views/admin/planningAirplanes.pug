@@ -27,10 +27,12 @@ block adminContent
                         .row.rowModalAdmin
                             .input-field.col.s6 
                                 select(name="model").selectAdmin.browser-default.selectFlightAirplane
+                                    option(value='', disabled='', selected='') Select Airplane Model
                                     each model in models
                                         option(value=`${model.model}`) #{model.model}
                             .input-field.col.s6 
                                 select(name="state").selectAdmin.browser-default.selectFlightAirplane
+                                    option(value='', disabled='', selected='') Select State
                                     option(value="Working") Working
                                     option(value="In Maintenance") In Maintenance
                                     option(value="Unavailable") Unavailable
