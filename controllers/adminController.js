@@ -212,8 +212,8 @@ exports.viewAdmin = (req, res) => {
   // ------ REPORTS ------
   else if (section === 'reportsFailures') { // Vista Report -> Failures
     sequelize.query(`
-    SELECT id, airplaneId, date, state
-    FROM FailureReports
+      SELECT id, airplaneId, date, state
+      FROM FailureReports
     `, { type: sequelize.QueryTypes.SELECT})
     .then(result => {
       const failures = result;
@@ -445,9 +445,6 @@ exports.reportsMaintenance = (req, res) => {
   .catch(err => console.log(err));
 };
 
-
-
-
 exports.reportsCancelations = (req, res) => {
   const flightCode = req.body.flightCode;
   const date = new Date();
@@ -463,10 +460,7 @@ exports.reportsCancelations = (req, res) => {
     res.redirect('/admin/reportsCancelations');
   })
     .catch(err => console.log(err));
-}
-
-
-
+};
 
 exports.reportsDetours = (req, res) => {
   const newDestination = req.body.newDestination;
